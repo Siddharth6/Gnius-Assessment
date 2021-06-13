@@ -78,3 +78,27 @@ export const addJobData = (check, data)=> dispatch =>{
         payload2: data
     });
 };
+
+// Add Coding Question Validator
+export const checkcode = (data)=> dispatch =>{
+    dispatch({
+        type : 'ADD_CODING_QUESTION_CHECKER',
+        payload: data
+    });
+};
+
+// Add Coding Question From Queue
+export const pushCodingQuestionToQueue = (data) => dispatch => {
+    dispatch({
+        type: 'ADD_CODING_QUESTION_TO_QUESTION_QUEUE',
+        payload: data
+    });
+};
+
+// Remove Coding Question From Queue
+export const removeCodingQuestionFromMainQueue = (data)=> dispatch =>{
+    dispatch({
+        type: 'REMOVE_CODING_QUESTION_FROM_MAIN_QUEUE',
+        payload:data
+    });
+};

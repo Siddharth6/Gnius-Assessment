@@ -23,7 +23,12 @@ const initialState = {
         type: "Full Time",
         customdata: {},
     },
-    questionsAvailablebasedonSubject: []
+    questionsAvailablebasedonSubject: [],
+    addcoding: false,
+    codingtData: {
+        testQuestions: [],
+    },
+    codingquestionsAvailablebasedonSubject: [],
 };
 
 
@@ -71,7 +76,24 @@ export default (state = initialState, action) => {
                 addjobpost:  action.payload1,
                 jobPostData: action.payload2,
             }
-        
+        case 'ADD_CODING_QUESTION_CHECKER':
+            return{
+                ...state,
+                addcoding:  action.payload
+            }
+        case 'ADD_CODING_QUESTION_TO_QUESTION_QUEUE':
+            return {
+                ...state,
+                codingtData: {
+                    ...state.codingtData,
+                    testQuestions: action.payload
+                },
+            }
+        case 'REMOVE_CODING_QUESTION_FROM_MAIN_QUEUE':
+            return {
+                ...state,
+                codingquestionsAvailablebasedonSubject: action.payload
+            }
         default:
             return state;
     };

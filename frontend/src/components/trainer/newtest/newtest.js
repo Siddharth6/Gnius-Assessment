@@ -11,6 +11,7 @@ import {
 import BasicTestForm from './basicForm';
 import AddJobPost from './AddJobPost';
 import SelectQuestion from './selectQuestion';
+import AddCodingQuestion from './AddCoding';
 import FinalQuestionView from './questionview';
 
 import './newtest.css';
@@ -32,6 +33,9 @@ class  NewTest extends Component {
             torender=<SelectQuestion />;
         }
         else if (this.props.test.currentStep === 3) {
+            torender = <AddCodingQuestion />;
+        }
+        else if (this.props.test.currentStep === 4) {
             torender=<FinalQuestionView />;
         }
         else{

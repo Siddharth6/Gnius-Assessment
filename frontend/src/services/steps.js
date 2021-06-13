@@ -9,6 +9,9 @@ export const steps = [
       title: 'Select Questions'
     },
     {
+      title: 'Add Programming'
+    },
+    {
       title: 'Finalize'
     }
 ];

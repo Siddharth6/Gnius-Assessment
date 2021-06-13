@@ -110,6 +110,7 @@ class GeneraterandomQuestionO extends Component {
                             </Form>
                         </div>
                     </Col>
+
                     <Col span={19} style={{padding:'20px'}}>
                         <Transfer
                             disabled={this.props.mode ==="random"? true : false}
@@ -125,6 +126,7 @@ class GeneraterandomQuestionO extends Component {
                         />
                     </Col>
                 </Row>
+                
                 <Modal
                     destroyOnClose={true}
                     width="70%"

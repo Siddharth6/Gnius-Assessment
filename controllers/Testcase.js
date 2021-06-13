@@ -29,7 +29,8 @@ exports.createTestCase = (req, res) => {
 
         let testcase = new codingTestCase(fields);
 
-        testcase.question = req.question._id;
+        testcase.question = req.params.questionId;
+
         testcase.input = `testcases/${testcase.question}/${testcase._id}/input.txt`;
         testcase.output = `testcases/${testcase.question}/${testcase._id}/output.txt`
 

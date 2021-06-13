@@ -130,7 +130,7 @@ exports.createTestCase = (req, res) => {
         }
 
         let testcase = new codingTestCase(fields);
-        testcase.question = req.question._id;
+        testcase.question = req.params.questionId;
 
         testcase.input = `testcases/${testcase.question}/${testcase._id}/input.txt`;
         testcase.output = `testcases/${testcase.question}/${testcase._id}/output.txt`
@@ -145,9 +145,12 @@ exports.createTestCase = (req, res) => {
                 S3.saveFile(file.input.path, testcase.input);
                 S3.saveFile(file.output.path, testcase.output);
                 
-                res.json(testcase);
+                return res.status(200).json({
+                    success: true,
+                    message: 'Test Case Added Successfully',
+                    testcase: testcase
+                });
             });
-
         } else {
             return ers(res, 400, "Both I/P and O/P files are required !")
         }
