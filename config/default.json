@@ -1,0 +1,12 @@
+{
+    "mongodb": {
+        "connectionString": "mongodb+srv://gnadma:gnmadb28c@cluster0.c0qpk.mongodb.net/gniusdb?retryWrites=true&w=majority"
+    },
+    "jwt": {
+        "secret" : "Assessment Application"
+    },
+    "mail-credentials" : {
+        "userid" :"<smtp server userId>",
+        "password" : "<smtp server password>"
+    }
+}

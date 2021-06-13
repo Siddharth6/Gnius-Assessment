@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.d9102414.chunk.css",
+    "main.js": "/static/js/main.2333496c.chunk.js",
+    "main.js.map": "/static/js/main.2333496c.chunk.js.map",
+    "runtime~main.js": "/static/js/runtime~main.a8a9905a.js",
+    "runtime~main.js.map": "/static/js/runtime~main.a8a9905a.js.map",
+    "static/css/2.c061d926.chunk.css": "/static/css/2.c061d926.chunk.css",
+    "static/js/2.bc35b259.chunk.js": "/static/js/2.bc35b259.chunk.js",
+    "static/js/2.bc35b259.chunk.js.map": "/static/js/2.bc35b259.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.f4e8f85aefa000e0a47120ffaefbc054.js": "/precache-manifest.f4e8f85aefa000e0a47120ffaefbc054.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.c061d926.chunk.css.map": "/static/css/2.c061d926.chunk.css.map",
+    "static/css/main.d9102414.chunk.css.map": "/static/css/main.d9102414.chunk.css.map",
+    "static/media/katex.min.css": "/static/media/KaTeX_Typewriter-Regular.641339e2.woff2",
+    "static/media/gnius.png": "/static/media/gnius.18d25fd2.png",
+    "static/media/homepage.css": "/static/media/homepage_mob.0dcb59eb.png",
+    "static/media/logo.png": "/static/media/logo.cc171c63.png"
+  }
+}

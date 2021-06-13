@@ -1,0 +1,15 @@
+.parallax {
+    background-image: url('./homepage.png');
+    height: 100vh; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .parallax {
+    background-image: url('./homepage_mob.png');
+  }
+}

@@ -1,0 +1,45 @@
+.login-container {
+    width: 300px;
+    height: 350px;
+    background-color: #e6dd3b;
+    border-radius: 5px;
+    position: relative;
+    top: 50%;
+    bottom: 50%;
+    transform: translateY(-35%);
+    float: right;
+    right: 100px;
+}
+
+.login-inner {
+    padding: 50px 30px;
+}
+
+.lable {
+    color: #fff;
+    font-size: 15px;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .login-container {
+        width: 300px;
+        height: 350px;
+        float:none;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

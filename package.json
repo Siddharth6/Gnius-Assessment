@@ -1,0 +1,57 @@
+{
+  "name": "gnius",
+  "version": "1.0.0",
+  "description": "backend logic of the project using Mongo DB, Node js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "",
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "agenda": "^4.1.0",
+    "app-root-path": "^2.2.1",
+    "aws-sdk": "^2.868.0",
+    "bcryptjs": "2.4.3",
+    "body-parser": "^1.19.0",
+    "config": "^3.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "exceljs": "^1.13.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.5",
+    "express-mongo-sanitize": "^2.0.2",
+    "express-rate-limit": "^5.2.6",
+    "express-validator": "^5.3.1",
+    "fast-csv": "^4.3.6",
+    "formidable": "^1.2.2",
+    "g": "^2.0.1",
+    "helmet": "^3.18.0",
+    "hpp": "^0.2.2",
+    "http-errors": "^1.8.0",
+    "mailgen": "^2.0.14",
+    "moment": "^2.29.1",
+    "mongo-sanitize": "^1.1.0",
+    "mongoose": "5.7.5",
+    "morgan": "^1.9.1",
+    "multer": "^2.0.0-rc.2",
+    "nodemailer": "^6.2.1",
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "stream": "0.0.2",
+    "util": "^0.12.3",
+    "uuid": "^8.3.2",
+    "xlsx": "^0.14.4",
+    "xss-clean": "^0.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
