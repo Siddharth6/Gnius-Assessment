@@ -93,10 +93,10 @@ const contestSchema = new mongoose.Schema({
         type: Number,
         default: 60
     },
-    questions: {
-        type: Array,
-        default: []
-    },
+    questions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'codingQuestion'
+    }],
     organiser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'UserModel'

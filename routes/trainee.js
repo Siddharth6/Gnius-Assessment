@@ -19,5 +19,6 @@ router.post('/feedback/status',trainee.checkFeedback);
 
 router.post('/jobpost/details', trainee.getSingleJobPost);
 router.post('/coding/question/details', trainee.getQuestionData);
+router.post('/coding/contest/question', trainee.getContestQuestion);
 
 module.exports = router;

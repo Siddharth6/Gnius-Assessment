@@ -802,6 +802,27 @@ const fetchRawOutput = (req, res) => {
 };
 
 
+// Get Contest Questions
+const getContestQuestion = (req, res) => {
+    req.body = sanitize(req.body);
+
+    const { testId } = req.body;
+
+    codingContest
+    .findOne({testid: testId})
+    .populate('questions')
+    .exec((err, contest) => {
+        if (err || !contest) {
+            return ers(res, 404, "Contest Not Found");
+        }
+
+        return res.status(200).json({
+            "success": true,
+            "questions": contest.questions, 
+            "time": contest.time
+        });
+    });
+};
 
 module.exports = {
     traineeenter,
@@ -821,5 +842,6 @@ module.exports = {
     getQuestionData,
     fetchAllTestCases,
     fetchRawInput,
-    fetchRawOutput
+    fetchRawOutput,
+    getContestQuestion
 };

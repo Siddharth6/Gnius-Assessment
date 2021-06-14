@@ -9,6 +9,7 @@ import Homepage from './components/basic/homepage/homepage';
 import Dashboard from './components/dashboard/backbone';
 import TraineeRegister from './components/trainee/register/traineeregister';
 import MainPortal from './components/trainee/examPortal/portal';
+import Code from './components/trainee/examPortal/coding/index';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
           <Route path="/user/:options" component={Dashboard}/>
           <Route exact path="/candidate/register" component={TraineeRegister}/>
           <Route exact path="/candidate/taketest" component={MainPortal}/>
+          <Route exact path="/test/code" component={Code}/>
+          
         </nav>
       </BrowserRouter>
     </Provider> 

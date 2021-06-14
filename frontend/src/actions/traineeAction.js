@@ -219,3 +219,10 @@ export const FeedbackStatus = (s) => {
     };
 };
 
+export const LoadCodingQuestion = (load, data) => {
+    return {
+        type: 'CODING_DATA',
+        payload1: load,
+        payload2: data
+    };
+};

@@ -19,7 +19,9 @@ const initialState = {
     activeQuestionIndex:0,
     questions:[],
     answers:[],
-    hasGivenFeedBack:false
+    hasGivenFeedBack:false,
+    loadcoding: true,
+    codingData: []
 }
 
 
@@ -82,6 +84,12 @@ export default (state = initialState, action )=>{
             return{
                 ...state,
                 answers:action.payload
+            }
+        case 'CODING_DATA':
+            return{
+                ...state,
+                loadcoding: action.payload1,
+                codingData: action.payload2
             }
         default:
             return state;

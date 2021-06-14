@@ -237,7 +237,11 @@ class Answer extends React.Component{
                                         subTitle="Please Close the Window Now"
                                     />
                                 </Col>
-                            </Row> : <Feedback />
+                            </Row> : 
+                            <div>
+                                {/* Here Add Coding Section if-else Feedback or coding */}
+                                <Feedback />
+                            </div>
                     }
                     <Modal
                         destroyOnClose={true}
