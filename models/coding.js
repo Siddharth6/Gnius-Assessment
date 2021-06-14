@@ -73,29 +73,33 @@ const codingTestCase = mongoose.model("codingTestCase", testcaseSchema);
 
 // 3 - Coding Contest Schema
 const contestSchema = new mongoose.Schema({
+    testid:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'TestPaperModel',
+    },
     name: {
         type: String,
         trim: true,
-        required: true,
-        unique: true
     },
     starttime: {
         type: Number,
         trim: true,
-        required: true
     },
     endtime: {
         type: Number,
         trim: true,
-        required: true
+    },
+    time: {
+        type: Number,
+        default: 60
     },
     questions: {
         type: Array,
         default: []
     },
     organiser: {
-        type: Array,
-        default: []
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserModel'
     }
 }, {
     timestamps: true,

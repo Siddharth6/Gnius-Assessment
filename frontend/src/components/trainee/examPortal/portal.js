@@ -2,10 +2,17 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Typography,Skeleton  } from 'antd'
 import './portal.css';
+
 import Instruction from './instruction';
 import TestBoard from './testBoard';
 import Answer from '../answersheet/answer';
-import { fetchTraineedata, setTestDetsils, fetchTestdata, FeedbackStatus } from '../../../actions/traineeAction';
+
+import { 
+    fetchTraineedata, 
+    setTestDetsils, 
+    fetchTestdata, 
+    FeedbackStatus 
+} from '../../../actions/traineeAction';
 import queryString from 'query-string';
 import logo from '../../basic/header/logo.png';
 
@@ -40,10 +47,13 @@ class MainPortal extends Component {
             )
         }
         else{
+
             if(this.props.trainee.invalidUrl){
                 return window.location.href=``;
             }
+
             else{
+                
                 if(this.props.trainee.LocaltestDone){
                     return(
                         <div>

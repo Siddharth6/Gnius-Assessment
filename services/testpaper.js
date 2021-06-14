@@ -9,6 +9,7 @@ let options = require("../models/option");
 let SubjectModel = require("../models/subject");
 let ResultModel = require("../models/results");
 let JobPostModel = require("../models/jobpost");
+let { codingContest } = require("../models/coding");
 
 const tool = require("./tool");
 const result  =require("../services/excel").result;
@@ -95,7 +96,9 @@ let createEditTest = (req, res, next) => {
                                 jobdescription, 
                                 joblocation, 
                                 jobtype, 
-                                jobcustom 
+                                jobcustom,
+                                addcoding,
+                                codingquestions
                             } = req.body;
 
                             if(addjobpost){
@@ -125,7 +128,26 @@ let createEditTest = (req, res, next) => {
                             }
 
                             // Add Coding if required
+                            else if(addcoding){
+                                const codingdata = codingContest({
+                                    questions: codingquestions,
+                                    organiser: req.user._id,
+                                    testid: d._id
+                                });
 
+                                codingdata
+                                    .save()
+                                    .then((data) => {
+                                        console.log(data);
+                                    })
+                                    .catch((err)=>{
+                                        console.log(err);
+                                        res.status(500).json({
+                                            success : false,
+                                            message : "Unable to post a new job !"
+                                    });
+                                });
+                            }
 
                             res.json({
                                 success : true,

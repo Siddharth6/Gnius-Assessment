@@ -101,7 +101,7 @@ class BasicTestFormO extends Component {
                             })(
                                 <Select placeholder="Test Type">
                                     <Option value="skill-test">Skill Test</Option>
-                                    <Option value="university-hiring">university Hiring</Option>
+                                    <Option value="university-hiring">University Hiring</Option>
                                     <Option value="organisation-hiring">Organisation hiring</Option>
                                 </Select>
                             )}

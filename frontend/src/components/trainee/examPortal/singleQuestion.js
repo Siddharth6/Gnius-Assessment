@@ -34,9 +34,11 @@ class SingleQuestion extends React.Component{
     componentWillMount(){
         this.setState((PState,Pprops)=>{
             let t=0;
-            var s = PState.options.map((d,i)=>{
+
+            var s = PState.options.map((d,i) => {
                 for(var ii=0;ii<PState.answers.length;ii++){
                     if(PState.answers[ii]===d._id){
+
                         t+=1;
                         return({
                             ...d,
@@ -84,6 +86,7 @@ class SingleQuestion extends React.Component{
         }).catch((err) => {
             return Alert('error', 'Error!', 'Server Error');
         });
+
         //save to cloud then
     };
 
@@ -154,10 +157,12 @@ class SingleQuestion extends React.Component{
         }
         else{
             op1 = [...this.state.options];
+
             op1[d1]={
                 ...op1[d1],
                 checked:false
             }
+
             op2 = [...this.state.answers]
             var index=op2.indexOf(d3);
             op2.splice(index, 1)
@@ -184,6 +189,7 @@ class SingleQuestion extends React.Component{
                                 {this.props.trainee.activeQuestionIndex + 1}
                             </Button>
                         </Col>
+
                         <Col span={22}>
                             <Radio.Group style={{float:'right'}}>
                                 <Radio.Button
@@ -199,6 +205,7 @@ class SingleQuestion extends React.Component{
                                 </Radio.Button>
                             </Radio.Group>
                         </Col>
+
                     </Row>
                     {
                         this.props.mode==='mobile'?
@@ -222,6 +229,7 @@ class SingleQuestion extends React.Component{
                             </div>:null
                         }
                     </div>
+
                     <div className="Question-single-option-panel">
                         <Row>
                             {this.state.options.map((d,i)=>{
@@ -248,8 +256,8 @@ class SingleQuestion extends React.Component{
                                                             </h3>
                                                         </Checkbox>
                                                     </Col>
+
                                                     <Col span={4}>
-                                                        
                                                         <div className="option-image-in-exam-panel-holder">
                                                             {d.optimg ? <img alt="Unable to load" className="option-image-in-exam-panel" src={d.optimg} /> : null}
                                                         </div>
@@ -263,6 +271,7 @@ class SingleQuestion extends React.Component{
                         </Row>
                     </div>
                 </div>
+                
                 <div className="control-button-in-exam-portal">
                     <Button.Group>
                         {this.props.trainee.activeQuestionIndex===0?

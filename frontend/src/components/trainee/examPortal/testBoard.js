@@ -25,7 +25,7 @@ function useWindowDimensions() {
     }, []);
   
     return windowDimensions;
-}
+};
 
 
 
@@ -35,6 +35,7 @@ export default function TestBoard(props) {
 
     let onClose=()=>setVisible(false);
     let onOpen=()=>setVisible(true);
+
     if(width>768){
         return (
             <div className="exam-dashboard-wrapper">
@@ -43,10 +44,12 @@ export default function TestBoard(props) {
             </div>
         )
     }
+
     else{
         return (
             <div className="exam-dashboard-wrapper">
                 <Question mode={width>768?"desktop":"mobile"} triggerSidebar={onOpen} />
+                
                 <Drawer
                     title="Menu"
                     placement="right"

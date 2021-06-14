@@ -39,7 +39,10 @@ class FinalQuestionView extends React.Component {
                 jobdescription: this.props.test.jobPostData.description,
                 joblocation: this.props.test.jobPostData.location,
                 jobtype: this.props.test.jobPostData.type,
-                jobcustom: this.props.test.jobPostData.customdata
+                jobcustom: this.props.test.jobPostData.customdata,
+
+                addcoding: this.props.test.addcoding,
+                codingquestions: this.props.test.codingtData.testQuestions,
             }
         })
         .then((response) => {
@@ -81,7 +84,11 @@ class FinalQuestionView extends React.Component {
                                     {this.props.test.jobPostData.title}
                                 </Descriptions.Item>
 
-                                <Descriptions.Item span={1} label="Job Description" style={{justifyContent: 'left'}}>
+                                <Descriptions.Item 
+                                    span={1} 
+                                    label="Job Description" 
+                                    style={{justifyContent: 'left'}}
+                                >
                                     {renderHTML(this.props.test.jobPostData.description)}
                                 </Descriptions.Item>
 
