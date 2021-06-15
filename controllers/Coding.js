@@ -65,40 +65,7 @@ exports.createQuestion = (req,res) => {
     });
 };
 
-// 2 - Update Question
-exports.updateQuestion = (req, res) => {
-    let form = new fm.IncomingForm();
-    form.keepExtensions = true;
-
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-        return ers(res, 422, error.array()[0].msg);
-    }
-
-    form.parse(req, (err, fields, file) => {
-        if (err) {
-            return ers(res, 400, "Something wrong with form")
-        }
-
-        codingQuestion.findById({ _id: req.params.questionId },(err, ques) => {
-            if (err || !ques) {
-                return ers(res, 404, "Question Not Found")
-            }
-
-            if (fields.name)
-                ques.name = fields.name;
-
-            ques.save((err, question) => {
-                if (err || !question) {
-                    return ers(400, "Fail to update");
-                }
-                return res.json(question);
-            });
-        });
-    });
-};
-
-// 3 - List All Questions
+// 2 - List All Questions
 exports.getAllQuestions = (req, res) => {
     codingQuestion
     .find({}, (err, questions) => {
@@ -108,51 +75,39 @@ exports.getAllQuestions = (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: 'Question Added Successfully',
+            message: 'Questions',
             questions: questions
         });
     });
 };
 
 
-// 7 - Create TestCase
+// 3 - Create TestCase
 exports.createTestCase = (req, res) => {
-    let form = new fm.IncomingForm();
-    form.keepExtensions = true;
+    if (!req.body.hasOwnProperty('test-input')) {
+        return ers(res, 400, "Both I/P and O/P files are required !")
+    }
 
-    form.parse(req, (err, fields, file) => {
+    // console.log(req.body);
+
+    var new_test = new codingTestCase({
+        question: req.params.questionId,
+        input: req.body['test-input'], 
+        output: req.body['test-output']
+    });
+
+    new_test
+    .save((err, testcase) => {
         if (err) {
-            return ers(res, 400, "Something Wrong with form");
-        }
-
-        if (!file.input || !file.output) {
-            return ers(res, 400, "Both I/P and O/P files are required !")
-        }
-
-        let testcase = new codingTestCase(fields);
-        testcase.question = req.params.questionId;
-
-        testcase.input = `testcases/${testcase.question}/${testcase._id}/input.txt`;
-        testcase.output = `testcases/${testcase.question}/${testcase._id}/output.txt`
-
-        if (file.input && file.output) {
-            testcase.save((err, testcase) => {
-                if (err || !testcase) {
-                    // console.log(err);
-                    return ers(res, 400, "Failed to save testcase");
-                }
-
-                S3.saveFile(file.input.path, testcase.input);
-                S3.saveFile(file.output.path, testcase.output);
-                
-                return res.status(200).json({
-                    success: true,
-                    message: 'Test Case Added Successfully',
-                    testcase: testcase
-                });
+            return ers(res, 400, "Something Wrong");
+        } 
+        else {
+            return res.status(200).json({
+                success: true,
+                message: 'Test Case Added Successfully',
+                testcase: testcase
             });
-        } else {
-            return ers(res, 400, "Both I/P and O/P files are required !")
         }
     });
+
 };

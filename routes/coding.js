@@ -4,7 +4,7 @@ const router = express.Router();
 const {
     createQuestion,
     createTestCase,
-    getQuestionData,
+    // getQuestionData,
     getAllQuestions,
 } = require("../controllers/Coding");
 
@@ -21,7 +21,7 @@ router.post('/list/question', getAllQuestions);
 // Create test case
 router.post("/create/testcase/:questionId", createTestCase);
 
-// Create test case
+// Get All test case
 router.post("/list/testcase", fetchAllTestCases);
 
 module.exports = router;

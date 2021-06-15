@@ -81,7 +81,11 @@ class Index extends React.Component {
                                         
                                         <br />
 
-                                        <CodeEditor key={i} data={this.props.trainee.codingData[i]} />
+                                        <CodeEditor 
+                                            key={i} 
+                                            data={this.props.trainee.codingData[i]} 
+                                            test={this.state.testDetails} 
+                                        />
                                     </TabPane>
                                 ))}
                             </Tabs>

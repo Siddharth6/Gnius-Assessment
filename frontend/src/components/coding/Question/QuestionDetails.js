@@ -1,7 +1,16 @@
 import React, { Fragment, useState, useEffect } from 'react';
-import { Skeleton, Row, Col, Icon, Tabs, Descriptions, Button, Typography, Divider } from 'antd';
+import { Skeleton, 
+    Row, Col, 
+    Icon, Tabs, 
+    Descriptions, 
+    Button, 
+    Typography, 
+    Divider,
+    Input
+} from 'antd';
 import { Link } from "react-router-dom";
 import moment from 'moment';
+import ReactJson from 'react-json-view'
 import Markdown from '../../../utils/Markdown';
 
 import { SecurePost } from '../../../services/axiosCall';
@@ -10,6 +19,7 @@ import Alert from '../../../components/common/alert';
 
 const { TabPane } = Tabs;
 const { Title, Text } = Typography;
+const { TextArea } = Input;
 
 const QuestionDetails = (props) => {
     const [state, setstate] = useState({
@@ -28,8 +38,8 @@ const QuestionDetails = (props) => {
         error: "",
         question: {},
         testcases: [],
-        input: null,
-        output: null
+        input: "",
+        output: ""
     });
 
     const getData = () => {
@@ -79,11 +89,8 @@ const QuestionDetails = (props) => {
             let i = 1;
             return testcase.testcases.map((testcase) => {
 
-                let inputLink = `/testcase/raw/input/${questionId}/${testcase.id}`;
-                let outputLink = `/testcase/raw/output/${questionId}/${testcase.id}`;
-
                 return <li 
-                        className="col-md-offset-6" 
+                        className="container" 
                         style={{marginLeft: '25px', float: 'right', listStyle: 'none'}} 
                         key={testcase.id}
                     >
@@ -94,19 +101,28 @@ const QuestionDetails = (props) => {
                         </div>
 
                         <div className="col-md-3">
-                            <Link target="_blank" to={inputLink}>
-                                input
-                            </Link>
+                            <p>Input</p> <br />
+                            <TextArea 
+                                value={testcase.input}
+                                disabled="true"
+                            />
                         </div>
 
                         <div className="col-md-3">
-                            <Link target="_blank" to={outputLink}>
-                                output
-                            </Link>
+                            <p>Output</p> <br />
+                            <TextArea 
+                                value={testcase.output}
+                                disabled="true"
+                            />
                         </div>
 
                         <div className="col-md-3">
-                            <Button type="primary" shape="circle" icon="delete" />
+                            <p>Action</p> <br />
+                            <Button 
+                                type="primary" 
+                                shape="circle" 
+                                icon="delete" 
+                            />
                         </div>
 
                     </div>
@@ -122,9 +138,12 @@ const QuestionDetails = (props) => {
     const onSubmit = (event) => {
         event.preventDefault();
 
-        let formData = new FormData();
-        formData.append("input", testcase.input);
-        formData.append("output", testcase.output);
+        let formData = {};
+
+        formData = {
+            "test-input": testcase.input,
+            "test-output": testcase.output
+        };
 
         SecurePost({
             url:`${apis.CREATE_CODING_TESTCASE}/${questionId}`,
@@ -139,12 +158,12 @@ const QuestionDetails = (props) => {
             }
         })
         .catch((error)=>{            
-            return Alert('error','Error!','Server Error');
+            return Alert('error','Error!','Error Adding Test Case');
         });
     };
 
     const handlechangeFile = name => event => {
-        setTestCase({ ...testcase, [name]: event.target.files[0] });
+        setTestCase({ ...testcase, [name]: event.target.value });
     }
 
     return (
@@ -179,32 +198,35 @@ const QuestionDetails = (props) => {
                     <div className="row mx-0 my-4 pb-md-0 pb-sm-4 shadow-sm align-items-center">
                         <div className="col-md-4">
                             <div className="form-group">
-                                <span className="input-label">Input File</span>
+                                <span className="input-label">Input</span>
                                 <div className="input-group">
-                                    <input 
-                                        type="file" 
-                                        className="form-control-file" 
+                                    <TextArea 
+                                        rows={4}
                                         onChange={handlechangeFile("input")}
-                                    ></input>
+                                    />
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-md-4">
                             <div className="form-group">
-                                <span className="input-label">Output File</span>
+                                <span className="input-label">Output</span>
                                 <div className="input-group">
-                                    <input 
-                                        type="file" 
-                                        className="form-control-file" 
+                                    <TextArea 
+                                        rows={4}
                                         onChange={handlechangeFile("output")}
-                                    ></input>
+                                    />
                                 </div>
                             </div>
                         </div>
 
                         <div className="col-md-4">
-                            <button className="btn btn-primary float-right" onClick={onSubmit}>Add</button>
+                            <Button 
+                                type="primary" 
+                                onClick={onSubmit}
+                            >
+                                Add
+                            </Button>
                         </div>
                     </div>
 

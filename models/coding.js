@@ -50,23 +50,13 @@ const codingQuestion = mongoose.model("codingQuestion", questionSchema);
 
 // 2 - Coding TestCase Schema
 const testcaseSchema = mongoose.Schema({
-    input: {
-        type: String,
-        required: true
-    },
-    output: {
-        type: String,
-        required: true
-    },
+    input:  String,
+    output: String,
     question: {
         type: ObjectId,
-        ref: "Question",
+        ref: "codingQuestion",
         required: true,
     }
-}, {
-    timestamps: true,
-    toObject: { virtuals: true },
-    toJSON: { virtuals: true },
 });
 
 const codingTestCase = mongoose.model("codingTestCase", testcaseSchema);
@@ -128,44 +118,36 @@ const codingContest = mongoose.model("codingContest", contestSchema);
 
 // 4 - Submission Schema
 const submissionSchema = new mongoose.Schema({
-    language: {
-        type: String,
-        required: true
-    },
     question: {
         type: ObjectId,
-        ref: "Question",
-        required: true,
+        ref: "codingQuestion",
     },
     user: {
         type: ObjectId,
-        ref: "UserModel",
-        required: true
-    },
-    username: {
-        type: String,
-        required: true
-    },
-    submittime: {
-        type: Number,
-        required: true
+        ref: "TraineeEnterModel",
     },
     verdict: {
         type: String,
         default: "WJ"
-    }
+    },
+    testid:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'TestPaperModel',
+    },
+    lang: String,
+    sourcecode: String,
+    submit_time: Date,
+    time: Number,
+    memory: Number,
+    result: {str: Array, time: Number, memory: Number},
+    in_queue: Boolean
 }, {
     timestamps: true,
     toObject: { virtuals: true },
     toJSON: { virtuals: true }
 });
 
-submissionSchema.virtual("submission")
-    .get(function () { return `submissions/${this.user}/${this.question}/${this._id}.code`; }
-);
-
 const codingSubmission = mongoose.model("codingSubmission", submissionSchema);
-
 
 module.exports = {
     codingQuestion,

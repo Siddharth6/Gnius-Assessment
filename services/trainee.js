@@ -1,6 +1,7 @@
 const Agenda = require('agenda');
 const moment = require('moment');
 const sanitize = require("mongo-sanitize");  
+const request = require('request-promise');
 
 const TraineeEnterModel = require("../models/trainee");
 const TestPaperModel = require("../models/testpaper");
@@ -19,6 +20,7 @@ const {
 
 const sendmail = require("../services/mail");
 const { assessmentLink } = require('../templates/email-templates');
+const { JudgeApi } = require('../utils/url')
 
 const { ers, createResponseObject } = require('../middlewares');
 
@@ -703,6 +705,12 @@ const getSingleJobPost = (req, res, next) => {
     });
 };
 
+/*
+------------
+   Coding
+------------
+*/
+
 // Get Coding Question Data with Test Cases
 const getQuestionData = (req, res, next) => {
     req.body = sanitize(req.body);
@@ -824,6 +832,114 @@ const getContestQuestion = (req, res) => {
     });
 };
 
+
+// Post New Submission
+const postSubmission = (req, res, next) => {
+    const { 
+        testId,
+        traineeId,
+        que_id,
+        source_code,
+        language_id,
+    } = req.body;
+
+    codingQuestion
+    .findById(que_id)
+    .exec((err, result) => {
+        codingTestCase
+        .find({question: que_id})
+        .exec((err, testcase) => {
+
+            // Get Result
+            var get_result = function(data, sourcecode, submission_id) {
+                var result = [], score = 0, time_avg = 0, mem_avg = 0;
+                
+                for (var i=0;i<data.length;i++) {
+                    time_avg += parseFloat(data[i].time);
+                    mem_avg += data[i].memory;
+                    if (data[i].status.id === 3) {
+                        result.push('Passed');
+                        score++;
+                    }
+                    else if (data[i].status.id === 4 || data[i].status.id === 13) result.push('Wrong');
+                    else if (data[i].status.id === 5) result.push('T');
+                    else if (data[i].status.id === 6) {
+                        result.push('Compilation Error');
+                        break;
+                    } 
+                    else result.push('X');
+                }
+
+                const submission_result = {
+                    str: result, 
+                    time: time_avg/data.length, 
+                    memory: mem_avg/data.length
+                };
+
+                codingSubmission
+                .updateOne({ _id: submission_id },{ in_queue: false, result: submission_result }, 
+                    (err, data) => {
+                    if (err) console.log(err);
+
+                    return res.status(200).json({
+                        "success": true,
+                        "points": score,
+                        "score": result,
+                    });
+                });
+            };
+
+            // Main ...
+
+            let options = [];
+            
+            for(var i=0;i < testcase.length; i++) {
+                options.push({
+                    method: 'POST',
+                    uri: `${JudgeApi}/submissions/?base64_encoded=false`,
+                    body: {
+                        "source_code": source_code,
+                        "language_id": parseInt(language_id),
+                        "stdin": testcase[i].input,
+                        "expected_output": testcase[i].output,
+                        "cpu_time_limit": result.timelimit,
+                        "memory_limit": result.memorylimit*1000
+                    },
+                    json: true
+                });
+            }
+
+
+            var new_submission = new codingSubmission({
+                testid: testId,
+                lang: language_id,
+                user: traineeId,
+                sourcecode: source_code,
+                submit_time: new Date(),
+                question: que_id,
+                in_queue: true
+            });
+
+            new_submission.save(function(err, submission) {
+                if (err) console.log(err);
+
+                const getTokens = options.map(opt => request(opt).then(res => res.token));
+                
+                Promise.all(getTokens).then(tokens => {
+                    setTimeout(() => {
+                        Promise.all(tokens.map(token => request(`${JudgeApi}/submissions/${token}`)
+                        .then(res => JSON.parse(res))))
+                        .then(data => {
+                            get_result(data, source_code, submission.id)
+                        })
+                    }, 10000);
+                });
+            });
+        });
+    });
+};
+
+
 module.exports = {
     traineeenter,
     feedback,
@@ -843,5 +959,6 @@ module.exports = {
     fetchAllTestCases,
     fetchRawInput,
     fetchRawOutput,
-    getContestQuestion
+    getContestQuestion,
+    postSubmission
 };

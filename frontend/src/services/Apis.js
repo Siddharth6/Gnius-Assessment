@@ -91,11 +91,13 @@ const apis = {
 
     IMPORT_CANDIDATES: '/api/v1/test/candidates/import',
     GET_JOB_DETAILS:'/api/v1/trainee/jobpost/details',
+    
     CREATE_CODING_QUESTION: '/api/v1/coding/create/question',
     LIST_CODING_QUESTION: '/api/v1/coding/list/question',
     GET_CODING_QUESTION_DETAILS: '/api/v1/coding/list/testcase',
     CREATE_CODING_TESTCASE: '/api/v1/coding/create/testcase',
-    GET_CODING_QUESTION_DATA: '/api/v1/trainee/coding/contest/question'
+    GET_CODING_QUESTION_DATA: '/api/v1/trainee/coding/contest/question',
+    POST_SUBMISSION: '/api/v1/trainee/coding/contest/submission'
 };
 
 export default apis;
