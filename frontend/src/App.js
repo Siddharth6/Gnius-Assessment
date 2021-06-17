@@ -11,6 +11,7 @@ import Homepage from './components/basic/homepage/homepage';
 import Dashboard from './components/dashboard/backbone';
 import TraineeRegister from './components/trainee/register/traineeregister';
 import MainPortal from './components/trainee/examPortal/portal';
+import Test from './Test';
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
           <Route path="/user/:options" component={Dashboard}/>
           <Route exact path="/candidate/register" component={TraineeRegister}/>
           <Route exact path="/candidate/taketest" component={MainPortal}/>
-          
+          {/* <Route exact path="/test" component={Test}/> */}
+
         </nav>
       </BrowserRouter>
     </Provider> 

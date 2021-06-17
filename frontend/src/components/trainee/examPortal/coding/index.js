@@ -15,7 +15,7 @@ import {
 import './code.css';
 
 const { TabPane } = Tabs;
-const targetTime = new Date().getTime() + 10000;
+var time = 0;
 
 class Index extends React.Component {
     constructor(props) {
@@ -28,7 +28,8 @@ class Index extends React.Component {
       
       this.state = {
         mode: 'left',
-        testDetails: params
+        testDetails: params,
+        testTime: 0,
       };
     }
 
@@ -37,7 +38,15 @@ class Index extends React.Component {
         const testId = this.props.trainee.testid;
         const traineeId = this.props.trainee.traineeid;
 
-        this.setState({loading: true})
+        this.setState({loading: true});
+
+        if(localStorage.getItem('time') === null){
+            localStorage.setItem('time', new Date());
+        }
+        else {
+            time = localStorage.getItem('time');
+            
+        }
 
         SecurePost({
             url:apis.GET_CODING_QUESTION_DATA,
@@ -48,6 +57,7 @@ class Index extends React.Component {
         .then((response) => {
             if(response.data.success){
                 this.props.LoadCodingQuestion(false,response.data.questions);
+                this.setState({testTime: response.data.time});
             }
             else{
                 return Alert('warning','Warning!',response.data.message);
@@ -64,7 +74,14 @@ class Index extends React.Component {
     };
   
     render() {
-      const { mode } = this.state;
+      const { mode, testTime } = this.state;
+
+      let targetTime = 0;
+
+      time = localStorage.getItem('time');
+      
+      if (time === 0) targetTime = new Date().getTime() + testTime*60000;
+      else targetTime = new Date(time).getTime()+ testTime*60000;
 
       return (
         <Fragment>
@@ -111,7 +128,10 @@ class Index extends React.Component {
                                     <div className="col-lg-6">
                                         <Popconfirm
                                             title="Are you sure to end the test"
-                                            onConfirm={() => this.props.submitCoding(this.props.trainee.testid,this.props.trainee.traineeid)}
+                                            onConfirm={() => {
+                                                this.props.submitCoding(this.props.trainee.testid,this.props.trainee.traineeid);
+                                                localStorage.removeItem('time');
+                                            }}
                                             okText="Yes"
                                             cancelText="No"
                                         >
