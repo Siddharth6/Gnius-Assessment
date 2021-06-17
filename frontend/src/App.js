@@ -4,6 +4,8 @@ import './App.css';
 import { Provider } from 'react-redux';
 import store  from './store';
 
+import 'ant-design-pro/dist/ant-design-pro.css'; // Ant Design Pro
+
 import Home from './components/basic/homepage/Home';
 import Homepage from './components/basic/homepage/homepage';
 import Dashboard from './components/dashboard/backbone';

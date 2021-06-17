@@ -29,7 +29,7 @@ function Instruction(props) {
                         <b>NOTE :</b>To save answers, click on the 'Save & Next' button.
                     </h4>
                     <h4>3. Please don't leave the window before you submit.</h4>
-                    <h4>4. Click on 'End Test' button to submit the assessment. </h4>
+                    <h4>4. Click on 'Submit' button to submit the assessment. </h4>
                     <h4>5. The test will be automatically submitted when the time ends.</h4>
                     <h4>
                         <Checkbox onChange={onChange}>I have read and understood all the instructions</Checkbox>

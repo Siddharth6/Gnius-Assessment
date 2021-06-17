@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect } from "react";
 import AceEditor from "react-ace";
-import { Typography, Button } from 'antd';
+import { Typography, Button, notification, Icon } from 'antd';
 import axios from 'axios';
 
 import "ace-builds/src-noconflict/mode-java";
@@ -16,6 +16,7 @@ import apis from '../../../../services/Apis';
 import Markdown from '../../../../utils/Markdown';
 
 const { Title, Text } = Typography;
+const key = 'updatable';
 
 const CodeEditor = (props) => {
   const [question, setQuestion] = useState({
@@ -110,11 +111,13 @@ const CodeEditor = (props) => {
         });
     };
 
-    const isEvaluating = () => {
+    const isEvaluating = (placement) => {
         if(question.evaluating) {
-            return <React.Fragment>
-                <span className="text-info ml-2">Evaluating...</span>
-            </React.Fragment>
+            return notification.info({
+                message: `Evaluating`,
+                description: 'We are evaluating your solution. Please Wait',
+                placement
+            });
         }
     };
 
@@ -128,7 +131,11 @@ const CodeEditor = (props) => {
                 </div>
                 
                 <div className="col-lg-6">
-                    <b>Status - </b>{data}
+                    <b>Status - </b>{data} {'   '}
+                    {data === 'Passed' ? 
+                        <Icon type="check-circle" theme="twoTone" twoToneColor="#52c41a" />
+                        : <Icon type="close-circle" theme="twoTone" twoToneColor="#ff0000" />
+                    }
                 </div>
             </div>
         </div>    
@@ -146,7 +153,7 @@ const CodeEditor = (props) => {
             </div>
         </div>
 
-        {isEvaluating()}
+        {isEvaluating('bottomRight')}
 
         <div className="container">
             <div className="row">

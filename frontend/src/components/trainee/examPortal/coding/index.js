@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
-import { Tabs, Skeleton, Button, Popconfirm } from 'antd';
+import { Tabs, Skeleton, Button, Popconfirm, Icon } from 'antd';
+import CountDown from 'ant-design-pro/lib/CountDown';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 
@@ -11,8 +12,10 @@ import {
     LoadCodingQuestion,
     submitCoding
 } from '../../../../actions/traineeAction';
+import './code.css';
 
 const { TabPane } = Tabs;
+const targetTime = new Date().getTime() + 10000;
 
 class Index extends React.Component {
     constructor(props) {
@@ -82,7 +85,27 @@ class Index extends React.Component {
                             <div className="container">
                                 <div className="row">
                                     <div className="col-lg-6">
-                                        Menu
+                                        <ul id="menu">
+                                            <li>
+                                                <Icon style={{fontSize: '40px'}} type="code" />
+                                            </li>
+
+                                            <li>
+                                                
+                                            </li>
+                                                
+                                            <li>
+                                                Timer :
+                                            </li>
+
+                                            <li>
+                                                <CountDown 
+                                                    style={{ fontSize: 30 }} 
+                                                    target={targetTime}
+                                                    onEnd={() => this.props.submitCoding(this.props.trainee.testid,this.props.trainee.traineeid)}
+                                                />
+                                            </li>
+                                        </ul>
                                     </div>
 
                                     <div className="col-lg-6">

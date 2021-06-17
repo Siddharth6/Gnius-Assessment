@@ -45,7 +45,7 @@ class Sidepanel extends React.Component {
                         okText="Yes"
                         cancelText="No"
                     >
-                        <Button type="default">End Test</Button>
+                        <Button type="default">Submit</Button>
                     </Popconfirm>
                 </div>
             </div>
@@ -57,8 +57,6 @@ class Sidepanel extends React.Component {
 const mapStateToProps = state => ({
     trainee : state.trainee
 });
-
-
 
 export default connect(mapStateToProps,{
     fetchTestdata
