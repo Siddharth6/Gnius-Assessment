@@ -1,14 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux';
+
 import Alert from '../../common/alert';
 import apis from '../../../services/Apis';
 import { Post } from '../../../services/axiosCall';
+
 import { Icon,Button,Row,Col,Radio,Checkbox  } from 'antd';
 import { switchQuestion, updateIsMarked, fetchTestdata } from '../../../actions/traineeAction';
 import Markdown from '../../../utils/Markdown';
 
 import './portal.css';
-
 
 class SingleQuestion extends React.Component{
     constructor(props){

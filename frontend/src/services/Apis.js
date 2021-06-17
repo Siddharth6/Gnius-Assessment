@@ -53,6 +53,7 @@ const apis = {
     GET_SINGLE_TRAINER_DETAILS : '/api/v1/admin/trainer/details',
     CREATE_TRAINER : '/api/v1/admin/trainer/create',
     DELETE_TRAINER : '/api/v1/admin/trainer/remove',
+    
     GET_ALL_SUBJECTS : '/api/v1/subject/details/all',
     GET_SINGLE_SUBJECT_DETAILS : '/api/v1/subject/details',
     CREATE_SUBJECT : '/api/v1/subject/create',
@@ -61,18 +62,21 @@ const apis = {
     FETCH_SINGLE_QUESTION:'/api/v1/questions/details',
     CREATE_QUESTIONS :'/api/v1/questions/create',
     FILE_UPLOAD:'/api/v1/upload',
+    
     CREATE_TEST : '/api/v1/test/create',
     GET_ALL_TESTS:'/api/v1/test/details/all',
     GET_SINGLE_TEST:'/api/v1/test/trainer/details',
     REGISTER_TRAINEE_FOR_TEST:'/api/v1/trainee/enter',
     RESEND_TRAINER_REGISTRATION_LINK: '/api/v1/trainee/resend/testlink',
     GET_SINGLE_TEST_DETAILS_BASIC:'/api/v1/test/basic/details',
+    
     STOP_REGISTRATION :'/api/v1/trainer/registration/stop',
     START_TEST_BY_TRAINER:'/api/v1/test/begin',
     GET_TEST_CANDIDATES :'/api/v1/test/candidates',
     GET_TEST_QUESTIONS :'/api/v1/test/questions',
-    FETCH_TRAINEE_DETAILS:'/api/v1/trainee/details',
+    FETCH_TRAINEE_DETAILS:'/api/v1/trainee/details',    
     FETCH_TRAINEE_TEST_DETAILS:'/api/v1/trainee/flags',
+    
     PROCEED_TO_TEST:'/api/v1/trainee/answersheet',
     FETCH_TRAINEE_TEST_QUESTION:'/api/v1/trainee/paper/questions',
     FETCH_TRAINEE_TEST_ANSWERSHEET:'/api/v1/trainee/chosen/options',
@@ -83,6 +87,7 @@ const apis = {
     END_TEST_BY_TRAINER:'/api/v1/test/end',
     FEEDBACK_STATUS_CHECK:'/api/v1/trainee/feedback/status',
     GIVE_FEEDBACK:'/api/v1/trainee/feedback',
+    
     GET_STATS:'/api/v1/test/candidates/details',
     GET_EXCEL:'/api/v1/trainer/result/download',
     MAX_MARKS_FETCH:'/api/v1/test/max/marks',

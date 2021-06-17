@@ -69,6 +69,17 @@ let createEditTest = (req, res, next) => {
             var subjects = req.body.subjects;
             var startTime = req.body.startTime;
             var endTime = req.body.endTime;
+
+            const { 
+                addjobpost, 
+                jobtitle, 
+                jobdescription, 
+                joblocation, 
+                jobtype, 
+                jobcustom,
+                addcoding,
+                codingquestions
+            } = req.body;
             
                 TestPaperModel.findOne({ title : title, type : type, testbegins : 0 },{status:0})
                 .then((info)=>{
@@ -84,22 +95,13 @@ let createEditTest = (req, res, next) => {
                             createdBy : req.user._id,
                             subjects : subjects,
                             start: startTime,
-                            end: endTime
+                            end: endTime,
+                            addjobpost: addjobpost,
+                            addcoding: addcoding
                         });
 
                         tempdata.save().then((d) => {
                             // Add a Job Post if required
-
-                            const { 
-                                addjobpost, 
-                                jobtitle, 
-                                jobdescription, 
-                                joblocation, 
-                                jobtype, 
-                                jobcustom,
-                                addcoding,
-                                codingquestions
-                            } = req.body;
 
                             if(addjobpost){
                                 const jobpostdata = JobPostModel({

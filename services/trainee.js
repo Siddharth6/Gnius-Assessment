@@ -410,32 +410,53 @@ let Answersheet = (req, res, next) => {
     });
 };
 
+// Start Test Controller
 let flags = (req, res, next) => {
     req.body = sanitize(req.body);
 
     var testid = req.body.testid;
     var traineeid = req.body.traineeid;
 
-    const p1 = AnswersheetModel.findOne({userid : traineeid,testid : testid},{_id : 1,startTime  :1,completed : 1});
+    const p1 = AnswersheetModel.findOne({
+        userid : traineeid,
+        testid : testid},
+        {_id : 1,startTime  :1,completed : 1}
+    );
+
     const p2 = TraineeEnterModel.findOne({_id : traineeid , testid : testid},{_id : 1});
-    const p3 = TestPaperModel.findById(testid,{testbegins : 1, testconducted : 1,duration : 1});
+    const p3 = TestPaperModel.findById(testid,{
+        testbegins : 1, 
+        testconducted : 1, 
+        duration : 1,
+        addjobpost: 1,
+        addcoding: 1,
+    });
+
     var present = new Date();
 
     Promise.all([p1, p2, p3]).then((info) => {
         // console.log(info)
+        
         if (info[1] === null) {
-            res.json({
+            res.status(400).json({
                 success: false,
                 message: 'Invalid URL!'
-            })
+            });
         } else {
+            
             var startedWriting = false;
             var pending = null;
+
             if (info[0] !== null) {
                 startedWriting = true;
-                pending = info[2].duration * 60 - ((present - info[0].startTime) / (1000))
+
+                pending = info[2].duration * 60 - ((present - info[0].startTime) / (1000));
+
                 if (pending <= 0) {
-                    AnswersheetModel.findOneAndUpdate({ userid: traineeid, testid: testid }, { completed: true }).then((result) => {
+                    AnswersheetModel.findOneAndUpdate({ 
+                        userid: traineeid, testid: testid }, { completed: true }
+                    )
+                    .then((result) => {
                         res.json({
                             success: true,
                             message: 'Successfull',
@@ -443,18 +464,21 @@ let flags = (req, res, next) => {
                                 testbegins: info[2].testbegins,
                                 testconducted: info[2].testconducted,
                                 startedWriting: startedWriting,
+                                addjobpost: info[2].addjobpost,
+                                addcoding: info[2].addcoding,
                                 pending: pending,
                                 completed: true
                             }
                         })
-                    }).catch((error) => {
+                    })
+                    .catch((error) => {
                         res.status(500).json({
                             success: false,
                             message: "Unable to fetch details"
                         })
                     })
                 } else {
-                    res.json({
+                    res.status(200).json({
                         success: true,
                         message: 'Successfull',
                         data: {
@@ -462,9 +486,11 @@ let flags = (req, res, next) => {
                             testconducted: info[2].testconducted,
                             startedWriting: startedWriting,
                             pending: pending,
+                            addjobpost: info[2].addjobpost,
+                            addcoding: info[2].addcoding,
                             completed: info[0].completed
                         }
-                    })
+                    });
                 }
             }
             else {
@@ -475,6 +501,8 @@ let flags = (req, res, next) => {
                         testbegins: info[2].testbegins,
                         testconducted: info[2].testconducted,
                         startedWriting: startedWriting,
+                        addjobpost: info[2].addjobpost,
+                        addcoding: info[2].addcoding,
                         pending: pending,
                         completed: false
                     }
@@ -488,7 +516,7 @@ let flags = (req, res, next) => {
             message: "Unable to fetch details"
         });
     });
-}
+};
 
 let TraineeDetails = (req, res, next) => {
     req.body = sanitize(req.body);

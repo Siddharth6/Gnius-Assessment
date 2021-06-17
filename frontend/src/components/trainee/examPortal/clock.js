@@ -70,12 +70,13 @@ class Clock extends Component {
     render() {
         return (
             <div className="clock-wrapper">
-                <div className="clock-container">{this.state.localMinutes} : {this.state.localSeconds}</div>
+                <div className="clock-container">
+                    {this.state.localMinutes} : {this.state.localSeconds}
+                </div>
             </div>
         )
     }
 }
-
 
 const mapStateToProps = state => ({
     trainee : state.trainee

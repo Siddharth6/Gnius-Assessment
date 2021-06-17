@@ -21,7 +21,9 @@ const initialState = {
     answers:[],
     hasGivenFeedBack:false,
     loadcoding: true,
-    codingData: []
+    codingData: [],
+    Iscoding: false,
+    codingsubmitted: null
 }
 
 
@@ -41,12 +43,14 @@ export default (state = initialState, action )=>{
         case 'FETCH_TEST_FLAG':
             return{
                 ...state,
-                testbegins:action.payload1,
-                startedWriting:action.payload2,
-                testconducted:action.payload3,
-                LocaltestDone:action.payload4,
-                m_left:action.payload5,
-                s_left:action.payload6,
+                testbegins: action.payload1,
+                startedWriting: action.payload2,
+                testconducted: action.payload3,
+                LocaltestDone: action.payload4,
+                m_left: action.payload5,
+                s_left: action.payload6,
+                Iscoding: action.payload7,
+                codingsubmitted: false,
                 initialloading1:false
             }
         case 'INVALID_TEST_URL':
@@ -90,6 +94,11 @@ export default (state = initialState, action )=>{
                 ...state,
                 loadcoding: action.payload1,
                 codingData: action.payload2
+            }
+        case 'SUBMIT_CODING':
+            return{
+                ...state,
+                codingsubmitted: action.payload
             }
         default:
             return state;

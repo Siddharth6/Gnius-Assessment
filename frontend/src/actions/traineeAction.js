@@ -61,12 +61,13 @@ export const fetchTestdata =(d1,d2)=>dispatch=>{
             if(response.data.data.completed || !response.data.data.startedWriting){
                 dispatch({
                     type:'FETCH_TEST_FLAG',
-                    payload1:response.data.data.testbegins,
-                    payload2:response.data.data.startedWriting,
-                    payload3:response.data.data.testconducted,
-                    payload4:response.data.data.completed,
-                    payload5:0,
-                    payload6:0
+                    payload1: response.data.data.testbegins,
+                    payload2: response.data.data.startedWriting,
+                    payload3: response.data.data.testconducted,
+                    payload4: response.data.data.completed,
+                    payload5: 0,
+                    payload6: 0,
+                    payload7: response.data.data.addcoding
                 })
             }
             else{
@@ -78,7 +79,8 @@ export const fetchTestdata =(d1,d2)=>dispatch=>{
                     payload3: response.data.data.testconducted,
                     payload4: response.data.data.completed,
                     payload5: t.m_left,
-                    payload6: t.s_left
+                    payload6: t.s_left,
+                    payload7: response.data.data.addcoding
                 });
             }
             
@@ -225,4 +227,12 @@ export const LoadCodingQuestion = (load, data) => {
         payload1: load,
         payload2: data
     };
+};
+
+
+export const submitCoding = (data) => {
+    return {
+        type: 'SUBMIT_CODING',
+        payload: data
+    }
 };

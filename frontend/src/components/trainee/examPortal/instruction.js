@@ -9,7 +9,7 @@ function Instruction(props) {
     const [state, setstate] = useState(false);
 
     function onChange(e) {
-        console.log(e.target.checked);
+        // console.log(e.target.checked);
         setstate(e.target.checked);
     }
 

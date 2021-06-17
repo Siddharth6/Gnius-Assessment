@@ -23,11 +23,11 @@ class MainPortal extends Component {
     constructor(props){
         super(props);
         let params = queryString.parse(this.props.location.search);
-        this.state={
+
+        this.state = {
             testDetails:params
-        }
-        this.props.setTestDetsils(params.testid,params.traineeid)
-        
+        };
+        this.props.setTestDetsils(params.testid,params.traineeid);
     }
 
     componentDidMount(){

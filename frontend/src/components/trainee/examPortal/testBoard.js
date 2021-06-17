@@ -27,8 +27,6 @@ function useWindowDimensions() {
     return windowDimensions;
 };
 
-
-
 export default function TestBoard(props) {
     const { height, width } = useWindowDimensions();
     const [visible,setVisible]=useState(false);
@@ -62,7 +60,5 @@ export default function TestBoard(props) {
                 </Drawer>
             </div>
         )
-    }
-    
-}
-
+    }  
+};

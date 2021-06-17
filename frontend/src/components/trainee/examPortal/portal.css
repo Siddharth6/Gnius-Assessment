@@ -63,7 +63,7 @@
 
 .exam-dashboard-wrapper {
     width: 100%;
-    background: rgb(205, 217, 225);
+    background: #fff;
     position: absolute;
     min-height: 100%;
 }
@@ -193,8 +193,6 @@
     text-align: center;
     margin-top: 10px;
 }
-
-
 
 @media(max-device-width : 768px) {
     .Test-portal-not-started-yet-inner {

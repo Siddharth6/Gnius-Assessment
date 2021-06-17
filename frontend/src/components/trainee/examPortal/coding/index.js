@@ -4,6 +4,7 @@ import queryString from 'query-string';
 import { connect } from 'react-redux';
 
 import CodeEditor from './CodeEditor';
+import CodeMenu from '../codemenu';
 import { SecurePost } from '../../../../services/axiosCall';
 import apis from '../../../../services/Apis';
 import Alert from '../../../../components/common/alert';
@@ -16,7 +17,12 @@ const { TabPane } = Tabs;
 class Index extends React.Component {
     constructor(props) {
       super(props);
-      let params = queryString.parse(this.props.location.search);
+
+      let params = {
+        testid: this.props.trainee.testid,
+        traineeid: this.props.trainee.traineeid
+      }
+      
       this.state = {
         mode: 'left',
         testDetails: params
@@ -25,10 +31,8 @@ class Index extends React.Component {
 
     // On Page Load
     componentDidMount(){
-        let params = queryString.parse(this.props.location.search);
-        const testId = params.testid;
-        const traineeId = params.traineeid;
-
+        const testId = this.props.trainee.testid;
+        const traineeId = this.props.trainee.traineeid;
 
         this.setState({loading: true})
 
@@ -73,6 +77,11 @@ class Index extends React.Component {
                 <div className="row">
                     <div className="col-lg-12">
                         <Skeleton loading={this.props.trainee.loadcoding} active avatar>
+                            
+                            <CodeMenu />
+
+                            <div style={{marginBottom: '50px'}} ></div>
+                            
                             <Tabs defaultActiveKey="0" tabPosition={mode} style={{ height: '100%' }}>
                                 {[...Array.from({ length: this.props.trainee.codingData.length }, (v, i) => i)].map(i => (
                                     <TabPane tab={`Problem-${i+1}`} key={i}>

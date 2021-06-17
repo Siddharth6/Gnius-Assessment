@@ -4,7 +4,9 @@ import { Typography } from 'antd';
 import { Result } from 'antd';
 import { connect } from 'react-redux';
 
-import { Post } from '../../../services/axiosCall';
+import Coding from '../examPortal/coding/index';
+
+import { Post, SecurePost } from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
 import Alert from '../../common/alert';
 import Feedback from '../answersheet/feedback';
@@ -34,10 +36,11 @@ class Answer extends React.Component{
         let traineeid = this.props.trainee.traineeid || this.props.user.userid._id;
         let testid = this.props.trainee.testid || this.props.user.userid.testid;
         
-        
         this.setState({
             loading:true
         });
+
+
         
         let p1 = Post({
             url: apis.FETCH_OWN_RESULT,
@@ -64,7 +67,9 @@ class Answer extends React.Component{
         
         Promise.all([p1, p2, p3])
             .then(d => {
+            
             //console.log(d);
+            
             this.setState({
                 loading:false
             });
@@ -125,7 +130,13 @@ class Answer extends React.Component{
                 title: 'View Question',
                 key: 'action',
                 render: (text, record) => (
-                    <Button shape="circle" icon="info" type="primary" size="small" onClick={() => { this.OpenModel(text.qid) }}></Button>
+                    <Button 
+                        shape="circle" 
+                        icon="info" 
+                        type="primary" 
+                        size="small" 
+                        onClick={() => { this.OpenModel(text.qid) }}
+                    ></Button>
                 )
             },
             {
@@ -203,10 +214,21 @@ class Answer extends React.Component{
                         <div>
                             <Title className="answer-table-heading" level={4}>Result</Title>
                             <Descriptions bordered title={null} border size="small">
-                                <Descriptions.Item label="Name">{this.props.user.userid.name}</Descriptions.Item>
-                                <Descriptions.Item label="Email Id">{this.props.user.userid.emailid}</Descriptions.Item>
-                                <Descriptions.Item label="Contact">{this.props.user.userid.contact}</Descriptions.Item>
-                                <Descriptions.Item label="Score">{this.state.TotalScore}</Descriptions.Item>
+                                <Descriptions.Item label="Name">
+                                    {this.props.user.userid.name}
+                                </Descriptions.Item>
+                                
+                                <Descriptions.Item label="Email Id">
+                                    {this.props.user.userid.emailid}
+                                </Descriptions.Item>
+
+                                <Descriptions.Item label="Contact">
+                                    {this.props.user.userid.contact}
+                                </Descriptions.Item>
+                                
+                                <Descriptions.Item label="Score">
+                                    {this.state.TotalScore}
+                                </Descriptions.Item>
                             </Descriptions>
                                         
                             <br />
@@ -239,10 +261,19 @@ class Answer extends React.Component{
                                 </Col>
                             </Row> : 
                             <div>
-                                {/* Here Add Coding Section if-else Feedback or coding */}
-                                <Feedback />
+                                {/* Coding Section */}
+                                {
+                                    this.props.trainee.Iscoding ? 
+                                    <div>
+                                        {
+                                            this.props.trainee.codingsubmitted ? <Feedback /> : <Coding /> 
+                                        }
+                                    </div>
+                                    : <Feedback />
+                                }
                             </div>
                     }
+
                     <Modal
                         destroyOnClose={true}
                         width="70%"
@@ -261,7 +292,7 @@ class Answer extends React.Component{
     }
 };
 
-
+// Single Question Details 
 class SingleQuestionDetails extends React.Component{
     constructor(props){
         super(props);

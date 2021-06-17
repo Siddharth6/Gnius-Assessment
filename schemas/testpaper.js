@@ -68,7 +68,9 @@ var testschema = new mongoose.Schema({
         type: Boolean,
         default: false,
         required: true
-    }
+    },
+    addjobpost: Boolean,
+    addcoding: Boolean
 },
     { timestamps: true }
 );

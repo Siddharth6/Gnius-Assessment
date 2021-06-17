@@ -1,7 +1,7 @@
 const initialState = {
     NewQuestionModalState: false,
     QuestionTableLoading : false, 
-    QuestionTableData : [],
+    QuestionTableData : []
 };
 
 export default (state = initialState, action) => {
