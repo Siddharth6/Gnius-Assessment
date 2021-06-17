@@ -10,7 +10,11 @@ import { Post, SecurePost } from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
 import Alert from '../../common/alert';
 import Feedback from '../answersheet/feedback';
-import { FeedbackStatus } from '../../../actions/traineeAction';
+
+import { 
+    FeedbackStatus,
+    getsubmitCoding
+} from '../../../actions/traineeAction';
 import Markdown from '../../../utils/Markdown';
 
 import './answer.css';
@@ -35,12 +39,13 @@ class Answer extends React.Component{
     componentDidMount(){
         let traineeid = this.props.trainee.traineeid || this.props.user.userid._id;
         let testid = this.props.trainee.testid || this.props.user.userid.testid;
-        
+
+        // Get Submitted Coding Section Data
+        this.props.getsubmitCoding(this.props.trainee.testid, this.props.trainee.testid);
+
         this.setState({
             loading:true
         });
-
-
         
         let p1 = Post({
             url: apis.FETCH_OWN_RESULT,
@@ -407,5 +412,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps,{
-    FeedbackStatus
+    FeedbackStatus,
+    getsubmitCoding
 })(Answer);

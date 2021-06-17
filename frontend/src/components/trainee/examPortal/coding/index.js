@@ -1,15 +1,15 @@
 import React, { Fragment } from 'react';
-import { Tabs, Skeleton } from 'antd';
+import { Tabs, Skeleton, Button, Popconfirm } from 'antd';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 
 import CodeEditor from './CodeEditor';
-import CodeMenu from '../codemenu';
 import { SecurePost } from '../../../../services/axiosCall';
 import apis from '../../../../services/Apis';
 import Alert from '../../../../components/common/alert';
 import {
     LoadCodingQuestion,
+    submitCoding
 } from '../../../../actions/traineeAction';
 
 const { TabPane } = Tabs;
@@ -78,7 +78,29 @@ class Index extends React.Component {
                     <div className="col-lg-12">
                         <Skeleton loading={this.props.trainee.loadcoding} active avatar>
                             
-                            <CodeMenu />
+                        <div style={{height: '80px'}} >
+                            <div className="container">
+                                <div className="row">
+                                    <div className="col-lg-6">
+                                        Menu
+                                    </div>
+
+                                    <div className="col-lg-6">
+                                        <Popconfirm
+                                            title="Are you sure to end the test"
+                                            onConfirm={() => this.props.submitCoding(this.props.trainee.testid,this.props.trainee.traineeid)}
+                                            okText="Yes"
+                                            cancelText="No"
+                                        >
+                                            <Button type="primary">
+                                                Submit Section
+                                            </Button>
+                                        </Popconfirm>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
 
                             <div style={{marginBottom: '50px'}} ></div>
                             
@@ -113,7 +135,8 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps, {
-    LoadCodingQuestion
+    LoadCodingQuestion,
+    submitCoding
 })(Index);
 
 

@@ -26,7 +26,8 @@ class Clock extends Component {
                 testid: this.props.trainee.testid,
                 userid:this.props.trainee.traineeid
             }
-        }).then((response)=>{
+        })
+        .then((response)=>{
             if(response.data.success){
                 this.props.fetchTestdata(this.props.trainee.testid,this.props.trainee.traineeid)
             }

@@ -17,6 +17,7 @@ const {
     codingContest,
     codingSubmission
 } = require('../models/coding');
+const codingAnswerSheet = require('../models/codingAnswerSheet');
 
 const sendmail = require("../services/mail");
 const { assessmentLink } = require('../templates/email-templates');
@@ -863,6 +864,8 @@ const getContestQuestion = (req, res) => {
 
 // Post New Submission
 const postSubmission = (req, res, next) => {
+    req.body = sanitize(req.body);
+
     const { 
         testId,
         traineeId,
@@ -968,6 +971,57 @@ const postSubmission = (req, res, next) => {
 };
 
 
+// Submit Coding Section
+const submitCoding = (req, res) => {
+    req.body = sanitize(req.body);
+
+    const { testId, traineeId } = req.body;
+
+    // console.log(req.body);
+
+    var new_submission = new codingAnswerSheet({
+        testid: testId,
+        userid: traineeId
+    });
+
+    new_submission.save((err, submission) => {
+        if (err) {
+            return res.status(400).json({
+                success: false,
+                message: err
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: submission
+        });
+    });
+};
+
+// Get Contest Questions
+const getsubmitCoding = (req, res) => {
+    req.body = sanitize(req.body);
+
+    const { testId, traineeId } = req.body;
+
+    codingAnswerSheet
+    .findOne({testid: testId, userid: traineeId })
+    .exec((err, details) => {
+        if (err || !details) {
+            return res.status(400).json({
+                success: false,
+                message: true
+            });
+        }
+
+        return res.status(200).json({
+            success: false,
+            message: false
+        });
+    });
+};
+
 module.exports = {
     traineeenter,
     feedback,
@@ -988,5 +1042,7 @@ module.exports = {
     fetchRawInput,
     fetchRawOutput,
     getContestQuestion,
-    postSubmission
+    postSubmission,
+    submitCoding,
+    getsubmitCoding
 };

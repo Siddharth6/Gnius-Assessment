@@ -229,10 +229,55 @@ export const LoadCodingQuestion = (load, data) => {
     };
 };
 
+// Post Coding Section Submit Data
+export const submitCoding = (tid, uid) => dispatch => {
+    Post({
+        url: `${apis.CODING_SECTION_SUBMIT}`,
+        data: {
+            testId: tid,
+            traineeId: uid
+        }
+    })
+    .then((response) => {
+        if (response.data.success) {
+            dispatch({
+                type: 'SUBMIT_CODING',
+                payload: true
+            });
+        }
+        else {
+            Alert('error', 'Error!', response.data.message);
+        }
+    })
+    .catch((error) => {
+        Alert('error', 'Error!', "Server error");
+    });
+};
 
-export const submitCoding = (data) => {
-    return {
-        type: 'SUBMIT_CODING',
-        payload: data
-    }
+// Get Coding Section Submit Data
+export const getsubmitCoding = (tid, uid) => dispatch => {
+    Post({
+        url: `${apis.CODING_SECTION_GET}`,
+        data: {
+            testId: tid,
+            traineeId: uid
+        }
+    })
+    .then((response) => {
+        if (response.data.success) {
+            dispatch({
+                type: 'SUBMIT_CODING',
+                payload: response.data.message
+            });
+        }
+        else {
+            dispatch({
+                type: 'SUBMIT_CODING',
+                payload: response.data.message
+            });
+        }
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 };
