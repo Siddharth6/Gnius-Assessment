@@ -2,14 +2,20 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Input,Button, Typography,Tabs, Icon  } from 'antd';
 import './conducttes.css';
-import { changeConducttestId, updateCandidatesTest, updateQuestiosnTest } from '../../../actions/conductTest';
+
+import { 
+    changeConducttestId, 
+    updateCandidatesTest, 
+    updateQuestiosnTest 
+} from '../../../actions/conductTest';
 import { changeStep } from '../../../actions/testAction';
+
 import TestDetails from './details';
 import Candidates from './candidates';
 import Questions from './questions';
+
 const { Title } = Typography;
 const { TabPane } = Tabs;
-
 
 class ConductTestS extends Component {
     constructor(props){
@@ -36,8 +42,6 @@ class ConductTestS extends Component {
             needRedirect: true
         })
     };
-
-
 
     render() {
         if(this.state.needRedirect){

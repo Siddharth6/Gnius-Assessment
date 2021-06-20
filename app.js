@@ -59,13 +59,13 @@ var user = require("./routes/user");
 var universal = require("./routes/universal");
 var question = require("./routes/questions");
 var testpaper = require("./routes/testpaper");
-var up = require("./routes/fileUpload");
-const download = require('./routes/downloadRoutes');
 var trainee = require("./routes/trainee");
 var stopRegistration = require("./routes/stopRegistration");
 var results = require("./routes/results");
 var dummy = require("./routes/dummy");
 const codingRoutes = require('./routes/coding');
+const upload = require("./routes/fileUpload");
+const download = require('./routes/downloadRoutes');
 
 
 // routes
@@ -75,13 +75,15 @@ app.use("/api/v1/user", passport.authenticate('user-token', { session: false }),
 app.use('/api/v1/subject', passport.authenticate('user-token', { session: false }), universal);
 app.use('/api/v1/questions', passport.authenticate('user-token', { session: false }), question);
 app.use('/api/v1/test', passport.authenticate('user-token', { session: false }), testpaper);
-app.use('/api/v1/upload', passport.authenticate('user-token', { session: false }), up);
+
 app.use('/api/v1/download', passport.authenticate('user-token', { session: false }), download);
 app.use('/api/v1/trainer', passport.authenticate('user-token', { session: false }), stopRegistration);
 app.use('/api/v1/coding',passport.authenticate('user-token', { session : false }), codingRoutes);
+
 app.use('/api/v1/trainee', trainee);
 app.use('/api/v1/final', results);
 app.use('/api/v1/login', login);
+app.use('/api/v1/upload', upload);
 
 app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname+'/public/index.html'));

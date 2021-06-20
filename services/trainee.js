@@ -31,7 +31,8 @@ let traineeenter = (req, res, next) => {
     req.check('emailid', ` Invalid email address.`).isEmail().notEmpty();
     req.check('name','This field is required.').notEmpty();
     req.check('contact','Invalid contact.').isLength({min : 13,max :13}).isNumeric({no_symbols: false});
-    var errors = req.validationErrors()
+    var errors = req.validationErrors();
+    
     if(errors){
         res.json({
             success: false,
@@ -48,8 +49,9 @@ let traineeenter = (req, res, next) => {
         var location = req.body.location;
         const start = req.body.start;
         const end = req.body.end;
+        const resume = req.body.resume;
 
-        // console.log(req.body);
+        console.log(req.body);
 
 
         TestPaperModel.findOne({ _id: testid, isRegistrationavailable: true })
@@ -59,22 +61,27 @@ let traineeenter = (req, res, next) => {
                     
                     const schDate = moment(info.start).subtract(1, 'd').toDate(); //
 
-                TraineeEnterModel.findOne({ $or: [{ emailid: emailid, testid: testid }, { contact: contact, testid: testid }] }).then((data) => {
+                TraineeEnterModel.findOne(
+                    { $or: [{ emailid: emailid, testid: testid }, { contact: contact, testid: testid }] }
+                )
+                .then((data) => {
+                    
                     if (data) {
                         res.json({
                             success: false,
                             message: "This id has already been registered for this test!"
                         });
                     }
+                    
                     else {
-                        
                         const tempdata = TraineeEnterModel({
                             name: name,
                             emailid: emailid,
                             contact: contact,
                             organisation: organisation,
                             testid: testid,
-                            location: location
+                            location: location,
+                            resume: resume
                         });
 
                         tempdata.save().then((u) => {

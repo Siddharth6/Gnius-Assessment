@@ -125,12 +125,12 @@ let createEditTest = (req, res, next) => {
                                         res.status(500).json({
                                             success : false,
                                             message : "Unable to post a new job !"
-                                        });
+                                    });
                                 });
                             }
 
                             // Add Coding if required
-                            else if(addcoding){
+                            if(addcoding){
                                 const codingdata = codingContest({
                                     questions: codingquestions,
                                     organiser: req.user._id,

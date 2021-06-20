@@ -174,7 +174,7 @@ class BasicTestFormO extends Component {
                             }
                         </Form.Item>
 
-                        <Form.Item label="Test Start Time"  hasFeedback>
+                        <Form.Item label="Test End Time"  hasFeedback>
                             {
                                 getFieldDecorator('end', {
                                     rules: [{ required: true, message: 'Please give test end time' }],

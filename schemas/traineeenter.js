@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+
 var traineeschema = new mongoose.Schema({
     name : {
         type : String,
@@ -26,7 +27,8 @@ var traineeschema = new mongoose.Schema({
     location : {
         type : String,
         required : false
-    }
-})
+    },
+    resume: String
+});
 
 module.exports  = traineeschema;

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import {Row, Col, Form, Icon, Input, Button, Select,Typography, Layout, Spin } from 'antd';
+import React, { Component, Fragment } from 'react';
+import {Row, Col, Form, Icon, Input, Button, Select,Typography, Layout, Upload, message } from 'antd';
 import queryString from 'query-string';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import moment from 'moment';
@@ -8,6 +8,7 @@ import {
     Chip,
     Paper
 } from "@material-ui/core";
+import DescriptionIcon from "@material-ui/icons/Description";
 
 import {
     FacebookShareButton,
@@ -33,8 +34,7 @@ import Alert from '../../common/alert';
 import '../../../Layout.css';
 import './trainerRegister.css';
 import logo from '../../basic/header/logo.png';
-
-import { Fragment } from 'react';
+import FileUploadInput from '../../../utils/FileUpload';
 
 const { Option } = Select;
 const { Title } = Typography;
@@ -48,7 +48,8 @@ class TraineeRegisterForm extends Component {
             testid:null,
             user:null,
             jobstatus: false,
-            jobData: {}
+            jobData: {},
+            resume: null,
         };
     };
     
@@ -106,7 +107,8 @@ class TraineeRegisterForm extends Component {
                         contact: `${values.prefix}${values.contact}`,
                         organisation: values.organisation,
                         testid: this.state.testid,
-                        location: values.location
+                        location: values.location,
+                        resume: this.state.resume
                     }
                 }).then((data) => {
                     // console.log(data.data);
@@ -236,9 +238,22 @@ class TraineeRegisterForm extends Component {
         </Fragment>
     );
 
+    // Resume Upload                
+    changeResume = (f) => {
+        if (f.success === true) {
+            message.success(`Resume file uploaded successfully`);
+        }
+
+        this.setState((ps, pp)=>{
+            return({
+                resume:(f.link ?`${apis.BASE}/${f.link}`:null)
+            });
+        });
+    };
 
     render() {
         const { getFieldDecorator } = this.props.form;
+
         const prefixSelector = getFieldDecorator('prefix', {
             initialValue :'+91',
             rules: [{ required: true, message: 'Please enter contact no prefix' }],
@@ -247,8 +262,12 @@ class TraineeRegisterForm extends Component {
               <Option value="+91">+91</Option>
             </Select>,
         );
-        
-        const antIcon = <Icon type="loading" style={{ fontSize: 24 }} spin />;
+
+        const uploadProps = {
+            name: 'file',
+            action: `${apis.BASE}${apis.UPLOAD_RESUME}`,
+            listType: 'picture'
+        };
 
         return (
             <Fragment>
@@ -349,7 +368,7 @@ class TraineeRegisterForm extends Component {
                                             <Col span={24} style={{ padding: '5px' }}>
                                                 <Form.Item label="Address" hasFeedback>
                                                     {getFieldDecorator('location', {
-                                                        rules: [{ required: true, message: 'Please input your name' }],
+                                                        rules: [{ required: true, message: 'Please input your location' }],
                                                     })(
                                                         <Input
                                                             prefix={<Icon type="home" style={{ color: 'rgba(0,0,0,.25)' }} />}
@@ -358,6 +377,26 @@ class TraineeRegisterForm extends Component {
                                                     )}
                                                 </Form.Item>
                                             </Col>
+
+                                            {/* Resume */}
+                                            <Col span={24}>
+                                                <Form.Item label="Upload Resume">
+                                                    {getFieldDecorator('resume', {
+                                                        rules: [{ required: true, message: 'Please upload your resume' }],
+                                                    })(
+                                                        <Upload 
+                                                            {...uploadProps}
+                                                            onRemove={this.changeResume} 
+                                                            onSuccess={this.changeResume}
+                                                        >
+                                                            <Button>
+                                                                <Icon type="upload" /> Upload
+                                                            </Button>
+                                                        </Upload>,
+                                                    )}
+                                                </Form.Item>
+                                            </Col>
+                                            
                                 
                                             <Col span={24} style={{ paddingTop: '33px' }}>
                                                 <Form.Item>

@@ -187,6 +187,10 @@ class Candidates extends Component {
       });
   };
 
+  getResume = (file) => {
+    window.open(file);
+  };
+
     render() {
         const columns = [
             {
@@ -206,6 +210,19 @@ class Candidates extends Component {
                 dataIndex: 'contact',
                 key: 'contact',
                 ...this.getColumnSearchProps('contact'),
+            },
+            {
+              title: 'Resume',
+              dataIndex: 'resume',
+              key: 'resume',
+              render: id => (
+                <Button
+                  color="primary"
+                  onClick={() => this.getResume(id)}
+                >
+                  Download Resume
+                </Button>
+              ),
             },
             {
                 title: 'Links',

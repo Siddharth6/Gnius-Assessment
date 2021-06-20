@@ -1,11 +1,15 @@
 import React from "react";
 import { Form, Input, Icon, Button } from 'antd';
-import './login.css';
 import { connect } from 'react-redux';
+
 import { login, logout } from '../../../actions/loginAction';
 import auth from '../../../services/AuthServices';
 import Alert from '../../common/alert';
 import { Redirect } from 'react-router-dom';
+
+import SignIn from './SignInSide';
+
+import './login.css';
 
 class Login extends React.Component{
     constructor(props){
@@ -47,8 +51,7 @@ class Login extends React.Component{
         }
         else{
             return(
-                <div className="login-container">
-                    <div className="login-inner">
+                <SignIn>
                         <Form
                             onSubmit={this.handleSubmit}
                             autoComplete="off"
@@ -69,6 +72,7 @@ class Login extends React.Component{
                                     prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
                                     placeholder="Email"/>)}
                             </Form.Item>
+                            
                             <Form.Item label="Password" hasFeedback>
                                 {getFieldDecorator('password', {
                                     rules: [
@@ -83,22 +87,20 @@ class Login extends React.Component{
                                     />,
                                 )}
                             </Form.Item>
+
                             <Form.Item>
                                 <Button type="primary" htmlType="submit" block>
                                     Login
                                 </Button>
                             </Form.Item>
                         </Form>
-                    </div>  
-                </div>
-            )
-        }
-    }
-
-}
+                </SignIn>
+            );
+        };
+    };
+};
 
 const LoginForm = Form.create({ name: 'login' })(Login);
-
 
 const mapStateToProps = state => ({
     user : state.user

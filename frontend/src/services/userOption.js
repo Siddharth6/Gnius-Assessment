@@ -43,17 +43,17 @@ export const TRAINER_PERMISSIONS = [
         link: '/user/listcode'
     },
     {
-        display: 'All Tests',
+        display: 'All Assessments',
         icon: 'bars',
         link: '/user/listtests'
     },
     {
-        display: 'New Test',
+        display: 'New Assessments',
         icon: 'plus-circle',
         link: '/user/newtest'
     },
     {
-        display: 'Conduct Test',
+        display: 'Conduct Assessments',
         icon: 'appstore',
         link: '/user/conducttest'
     },
