@@ -4,6 +4,8 @@ s = ut + \frac{1}{2}at^{2}
 $$
 Calculate the value of $s$ when $u = 10\frac{m}{s}$ and $a = 2\frac{m}{s^{2}}$ at $t = 1s$
 
+//////////
+
 <h2><b>Admin Instructions</b></h2>
       <h3>1. All Trainers</h3>
       <h4>   List of existing trainers.</h4>
