@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Input,Button, Typography,Tabs, Icon  } from 'antd';
+import { Input,Button, Typography,Tabs, Icon } from 'antd';
 import './conducttes.css';
 
 import { 
@@ -13,6 +13,7 @@ import { changeStep } from '../../../actions/testAction';
 import TestDetails from './details';
 import Candidates from './candidates';
 import Questions from './questions';
+import JobApplications from './JobApplications';
 
 const { Title } = Typography;
 const { TabPane } = Tabs;
@@ -83,12 +84,19 @@ class C extends Component {
                 <div>
                     <TestDetails/>
                     <Tabs defaultActiveKey="1" style={{marginTop:'20px'}}>
+                        
                         <TabPane tab={<span><Icon type="user" />Registered Trainee</span>} key="1">
                             <Candidates />
                         </TabPane>
+
                         <TabPane tab={<span><Icon type="question-circle" />Questions</span>} key="2">
                             <Questions id={this.props.conduct.id} questionsOfTest={this.props.conduct.questionsOfTest} updateQuestiosnTest={this.props.updateQuestiosnTest}  />
                         </TabPane>
+
+                        <TabPane tab={<span><Icon type="solution" />Job Applications</span>} key="3">
+                            <JobApplications />
+                        </TabPane>
+
                     </Tabs>
                 </div>
             )

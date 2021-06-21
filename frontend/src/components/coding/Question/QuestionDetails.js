@@ -8,9 +8,6 @@ import { Skeleton,
     Divider,
     Input
 } from 'antd';
-import { Link } from "react-router-dom";
-import moment from 'moment';
-import ReactJson from 'react-json-view'
 import Markdown from '../../../utils/Markdown';
 
 import { SecurePost } from '../../../services/axiosCall';

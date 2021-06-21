@@ -24,7 +24,9 @@ class Login extends React.Component{
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 // console.log('Received values of form: ', values);
-                auth.LoginAuth(values.email,values.password).then((response)=>{
+                auth
+                .LoginAuth(values.email,values.password)
+                .then((response)=>{
                     // console.log(response);
                     if(response.data.success){
                         this.props.login(response.data.user)
@@ -34,9 +36,10 @@ class Login extends React.Component{
                         })
                     }
                     else{
-                        return Alert('error','Error!',response.data.message);
+                        return Alert('error','Error!', response.data.message);
                     }
-                }).catch((error)=>{
+                })
+                .catch((error)=>{
                     // console.log(error);
                     return Alert('error','Error!','Server Error');
                 })              

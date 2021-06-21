@@ -20,7 +20,8 @@ import { login, logout } from '../../actions/loginAction';
 import { changeActiveRoute } from '../../actions/useraction';
 import Alert from '../common/alert';
 
-import { Layout, Menu,Button, Icon, Tooltip } from 'antd';
+import { Layout, Menu,Button, Avatar, Icon, Tooltip } from 'antd';
+import NoticeIcon from 'ant-design-pro/lib/NoticeIcon';
 import main from './logo.png';
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -161,8 +162,21 @@ class Dashboard extends React.Component{
                             />
                         <ul className="user-options-list">
                             <li>
+                                <NoticeIcon count={5} />
+                            </li>
+                            
+                            <li>
+                                <Avatar style={{ backgroundColor: '#00ffcc' }} icon="user" />
+                            </li>
+
+                            <li>
                                 <Tooltip placement="bottom" title="Log Out">
-                                    <Button type="primary" size="large" shape="circle" onClick={this.logOut} className="logout-button">
+                                    <Button 
+                                        type="primary" 
+                                        shape="circle" 
+                                        onClick={this.logOut} 
+                                        className="logout-button"
+                                    >
                                         <Icon type="logout" />
                                     </Button>
                                 </Tooltip>
