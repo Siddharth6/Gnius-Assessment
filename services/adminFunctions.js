@@ -3,7 +3,6 @@ let tool = require("./tool");
 const sanitize = require("mongo-sanitize");
 
 let trainerRegister = (req, res, next) => {
-    // console.log(req.user.type);
     req.body = sanitize(req.body);
 
     var _id = req.body._id || null;
@@ -31,27 +30,35 @@ let trainerRegister = (req, res, next) => {
             var emailid = req.body.emailid;
             var contact = req.body.contact;
             var status = null || req.body.status;
+            var organisation = req.body.organisation;
+            var avatar = req.body.avatar;
+            var bio = req.body.bio;
 
             if (_id != null) {
                 UserModel.findOneAndUpdate({
                     _id: _id,
                     // status: 1
                 },
-                    {
-                        name: name,
-                        contact: contact,
-                        status: status
-                    }).then(() => {
-                        res.json({
-                            success: true,
-                            message: `Trainer's Profile updated successfully!`
-                        })
-                    }).catch((err) => {
-                        res.status(500).json({
-                            success: false,
-                            message: "Unable to update Trainer's Profile"
-                        })
-                    })
+                {
+                    name: name,
+                    contact: contact,
+                    status: status,
+                    organisation: organisation,
+                    avatar: avatar,
+                    bio: bio
+                })
+                .then(() => {
+                    res.json({
+                        success: true,
+                        message: `Trainer's Profile updated successfully!`
+                    });
+                })
+                .catch((err) => {
+                    res.status(500).json({
+                        success: false,
+                        message: "Unable to update Trainer's Profile"
+                    });
+                });
             }
             else {
                 UserModel.findOne({ 'emailid': emailid, status: 1 }).then((user) => {
@@ -62,29 +69,34 @@ let trainerRegister = (req, res, next) => {
                                 password: hash,
                                 emailid: emailid,
                                 contact: contact,
-                                createdBy: req.user._id
-                            })
-                            tempdata.save().then(() => {
+                                createdBy: req.user._id,
+                                organisation: organisation,
+                                avatar: avatar,
+                                bio: bio
+                            });
+
+                            tempdata
+                            .save()
+                            .then((data) => {
                                 res.json({
                                     success: true,
-                                    message: `Trainer's Profile created successfully!`
-                                })
-                            }).catch((err) => {
-                                // console.log(err);
+                                    message: `Trainer's Profile created successfully!`,
+                                    data: data
+                                });
+                            })
+                            .catch((err) => {
                                 res.status(500).json({
                                     success: false,
                                     message: "Unable to create Trainer's Profile"
                                 });
                             })
-                        }).catch((err) => {
-                            // console.log(err);
+                        })
+                        .catch((err) => {
                             res.status(500).json({
                                 success: false,
                                 message: "Unable to create Trainer's Profile"
                             });
-                        })
-                        
-                        
+                        });                        
                     }
                     else {
                         res.json({
@@ -93,12 +105,12 @@ let trainerRegister = (req, res, next) => {
                         });
                     }
                 })
-                    .catch((err) => {
-                        res.status(500).json({
-                            success: false,
-                            message: "Unable to create Trainer Profile"
-                        });
+                .catch((err) => {
+                    res.status(500).json({
+                        success: false,
+                        message: "Unable to create Trainer Profile"
                     });
+                });
             }
         }
     }
@@ -115,23 +127,20 @@ let removeTrainer = (req, res, next) => {
 
     if (req.user.type === 'ADMIN') {
         var _id = req.body._id;
-        UserModel.findOneAndUpdate({
-            _id: _id
-        },
-            {
-                status: 0
 
-            }).then(() => {
-                res.json({
-                    success: true,
-                    message: "Account has been removed"
-                })
-            }).catch((err) => {
-                res.status(500).json({
-                    success: false,
-                    message: "Unable to remove account"
-                });
+        UserModel.findOneAndUpdate({_id: _id},{ status: 0})
+        .then(() => {
+            res.json({
+                success: true,
+                message: "Account has been removed"
             });
+        })
+        .catch((err) => {
+            res.status(500).json({
+                success: false,
+                message: "Unable to remove account"
+            });
+        });
     }
     else {
         res.status(401).json({

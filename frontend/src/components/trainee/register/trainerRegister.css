@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+
 .header-container {
     height: 100px;
 }
@@ -14,7 +17,9 @@
 }
 
 .registration-form-inner {
-    background: #b4aee8;
+    background: #e4e4e9;
+    font-family: 'Raleway', 'Ubuntu', sans-serif;
+    justify-content: center;
     width: 50%;
     padding: 40px;
     border-radius: 5px;
@@ -26,15 +31,14 @@
 .btn {
     padding: 0 20px;
     color: #FFF;
-    background-color: #4bc970;
+    background-color: #941132;
     font-size: 18px;
     text-align: center;
     font-style: normal;
     border-radius: 5px;
     width: 100%;
-    border: 1px solid #3ac162;
+    border: 1px solid #941132;
     border-width: 1px 1px 3px;
-    box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
     margin-bottom: 0px;
 }
 
@@ -52,7 +56,7 @@
 
 @media all and (max-device-width : 768px) and (min-device-width : 320px) {
     .registration-form-inner {
-        background: #b4aee8;
+        background: #e4e4e9;
         width: 100%;
         height: 100%;
         padding: 40px;

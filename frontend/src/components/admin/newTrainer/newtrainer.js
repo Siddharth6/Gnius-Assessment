@@ -6,23 +6,29 @@ import {
     Button,
     Select,
     Switch,
-    Icon
+    Icon,
+    Upload
 } from 'antd';
-import {SecurePost} from '../../../services/axiosCall';
-import apis from '../../../services/Apis';
-import { connect } from 'react-redux';
 
+import { SecurePost } from '../../../services/axiosCall';
+import apis from '../../../services/Apis';
+import auth from '../../../services/AuthServices';
+import { connect } from 'react-redux';
 import {
     ChangeTrainerConfirmDirty,
     ChangeTrainerModalState,
     ChangeTrainerTableData
 } from '../../../actions/adminAction';
 import Alert from '../../../components/common/alert';
+
 const { Option } = Select;
+const { TextArea } = Input;
 
 class NewTrainer extends Component {
     state = {
         checked: this.props.admin.trainerdetails.status,
+        logo: null,
+        submitDisabled:false
     };
 
     toggle = () => {
@@ -47,12 +53,24 @@ class NewTrainer extends Component {
         }
         callback();
     };
-    
 
+    changeqImage = (f)=>{
+        this.setState((ps,pp)=>{
+            return({
+                logo:(f.link ?`${apis.BASE}/${f.link}`:null),
+                submitDisabled:false
+            });
+        });
+    };
+
+    upl=()=>{
+        this.setState({
+            submitDisabled:true
+        });
+    };
 
     handleSubmit = e => {
         e.preventDefault();
-        console.log(this.state.checked);
 
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
@@ -65,9 +83,13 @@ class NewTrainer extends Component {
                         password: values.password,
                         emailid: values.emailid,
                         contact: values.prefix + values.contact,
-                        status: this.state.checked
+                        status: this.state.checked,
+                        organisation: values.organisation,
+                        avatar: this.state.logo,
+                        bio: values.bio
                     }
-                }).then((response) => {
+                })
+                .then((response) => {
                     if (response.data.success) {
                         this.props.ChangeTrainerModalState(false, null, 'Register');
                         Alert('success', 'Success', response.data.message);
@@ -88,6 +110,7 @@ class NewTrainer extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
+
         const prefixSelector = getFieldDecorator('prefix', {
             initialValue: this.props.admin.trainerdetails.prefix || '+91',
             rules: [{ required: true, message: 'Please enter contact no prefix' }],
@@ -95,11 +118,18 @@ class NewTrainer extends Component {
             <Select style={{ width: 70 }}>
               <Option value="+91">+91</Option>
             </Select>,
-          );
+        );
+
+        var QuestionImageprops = {
+            name: 'file',
+            action: `${apis.BASE}${apis.FILE_UPLOAD}?Token=${auth.retriveToken()}`,
+            listType: 'picture',
+        };
+
         return (
             <div className="register-trainer-form">
                 <div className="register-trainer-form-body">
-                    <Form  onSubmit={this.handleSubmit}>
+                    <Form  onSubmit={this.handleSubmit} autoComplete="off">
                         <Form.Item label="Name" hasFeedback className="input-admin-trainer">
                             {getFieldDecorator('name', {
                                 initialValue : this.props.admin.trainerdetails.name,
@@ -178,6 +208,36 @@ class NewTrainer extends Component {
                                     onChange={this.toggle}
                                 />
                             )}
+                        </Form.Item>
+                        
+                        {/* Organisation Details */}
+                        <Form.Item label="Organisation Name" hasFeedback className="input-admin-trainer">
+                            {getFieldDecorator('organisation', {
+                                initialValue : this.props.admin.trainerdetails.organisation,
+                                rules: [{ required: true, message: 'Please input organisation name!', whitespace: true }],
+                            })(<Input />)}
+                        </Form.Item>
+
+                        <Form.Item label="Write About Your Organisation" className="input-admin-trainer" hasFeedback>
+                            {getFieldDecorator('bio', {
+                                initialValue : this.props.admin.trainerdetails.bio,
+                                rules: [{ required: true, message: 'Please Enter Company Details or About!' }],
+                            })(
+                                <TextArea rows={5} />
+                            )}
+                        </Form.Item>
+
+                        <Form.Item label="Organisation Logo" className="input-admin-trainer">
+                            <Upload 
+                                {...QuestionImageprops}
+                                beforeUpload={this.upl}
+                                onRemove={this.changeqImage}
+                                onSuccess={this.changeqImage}
+                            >
+                                <Button>
+                                    <Icon type="upload" /> Upload
+                                </Button>
+                            </Upload>
                         </Form.Item>
 
                         <Form.Item>

@@ -19,8 +19,16 @@ var userschema = new mongoose.Schema({
         required : true,
         type : String,
         unique : true
-    }, 
+    },
+    organisation : {
+        required : false,
+        type : String
+    },
     avatar : {
+        required : false,
+        type : String
+    },
+    bio : {
         required : false,
         type : String
     },

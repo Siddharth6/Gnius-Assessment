@@ -7,7 +7,10 @@ let userdetails = (req, res, next) => {
             type: req.user.type,
             _id: req.user._id,
             emailid: req.user.emailid,
-            contact: req.user.contact
+            contact: req.user.contact,
+            organisation: req.user.organisation,
+            avatar: req.user.avatar,
+            bio: req.user.bio,
         }
     });
 };

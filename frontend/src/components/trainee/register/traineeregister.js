@@ -50,6 +50,7 @@ class TraineeRegisterForm extends Component {
             jobstatus: false,
             jobData: {},
             resume: null,
+            customdata: {},
         };
     };
     
@@ -166,7 +167,12 @@ class TraineeRegisterForm extends Component {
                     <div className="col-lg-12">
                         <Layout>
                             <Header style={{ height: '100px' }}>
-                                <Title style={{ color: '#fff', marginTop: '20px' }} level={4}>
+                                <Title style={{ 
+                                    color: '#fff', 
+                                    marginTop: '20px',
+                                    }} 
+                                    level={4}
+                                >
                                     {this.state.jobData.jobtitle}
                                 </Title>
                             </Header>
@@ -193,7 +199,8 @@ class TraineeRegisterForm extends Component {
                       textAlign: 'justify',
                       padding: '5px',
                       justifyContent: 'center',
-                      alignItems: 'start'
+                      alignItems: 'start',
+                      fontFamily: 'Raleway, Ubuntu, sans-serif'
                     }}
                 >
                     {renderHTML(this.state.jobData.jobdescription)}
@@ -209,7 +216,8 @@ class TraineeRegisterForm extends Component {
                       margin: '5px',
                       justifyContent: 'center',
                       alignItems: 'start',
-                      outline: 'none'
+                      outline: 'none',
+                      fontFamily: 'Raleway, Ubuntu, sans-serif'
                     }}
                   >
                     <ul style={{ listStyle: 'none' }}>
@@ -396,15 +404,33 @@ class TraineeRegisterForm extends Component {
                                                     )}
                                                 </Form.Item>
                                             </Col>
-                                            
-                                
-                                            <Col span={24} style={{ paddingTop: '33px' }}>
-                                                <Form.Item>
-                                                    <Button style={{ width: '100%' }} type="primary" htmlType="submit" className="btn">
-                                                        Register
-                                                    </Button>
-                                                </Form.Item>
-                                            </Col>
+
+                                            {
+                                                this.state.jobData.jobcustom ? <div>
+                                                    <FormRenderer
+                                                        allowDraft={false}
+                                                        formStructure={this.state.jobData.jobcustom}
+                                                        data={this.state.customdata}
+                                                        onSave={changedData => {
+                                                            // onSave for data received here.
+                                                            this.setState({ customdata: changedData });
+                                                        }}
+                                                        onError={error => console.log(error)}
+                                                    />
+                                                </div> : 
+                                                <Col span={24} style={{ paddingTop: '33px' }}>
+                                                    <Form.Item>
+                                                        <Button 
+                                                            style={{ width: '100%' }} 
+                                                            type="primary" 
+                                                            htmlType="submit" 
+                                                            className="btn"
+                                                        >
+                                                            Register
+                                                        </Button>
+                                                    </Form.Item>
+                                                </Col>
+                                            }
                                         </Row>
                                     </Form>
                                 </div>
@@ -431,7 +457,7 @@ class TraineeRegisterForm extends Component {
                     <div className="col-lg-12">
                         <Layout>
                             <Footer style={{ textAlign: 'center'}}>
-                                Footer
+                                gnius Talent Solution ©{new Date().getFullYear()}
                             </Footer>
                         </Layout>     
                     </div>

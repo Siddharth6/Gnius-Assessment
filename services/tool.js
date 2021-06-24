@@ -5,7 +5,9 @@ const saltRounds = 10;
 
 //create admin
 var createadmin = () => {
-    bcrypt.hash("gnmaster345@#fv", saltRounds).then((hash)=>{
+    bcrypt
+    .hash("gnmaster345@#fv", saltRounds)
+    .then((hash)=>{
         var tempdata = new UserModel({
             name: 'master',
             password: hash,

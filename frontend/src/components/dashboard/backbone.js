@@ -15,6 +15,7 @@ import AllCoding from '../coding/Question/AllQuestions';
 import auth from '../../services/AuthServices';
 import Welcome from './welcome';
 import ErrorPage from './errorPage';
+import Settings from './settings';
 
 import { login, logout } from '../../actions/loginAction';
 import { changeActiveRoute } from '../../actions/useraction';
@@ -116,6 +117,9 @@ class Dashboard extends React.Component{
             // console.log(params)
             torender=<ConductTest {...params}/>
         }
+        else if(this.props.match.params.options==='settings'){
+            torender=<Settings />
+        }
         else{
             torender=<ErrorPage />
         }
@@ -198,7 +202,7 @@ class Dashboard extends React.Component{
                         </div>
                     </Content>
                     <Footer style={{ textAlign: 'center', background: '#fff' }}>
-                        gnius Talent Solution ©2021
+                        gnius Talent Solution ©{new Date().getFullYear()}
                     </Footer>
                 </Layout>
             </Layout>

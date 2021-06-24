@@ -61,3 +61,54 @@ Calculate the value of $s$ when $u = 10\frac{m}{s}$ and $a = 2\frac{m}{s^{2}}$ a
         </ul>
         <p><b>NOTE-</b>A link for this test has been sent to the email id of registered trainees. Click on the link to take test.</p>
       </ul>
+
+
+PHP Developer - SDE- 2
+
+
+Description
+We are an IT company and our most famous product is MSG91 which is in core PHP. We are extending our team and looking for developers who are open to work on any language product demands whether it is java, python or php.
+
+
+
+Translate application storyboards and use-cases into functional applications
+Design, build, and maintain efficient, reusable and reliable codes
+Ensure the best possible performance, quality, and responsiveness of the applications
+Identify bottlenecks/bugs and devise solutions to these problems
+Suggest ideas
+Requirements
+Min 2-8 years of development experience in core PHP
+Hands on with REST API & MySQL
+Familiarity with Version Control GIT
+Practical knowledge of OOPS Concepts and Design Patterns
+Good To Have
+
+Redis, and MongoDB in NoSQL
+Familiarity/ experience on Rabbit, AWS & Nginx.
+Benefits
+In-house product development with a chance to try hands on research and development.
+New technology, chance to execute your ideas, Working on future products.
+Ample opportunity to learn and grow
+Attractive employee benefits and amazing work culture.
+GROWTH
+
+Starting with PHP, you can try hands-on python, Java, Linux.
+You can join the team for architecture planning, Microservices and try hands-on AWS, GCP.
+Also, you can take complete ownership of modules once you are familiar with the product.
+you can participate in task planning, & code review
+
+
+CULTURE
+
+
+
+At Walkover, we do what motivates us to do, and more importantly, for everything that we do, we ask ourselves WHY.We don't hire people for work that can be done by machines. We believe in outsourcing; we believe in tools and software; we believe in automation.
+
+The happiness of our team is our priority. No hierarchy; nothing is forced. And, we try to add our bit in making this world better by producing and consuming things in an environmentally sustainable manner.
+
+Information Needed
+Please Answer this Questions
+
+How many years of experience do you have ?
+
+How many years of experience do you have in php?
