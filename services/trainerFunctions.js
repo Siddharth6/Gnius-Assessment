@@ -1,7 +1,62 @@
 let QuestionModel = require("../models/questions");
+let UserModel = require('../models/user');
+
 let options = require("../models/option");
 let tool = require("./tool");
-const sanitize = require("mongo-sanitize");  
+const sanitize = require("mongo-sanitize");
+
+// Update Trainer Details
+const trainerUpdate = (req, res, next) => {
+    req.body = sanitize(req.body);
+
+    if (req.user.type === 'TRAINER') {
+        req.check('avatar', `Invalid Avatar`).notEmpty();
+        req.check('bio', 'Invalid About').notEmpty();
+        req.check('organisation', ` Invalid Organisation`).notEmpty();
+        
+        var errors = req.validationErrors();
+
+        if (errors) {
+            res.status(400).json({
+                success: false,
+                message: 'Invalid inputs',
+                errors: errors
+            });
+        }
+        else {
+            var _id = req.body._id ;
+            var organisation = req.body.organisation;
+            var avatar = req.body.avatar;
+            var bio = req.body.bio;
+
+            UserModel.findOneAndUpdate({_id: _id},{
+                organisation: organisation,
+                avatar: avatar,
+                bio: bio
+            })
+            .then(() => {
+                res.status(200).json({
+                    success: true,
+                    message: `Profile Updated Successfully!`
+                });
+            })
+            .catch((err) => {
+                console.log('err');
+
+                res.status(400).json({
+                    success: false,
+                    message: "Unable to Update Profile"
+                });
+            });
+        }
+    }
+    else {
+        res.status(400).json({
+            success: false,
+            message: "Permissions not granted!"
+        });
+    }
+};
 
 
 let createQuestion = (req, res, next) => {
@@ -242,12 +297,11 @@ let getSingleQuestion = (req, res, next) => {
         });
     };    
 };
- 
-// 
 
 module.exports = { 
     createQuestion, 
     getAllQuestions, 
     getSingleQuestion, 
-    deleteQuestion
+    deleteQuestion,
+    trainerUpdate
 };

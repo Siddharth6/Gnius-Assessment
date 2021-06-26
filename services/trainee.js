@@ -715,7 +715,7 @@ const getSingleJobPost = (req, res, next) => {
 
     JobPostModel
     .findOne({testid:testid})
-    .populate('postedBy')
+    .populate('postedBy', 'organisation bio avatar -_id')
     .exec((err,job) => {
         if(err){
             res.status(500).json({
@@ -909,13 +909,15 @@ const postSubmission = (req, res, next) => {
                 }
 
                 const submission_result = {
-                    str: result, 
+                    str: result,
                     time: time_avg/data.length, 
                     memory: mem_avg/data.length
                 };
 
                 codingSubmission
-                .updateOne({ _id: submission_id },{ in_queue: false, result: submission_result }, 
+                .updateOne(
+                    { _id: submission_id },
+                    { in_queue: false, score: score, result: submission_result }, 
                     (err, data) => {
                     if (err) console.log(err);
 

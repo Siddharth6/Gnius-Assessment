@@ -27,10 +27,7 @@ class Profile extends Component {
     constructor(props){
         super(props);
         this.state={
-            data:{
-                image:null,
-                body: null, 
-            },
+            logo: this.props.user.userDetails.avatar,
             adding:false,
             submitDisabled:false,
         }        
@@ -38,19 +35,42 @@ class Profile extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
+
+        this.props.form.validateFieldsAndScroll((err, values) => {
+            if (!err) {
+                SecurePost({
+                    url: `${apis.UPDATE_USER}`,
+                    data: {
+                        _id: this.props.user.userDetails._id,
+                        organisation: values.organisation,
+                        avatar: this.state.logo,
+                        bio: values.about
+                    }
+                })
+                .then((response) => {
+                    if (response.data.success) {
+                        Alert('success', 'Success', response.data.message);
+                        window.location.reload();
+                    }
+                    else {
+                        return Alert('warning', 'Warning!', response.data.message);
+                    }
+                }).catch((error) => {
+                    return Alert('error', 'Error!', 'Server Error');
+                });
+            }
+        });
     };
 
+    // Upload Image Prop
     changeqImage = (f)=>{
         this.setState((ps,pp)=>{
             return({
-                data:{
-                    ...ps.questionDetails,
-                    questionimage:(f.link ?`${apis.BASE}/${f.link}`:null)
-                },
+                logo: (f.link ?`${apis.BASE}/${f.link}`:null),
                 submitDisabled:false
-            })
-        })
-    }
+            });
+        });
+    };
 
     upl=()=>{
         this.setState({
@@ -60,8 +80,10 @@ class Profile extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
+
         const { Option } = Select;
         const { TextArea } = Input;
+
         var QuestionImageprops = {
             name: 'file',
             action: `${apis.BASE}${apis.FILE_UPLOAD}?Token=${auth.retriveToken()}`,
@@ -72,12 +94,28 @@ class Profile extends Component {
             <Fragment>
                 <Text>Profile Settings</Text>
                 <Divider />
+
+                <img src={this.props.user.userDetails.avatar} alt="logo" />
+
+                <Divider />
                     <Form  onSubmit={this.handleSubmit}>
                         <div>
                             <Row>
                                 <Col span={24}>
+                                    <Form.Item label="Organisation Name"  hasFeedback>
+                                        {getFieldDecorator('organisation', {
+                                            initialValue : this.props.user.userDetails.organisation,
+                                            rules: [{ required: true, message: 'Please input organisation name!', whitespace: true }],
+                                        })(<Input />)}
+                                    </Form.Item>
+                                </Col>
+                            </Row>
+
+                            <Row>
+                                <Col span={24}>
                                     <Form.Item label="Write About Your Organisation" hasFeedback>
                                         {getFieldDecorator('about', {
+                                            initialValue : this.props.user.userDetails.bio,
                                             rules: [{ required: true, message: 'Please Enter Company Details or About!' }],
                                         })(
                                             <TextArea rows={5} />
@@ -127,14 +165,14 @@ class Profile extends Component {
 
                     <Divider />
 
-
             </Fragment>
         )
     }
 }
 
 const mapStateToProps = state => ({
-    admin : state.admin
+    admin : state.admin,
+    user: state.user
 });
 
 const NewForm = Form.create({ name: 'newQuestion' })(Profile);

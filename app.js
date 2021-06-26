@@ -95,9 +95,13 @@ app.use(function(req, res, next) {
 });
 
 app.use((err, req, res, next) => {
-    res.status(err.status).json({
+    const status = err.status || 500;
+
+    console.log(err);
+
+    res.status(status).json({
         success: false,
-        message: err.message
+        message: 'error'
     });
 });
 

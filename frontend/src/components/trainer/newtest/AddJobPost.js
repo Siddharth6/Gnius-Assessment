@@ -210,7 +210,8 @@ class AddJobPost extends Component {
 
                             </div> : 
                             <div>
-                                {'      '}
+                                <br />
+                                <br />
                                 <div className="container">
                                     <div className="row">
                                         <div className="col-lg-12">

@@ -1,5 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import {Row, Col, Form, Icon, Input, Button, Select,Typography, Layout, Upload, message } from 'antd';
+import {
+    Row, 
+    Col, 
+    Form, 
+    Icon, 
+    Input, 
+    Button, 
+    Select,
+    Typography, Layout, Upload, message 
+} from 'antd';
 import queryString from 'query-string';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import moment from 'moment';
@@ -159,7 +168,7 @@ class TraineeRegisterForm extends Component {
         <Fragment>
             <Helmet>
                 <meta charSet="utf-8" />
-                <title>{this.state.jobData.jobtitle} - gnius Assessment - where talent meets opportunities</title>
+                <title>{this.state.jobData.postedBy.organisation} - {this.state.jobData.jobtitle} - gnius Assessment - where talent meets opportunities</title>
             </Helmet>
 
             <div className="container-fluid" style={{padding: '0', overflow: 'hidden'}}>
@@ -173,7 +182,7 @@ class TraineeRegisterForm extends Component {
                                     }} 
                                     level={4}
                                 >
-                                    {this.state.jobData.jobtitle}
+                                    {this.state.jobData.postedBy.organisation} - {this.state.jobData.jobtitle}
                                 </Title>
                             </Header>
                         </Layout>
@@ -222,7 +231,19 @@ class TraineeRegisterForm extends Component {
                   >
                     <ul style={{ listStyle: 'none' }}>
                         <li style={{ padding: '5px' }}>
-                            <b>Posted on:</b> {moment(this.state.jobData.dateOfPosting).format('MMMM Do YYYY')} / {moment(this.state.jobData.dateOfPosting, "YYYYMMDD").fromNow()} 
+                            <strong>About Company</strong>
+                            <br /> {this.state.jobData.postedBy.bio}
+                        </li>
+
+                        <li style={{ padding: '5px' }}>
+                            <img
+                                width={200}
+                                src={this.state.jobData.postedBy.avatar}
+                            />
+                        </li>
+
+                        <li style={{ padding: '5px' }}>
+                            <b>Posted on:</b> {moment(this.state.jobData.dateOfPosting).format('MMMM Do YYYY')} - {moment(this.state.jobData.dateOfPosting).fromNow()} 
                         </li>
 
                         <li style={{ padding: '5px' }}>

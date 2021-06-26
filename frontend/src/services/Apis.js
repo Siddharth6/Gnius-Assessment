@@ -5,6 +5,7 @@ const apis = {
     BASE : envoirnment==='development'?'http://localhost:5000':'',
     LOGIN : "/api/v1/login/",
     GETDETAILSUSER : "/api/v1/user/details",
+    UPDATE_USER: '/api/v1/user/update/details',
     GET_ALL_TRAINER :'/api/v1/admin/trainer/details/all',
     GET_SINGLE_TRAINER_DETAILS : '/api/v1/admin/trainer/details',
     CREATE_TRAINER : '/api/v1/admin/trainer/create',

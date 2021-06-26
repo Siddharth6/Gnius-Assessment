@@ -139,6 +139,10 @@ const submissionSchema = new mongoose.Schema({
     submit_time: Date,
     time: Number,
     memory: Number,
+    score: {
+        type: Number,
+        default: 0
+    },
     result: {str: Array, time: Number, memory: Number},
     in_queue: Boolean
 }, {
