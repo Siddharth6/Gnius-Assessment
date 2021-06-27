@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col, Button, Descriptions, Typography } from 'antd';
+import { Row, Col, Button, Descriptions, Typography, Divider } from 'antd';
 
 import {SecurePost} from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
@@ -112,6 +112,8 @@ class FinalQuestionView extends React.Component {
                             </Descriptions>
                         </div> : <div></div>
                     }
+                    
+                    <Divider />
 
                     <Title level={3} style={{textAlign: 'center'}} >Assessment Question</Title>
 

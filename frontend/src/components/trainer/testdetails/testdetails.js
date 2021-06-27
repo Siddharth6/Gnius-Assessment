@@ -34,7 +34,6 @@ class TestDetails extends Component {
             feedbacks: [],
             visible: false
         }
-        
     }
 
     showModal = () => {
@@ -194,7 +193,7 @@ class TestDetails extends Component {
                         :null}
 
 
-                        {testdetails.addcoding?
+                        {testdetails.testconducted && testdetails.addcoding?
                             <TabPane tab={ <span><Icon type="code" />Coding</span> } key="7">
                                <Coding id={this.state.id} />
                             </TabPane>
