@@ -12,9 +12,6 @@ import moment from 'moment';
 
 import TestDetails from '../testdetails/testdetails';
 
-
-
-
 class AllTests extends Component {
 
     openModal = (id)=>{

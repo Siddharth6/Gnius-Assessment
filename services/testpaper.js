@@ -9,7 +9,9 @@ let options = require("../models/option");
 let SubjectModel = require("../models/subject");
 let ResultModel = require("../models/results");
 let JobPostModel = require("../models/jobpost");
-let { codingContest } = require("../models/coding");
+let { codingContest, codingSubmission } = require("../models/coding");
+const { ers } = require('../middlewares');
+
 
 const tool = require("./tool");
 const result  =require("../services/excel").result;
@@ -727,6 +729,25 @@ const getSingleJobPost = (req, res, next) => {
     });
 };
 
+// Get Submission Data
+const getLeaderboard = (req, res) => {
+    const { testId } = req.body;
+
+    codingSubmission
+    .find({testid: testId})
+    .populate('user')
+    .exec((err, result) => {
+        if (err) {
+            return ers(res, 400, "Failed to make a new question")
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Submission Data',
+            result: result
+        });
+    });
+};
 
 module.exports = {
     checkTestName,
@@ -743,5 +764,6 @@ module.exports = {
     getCandidates,
     beginTest,
     endTest,
-    userImport
+    userImport,
+    getLeaderboard
 };

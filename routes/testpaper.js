@@ -18,6 +18,7 @@ router.post('/trainer/details',testpaper.TestDetails);
 router.post('/candidates/details',testpaper.getCandidateDetails);
 router.post('/max/marks',testpaper.MM);
 
+router.post('/leaderboard', testpaper.getLeaderboard);
 router.post('/candidates/import', testpaper.userImport);
 
 module.exports = router;

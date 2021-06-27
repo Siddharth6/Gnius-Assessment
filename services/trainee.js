@@ -51,7 +51,7 @@ let traineeenter = (req, res, next) => {
         const end = req.body.end;
         const resume = req.body.resume;
 
-        console.log(req.body);
+        // console.log(req.body);
 
 
         TestPaperModel.findOne({ _id: testid, isRegistrationavailable: true })

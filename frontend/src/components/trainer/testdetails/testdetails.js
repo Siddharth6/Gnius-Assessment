@@ -16,8 +16,9 @@ import Stats from './stats';
 import Trainee from './trainee';
 import FeedBacks from './feedbacks';
 import Analysis from './Analysis';
-const { TabPane } = Tabs;
+import Coding from './CodingResult';
 
+const { TabPane } = Tabs;
 
 class TestDetails extends Component {
     constructor(props){
@@ -123,6 +124,7 @@ class TestDetails extends Component {
             Alert('error', 'Error !', 'Server Error.')
         });
     }
+    
 
     render() {
         if(this.state.loading){
@@ -134,7 +136,8 @@ class TestDetails extends Component {
             )
         }
         else{
-            let { testdetails,id }=this.state;      
+            let { testdetails, id } = this.state;
+
             return (
                 <div>
                     <Tabs defaultActiveKey="1" onChange={ (e)=>this.tabChange(e)}>
@@ -189,6 +192,13 @@ class TestDetails extends Component {
                                <Analysis maxmMarks={this.state.maxMarks} id={this.state.id} stats={this.state.stats} />
                             </TabPane>
                         :null}
+
+
+                        {testdetails.addcoding?
+                            <TabPane tab={ <span><Icon type="code" />Coding</span> } key="7">
+                               <Coding id={this.state.id} />
+                            </TabPane>
+                        : null}
                     </Tabs>
                 </div>
             )

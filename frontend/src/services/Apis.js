@@ -62,6 +62,7 @@ const apis = {
     POST_SUBMISSION: '/api/v1/trainee/coding/contest/submission',
     CODING_SECTION_SUBMIT: '/api/v1/trainee/coding/submit/section',
     CODING_SECTION_GET: '/api/v1/trainee/coding/section/details',
+    CODING_SUBMISSION_GET: '/api/v1/test/leaderboard',
     UPLOAD_RESUME: '/api/v1/upload/resume'
 };
 
