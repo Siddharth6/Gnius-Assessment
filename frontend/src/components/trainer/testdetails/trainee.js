@@ -1,9 +1,10 @@
 import React from 'react';
-import { Table, Tag, Card } from 'antd';
+import { Table, Tag, Card, Typography } from 'antd';
+
+const { Title } = Typography;
 
 export default function Trainee(props) {
     let maxMarks = props.maxmMarks || 2;
-    // console.log(props);
 
     const columns = [
         {
@@ -48,7 +49,16 @@ export default function Trainee(props) {
         <div>
             <Card>
                 <div className="download-section">
-                    <Table pagination={false} rowKey="_id" columns={columns} dataSource={props.stats}/>
+                    <Title level={4}>
+                        MCQ Assessment Result
+                    </Title>
+
+                    <Table 
+                        pagination={false} 
+                        rowKey="_id" 
+                        columns={columns} 
+                        dataSource={props.stats}
+                    />
                 </div>
             </Card>
         </div>
