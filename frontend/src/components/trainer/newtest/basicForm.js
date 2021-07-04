@@ -94,10 +94,10 @@ class BasicTestFormO extends Component {
                         onSubmit={this.handleSubmit}
                         autoComplete="off"
                     >
-                        <Form.Item label="Test Type"  hasFeedback>
+                        <Form.Item label="Assessment Type"  hasFeedback>
                             {getFieldDecorator('type', {
                                 initialValue : this.props.test.newtestFormData.testType,
-                                rules: [{ required: true, message: 'Please select a test type' }],
+                                rules: [{ required: true, message: 'Please select a assessment type' }],
                             })(
                                 <Select placeholder="Test Type">
                                     <Option value="skill-test">Skill Test</Option>
@@ -107,24 +107,24 @@ class BasicTestFormO extends Component {
                             )}
                         </Form.Item>
 
-                        <Form.Item label="Test Title"  hasFeedback validateStatus={this.state.checkingName}>
+                        <Form.Item label="Assessment Title"  hasFeedback validateStatus={this.state.checkingName}>
                             {getFieldDecorator('title', {
                                 initialValue : this.props.test.newtestFormData.testTitle,
                                 rules: [
-                                    { required: true, message: 'Please give the test title' },
+                                    { required: true, message: 'Please give the assessment title' },
                                     { min:5, message: 'Title should be atleast 5 character long' },
                                     { validator: this.validateTestName }
                                 ],
                                 
                             })(
-                                <Input placeholder="Test Title" />
+                                <Input placeholder="Assessment Title" />
                             )}
                         </Form.Item>
 
                         <Form.Item label="Subjects"  hasFeedback>
                             {getFieldDecorator('subjects', {
                                 initialValue : this.props.test.newtestFormData.testSubject,
-                                rules: [{ required: true, message: 'Please select a test type' }],
+                                rules: [{ required: true, message: 'Please select a assessment subjects' }],
                             })(
                                 <Select
                                 mode="multiple"
@@ -142,10 +142,10 @@ class BasicTestFormO extends Component {
                             )}
                         </Form.Item>
 
-                        <Form.Item label="Test Duration ( Min. test duration-10m )" hasFeedback>
+                        <Form.Item label="Assessment Duration ( Min. assessment duration - 60m )" hasFeedback>
                             {getFieldDecorator('duration', {
                                 initialValue : this.props.test.newtestFormData.testDuration,
-                                rules: [{ required: true, message: 'Please give test duration' }],
+                                rules: [{ required: true, message: 'Please give assessment duration' }],
                             })(
                                 <InputNumber style={{width:'100%'}}  placeholder="Test Duration" min={10} max={180}/>
                             )}
@@ -159,10 +159,10 @@ class BasicTestFormO extends Component {
                             )}
                         </Form.Item>
 
-                        <Form.Item label="Test Start Time"  hasFeedback>
+                        <Form.Item label="Test Assessment Time"  hasFeedback>
                             {
                                 getFieldDecorator('start', {
-                                    rules: [{ required: true, message: 'Please give test start time' }],
+                                    rules: [{ required: true, message: 'Please give assessment start time' }],
                                 })(
                                     <DatePicker
                                         showTime
@@ -174,10 +174,10 @@ class BasicTestFormO extends Component {
                             }
                         </Form.Item>
 
-                        <Form.Item label="Test End Time"  hasFeedback>
+                        <Form.Item label="Test Assessment Time"  hasFeedback>
                             {
                                 getFieldDecorator('end', {
-                                    rules: [{ required: true, message: 'Please give test end time' }],
+                                    rules: [{ required: true, message: 'Please give assessment end time' }],
                                 })(
                                     <DatePicker
                                         showTime
@@ -199,7 +199,8 @@ class BasicTestFormO extends Component {
             </div>
         )
     }
-}
+};
+
 const BasicTestForm = Form.create({ name: 'Basic Form' })(BasicTestFormO);
 
 const mapStateToProps = state => ({

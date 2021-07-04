@@ -50,12 +50,12 @@ class Profile extends Component {
                 .then((response) => {
                     if (response.data.success) {
                         Alert('success', 'Success', response.data.message);
-                        window.location.reload();
                     }
                     else {
                         return Alert('warning', 'Warning!', response.data.message);
                     }
-                }).catch((error) => {
+                })
+                .catch((error) => {
                     return Alert('error', 'Error!', 'Server Error');
                 });
             }
@@ -72,11 +72,11 @@ class Profile extends Component {
         });
     };
 
-    upl=()=>{
+    upl = () =>{
         this.setState({
             submitDisabled:true
         })
-    }
+    };
 
     render() {
         const { getFieldDecorator } = this.props.form;

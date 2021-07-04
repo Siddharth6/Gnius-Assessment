@@ -166,11 +166,14 @@ class Dashboard extends React.Component{
                             />
                         <ul className="user-options-list">
                             <li>
-                                <NoticeIcon count={5} />
+                                <NoticeIcon count={0} />
                             </li>
                             
                             <li>
-                                <Avatar style={{ backgroundColor: '#00ffcc' }} icon="user" />
+                                <Avatar 
+                                    src={this.props.user.userDetails.avatar}
+                                    alt={this.props.user.userDetails.organisation} 
+                                />
                             </li>
 
                             <li>
@@ -202,7 +205,7 @@ class Dashboard extends React.Component{
                         </div>
                     </Content>
                     <Footer style={{ textAlign: 'center', background: '#fff' }}>
-                        gnius Talent Solution ©{new Date().getFullYear()}
+                        gnius Talent Solution © {new Date().getFullYear()}
                     </Footer>
                 </Layout>
             </Layout>

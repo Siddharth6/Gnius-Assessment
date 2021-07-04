@@ -18,6 +18,8 @@ import { SecurePost } from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
 import Alert from '../../../components/common/alert';
 import auth from '../../../services/AuthServices';
+import Markdown from "../../../utils/Markdown";
+import Toolbar from './Toolbar';
 
 import { 
     ChangeCodingQuestionModalState,
@@ -28,9 +30,16 @@ class AddQuestion extends Component {
         super(props);
         this.state = {
             submitDisabled: false,
-            adding: false
+            adding: false,
+            description: ''
         };
+        this.handleChange = this.handleChange.bind(this);
     }
+    
+    // Handle Change
+    handleChange(event) {
+        this.setState({description: event.target.value});
+    };
 
     // Submit Form
     handleSubmit = e => {
@@ -100,11 +109,24 @@ class AddQuestion extends Component {
                             <Col span={24}>
                                 <Form.Item label="Problem Statement" hasFeedback>
                                     {getFieldDecorator('statement', {
-                                            rules: [{ required: true, message: 'Please type question!' }],
+                                        rules: [{ required: true, message: 'Please type question!' }],
                                     })(
-                                        <TextArea rows={5} />
+                                        <div>
+                                            <Toolbar />
+                                            <TextArea
+                                                id="textarea_input"
+                                                rows={5}
+                                                onChange={this.handleChange} 
+                                            />
+                                        </div>
                                     )}
                                 </Form.Item> 
+                            </Col>  
+                        </Row>
+
+                        <Row>
+                            <Col span={24}>
+                                <Markdown>{this.state.description}</Markdown>
                             </Col>  
                         </Row>
 

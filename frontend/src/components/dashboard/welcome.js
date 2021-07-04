@@ -1,38 +1,82 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Statistic, Row, Col, Button, Typography, Divider, Card, Icon } from 'antd';
-import { Line } from 'react-chartjs-2';
+import { 
+  Statistic, 
+  Row, Col, 
+  Button, Typography, 
+  Divider, Spin,
+  Card, Icon, List, Avatar
+} from 'antd';
+import { Bar } from 'react-chartjs-2';
+
+import { SecurePost } from '../../services/axiosCall';
+import apis from '../../services/Apis';
+import Alert from '../common/alert';
 
 import './welcome.css';
 
 const { Title, Text } = Typography;
 
-const data = {
-  labels: ['1', '2', '3', '4', '5', '6'],
-  datasets: [
-    {
-      label: '# of Votes',
-      data: [12, 19, 3, 5, 2, 3],
-      fill: false,
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgba(255, 99, 132, 0.2)',
-    },
-  ],
-};
+const Welcome = (props) => {
+  const [state, setstate] = useState({
+    questat: [],
+    loading: false,
+  });
 
-const options = {
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          beginAtZero: true,
-        },
-      },
-    ],
-  },
-};
+  const [teststat, setteststat] = useState([]);
+  const [cantotal, setcantotal] = useState(0);
+  const [graphlabel, setgraphlabel] = useState([]);
+  const [graphdata, setgraphdata] = useState([]);
 
-const welcome = (props) => {  
+  // Get Question Stat
+  const getQueStat = () => {
+    setstate({
+      loading: true,
+    });
+
+    SecurePost({
+      url: `${apis.GET_QUESTION_STAT}`
+    })
+    .then((response) => {
+        if (response.data.success) {
+          setstate({
+            questat: response.data.data,
+            loading: false
+          });
+        }
+        else {
+          return Alert('warning', 'Warning!', response.data.message);
+        }
+    })
+    .catch((error) => {
+        return Alert('error', 'Error!', 'Server Error');
+    });
+  };
+
+  const getTestStat = () => {
+    SecurePost({
+      url: `${apis.GET_TEST_STAT}`
+    })
+    .then((response) => {
+        if (response.data.success) {
+          setteststat(response.data.data);
+          setcantotal(response.data.total);
+        }
+        else {
+          return Alert('warning', 'Warning!', response.data.message);
+        }
+    })
+    .catch((error) => {
+      return Alert('error', 'Error!', 'Server Error');
+    });
+  };
+
+  useEffect(async () => {
+    await getQueStat();
+    await getTestStat();
+  }, []);
+
+
   return (
     <Fragment>
       
@@ -42,58 +86,96 @@ const welcome = (props) => {
 
       <Divider />
 
-      <Row gutter={16}>
-
-        <Col className="gutter-row" span={6}>
-          <Card>
-            <Statistic
-              title="Total Assessments Taken"
-              value={112893}
-            />
-          </Card>
-        </Col>
-
-        <Col className="gutter-row" span={6}>
-          <Card>
-              <Statistic
-                title="Account Balance (CNY)"
-                value={112893}
-                precision={2}
-                valueStyle={{ color: '#3f8600' }}
-              />
-            </Card>
-        </Col>
-
-        <Col className="gutter-row" span={6}>
+      <div className="container">
+        <div className="row">
+          <div className="col-md-4">
             <Card>
               <Statistic
-                title="No. of assessments left"
-                value={9.3}
-                precision={2}
-                valueStyle={{ color: '#cf1322' }}
-                prefix={<Icon type="arrow-down" />}
-                suffix="%"
+                title="Total Assessments Created"
+                value={teststat.length}
               />
             </Card>
-        </Col>
+          </div>
 
-        <Col className="gutter-row" span={6}>
-            <Card>
-              <Statistic
-                title="Active"
-                value={11.28}
-                precision={2}
-                valueStyle={{ color: '#3f8600' }}
-                prefix={<Icon type="arrow-up" />}
-                suffix="%"
+          <div className="col-md-4">
+              <Card>
+                <Statistic
+                  title="Total Candidates Applied"
+                  value={cantotal}
+                />
+              </Card>
+          </div>
+
+          <div className="col-md-4">
+              <Card>
+                <Statistic
+                  title="Plan Expires in (days)"
+                  value={30}
+                />
+              </Card>
+          </div>
+        </div>
+      </div>
+
+      <Divider />
+      
+
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12" style={{ maxHeight: '200px', overflowY: 'scroll' }}>
+            <Title level={4}>Number of Candidates by Assessment</Title>
+            {state.loading ? <Spin />
+              : 
+              <List
+                itemLayout="horizontal"
+                dataSource={teststat}
+                renderItem={item => (
+                  <List.Item>
+                    <List.Item.Meta
+                      title={item.title}
+                      description={<div>Number of Candidates : <strong>{item.cnt}</strong></div>}
+                    />
+                  </List.Item>
+                )}
               />
-            </Card>
-        </Col>
-      </Row>
+            }
+          </div>
+        </div>
+      </div>
 
       <Divider />
 
-      <Line data={data} options={options} />
+      <Title level={4}>Question Bank Details</Title>
+
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12" style={{ maxHeight: '200px', overflowY: 'scroll' }}>
+            <Title level={4}>Number of Questions by Category</Title>
+
+            {state.loading ? <Spin />
+              : 
+              <List
+              itemLayout="horizontal"
+              dataSource={state.questat}
+              renderItem={item => (
+                <List.Item>
+                  <List.Item.Meta
+                    avatar={
+                    <Avatar src={item._id.pic} />}
+                    title={item._id.topic}
+                    description={<div>Number of Questions : <strong>{item.cnt}</strong></div>}
+                  />
+                </List.Item>
+              )}
+            />
+          }
+
+            
+          </div>
+        </div>
+      </div>
+
+      
 
     </Fragment>
   );
@@ -103,4 +185,4 @@ const mapStateToProps = state => ({
   user : state.user
 });
 
-export default connect(mapStateToProps, null)(welcome);
+export default connect(mapStateToProps, null)(Welcome);

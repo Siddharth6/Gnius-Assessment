@@ -1,6 +1,6 @@
 import React from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import { Input,Button,Descriptions, Icon,message   } from 'antd';
+import { Input, Button, Descriptions, Icon, message, Typography } from 'antd';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -14,6 +14,8 @@ import {
 import { SecurePost } from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
 import Alert from '../../common/alert';
+
+const { Title } = Typography;
 
 class TestDetails extends React.Component {
 
@@ -109,13 +111,12 @@ class TestDetails extends React.Component {
     };
     
     render(){
-        // console.log(this.props.conduct.basictestdetails.testbegins);
         return (
             <div>
                 <Descriptions 
                     size="small" 
                     column={4} 
-                    title="Basic Test Info" 
+                    title="Basic Assessment Info" 
                     layout="vertical" 
                     bordered={true}
                 >
@@ -125,13 +126,70 @@ class TestDetails extends React.Component {
 
                     <Descriptions.Item span={3} label="Registration Link"><Input disabled={true} value={this.props.conduct.testRegisterLink} addonAfter={<CopyToClipboard text={this.props.conduct.testRegisterLink} onCopy={() => message.success('Link Copied to clipboard')}><Icon type="copy" /></CopyToClipboard>} /></Descriptions.Item>
 
-                    <Descriptions.Item span={1} label={this.props.conduct.basictestdetails.isRegistrationavailable ? "Registration Open" : "Registration Closed"}>
-                        <Button disabled={this.props.conduct.basictestdetails.testbegins} onClick={() => { this.changeRegistrationStatus(!this.props.conduct.basictestdetails.isRegistrationavailable) }} type={this.props.conduct.basictestdetails.isRegistrationavailable ? "danger" : "primary"}>{this.props.conduct.basictestdetails.isRegistrationavailable ? "Stop Registration" : "Open Registration"}</Button>
-                    </Descriptions.Item>
+                    {
+                        this.props.conduct.basictestdetails.testconducted ? 
+                        <Descriptions.Item 
+                         span={1} 
+                         label="Registration Details"
+                        >
+                            The Assessment has ended! Go to all Assessments to check the results
+                        </Descriptions.Item>
+                        : 
+                        <Descriptions.Item 
+                         span={1} 
+                         label={this.props.conduct.basictestdetails.isRegistrationavailable ? "Registration Open" : "Registration Closed"}
+                        >
+                            <Button 
+                                disabled={this.props.conduct.basictestdetails.testbegins} onClick={() => { this.changeRegistrationStatus(!this.props.conduct.basictestdetails.isRegistrationavailable) }} 
+                                type={this.props.conduct.basictestdetails.isRegistrationavailable ? "danger" : "primary"}
+                            >{this.props.conduct.basictestdetails.isRegistrationavailable ? "Stop Registration" : "Open Registration"}
+                            </Button>
+                        </Descriptions.Item>
+                    }
                     
-                    <Descriptions.Item span={3} label={this.props.conduct.basictestdetails.testbegins ? "Test on Progress" : "Test has not started yet"}><Button disabled={this.props.conduct.basictestdetails.testbegins} onClick={() => { this.changeTestStatus() }} type={"primary"}>Start Test</Button><Button disabled={!this.props.conduct.basictestdetails.testbegins} onClick={() => { this.endTestByTrainee() }} type={"danger"}>End Test</Button></Descriptions.Item>
-                    <Descriptions.Item span={1} label="Assessment Start Time">{moment(this.props.conduct.basictestdetails.start).format('MMMM Do YYYY, h:mm:ss a')}</Descriptions.Item>
-                    <Descriptions.Item span={1} label="Assessment End Time">{moment(this.props.conduct.basictestdetails.end).format('MMMM Do YYYY, h:mm:ss a')}</Descriptions.Item>
+                    {
+                        this.props.conduct.basictestdetails.testconducted ? 
+                        <Descriptions.Item 
+                         span={1} 
+                         label="Assessment Details"
+                        >
+                            The Assessment has ended! Go to all Assessments to check the results
+                        </Descriptions.Item>
+                        : 
+                        <Descriptions.Item 
+                            span={3} 
+                            label={this.props.conduct.basictestdetails.testbegins ? "Test on Progress" : "Test has not started yet"}
+                        >
+                            <Button 
+                                disabled={this.props.conduct.basictestdetails.testbegins} 
+                                onClick={() => { this.changeTestStatus() }} 
+                                type={"primary"}
+                            >
+                                Start Test
+                            </Button>
+                            
+                            <Button 
+                                disabled={!this.props.conduct.basictestdetails.testbegins} 
+                                onClick={() => { this.endTestByTrainee() }} type={"danger"}
+                            >
+                                End Test
+                            </Button>
+                        </Descriptions.Item>
+                    }
+
+                    <Descriptions.Item 
+                        span={1} 
+                        label="Assessment Start Time"
+                    >
+                        {moment(this.props.conduct.basictestdetails.start).format('MMMM Do YYYY, h:mm:ss a')}
+                    </Descriptions.Item>
+
+                    <Descriptions.Item 
+                        span={1} 
+                        label="Assessment End Time"
+                    >
+                        {moment(this.props.conduct.basictestdetails.end).format('MMMM Do YYYY, h:mm:ss a')}
+                    </Descriptions.Item>
                 </Descriptions>
             </div>
         );

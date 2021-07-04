@@ -6,10 +6,11 @@
     padding-top:30px;
 }
 .basic-test-form-outer{
-    width:36%;
-    margin-left:33%;
+    width:70%;
+    margin-left:10%;
     padding:50px;
-    background:linear-gradient(to right,rgb(80,190,189),rgb(0,153,153),rgb(0,153,203));
+    border: solid 2px #FB7AFC;
+    background: #FBC7F7;
     border-radius: 5px; 
 }
 .list1-question-new-test{

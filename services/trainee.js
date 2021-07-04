@@ -50,6 +50,7 @@ let traineeenter = (req, res, next) => {
         const start = req.body.start;
         const end = req.body.end;
         const resume = req.body.resume;
+        const custom = req.body.custom;
 
         // console.log(req.body);
 
@@ -81,7 +82,8 @@ let traineeenter = (req, res, next) => {
                             organisation: organisation,
                             testid: testid,
                             location: location,
-                            resume: resume
+                            resume: resume,
+                            custom: custom
                         });
 
                         tempdata.save().then((u) => {

@@ -6,18 +6,13 @@ import {
     Icon, 
     Input, 
     Button, 
-    Select,
+    Select, Divider,
     Typography, Layout, Upload, message 
 } from 'antd';
 import queryString from 'query-string';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import moment from 'moment';
 import { Helmet } from "react-helmet";
-import {
-    Chip,
-    Paper
-} from "@material-ui/core";
-import DescriptionIcon from "@material-ui/icons/Description";
 
 import {
     FacebookShareButton,
@@ -60,6 +55,7 @@ class TraineeRegisterForm extends Component {
             jobData: {},
             resume: null,
             customdata: {},
+            custombtn: false
         };
     };
     
@@ -78,6 +74,12 @@ class TraineeRegisterForm extends Component {
                     jobstatus: true,
                     jobData: data.data.job
                 });
+
+                if (data.data.job.jobcustom) {
+                    this.setState({
+                        custombtn: true
+                    });
+                }
             }
             else{
                 this.setState({
@@ -92,23 +94,28 @@ class TraineeRegisterForm extends Component {
 
     componentDidMount(){
         let params = queryString.parse(this.props.location.search)
+        
         // console.log(params);
+        if (params.ref) {
+            console.log('ref');
+        }
+        else{
+            console.log('none');
+        }
+
         this.setState({
             testid:params.testid
         });
 
         this.getJobDetails();
 
-        console.log(this.state.jobData);
+        // console.log(this.state.jobData);
     };
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                // console.log('Received values of form: ', values);
-                // console.log(this.state.testid);
-
                 Post({
                     url: apis.REGISTER_TRAINEE_FOR_TEST,
                     data: {
@@ -118,11 +125,11 @@ class TraineeRegisterForm extends Component {
                         organisation: values.organisation,
                         testid: this.state.testid,
                         location: values.location,
-                        resume: this.state.resume
+                        resume: this.state.resume,
+                        custom: this.state.customdata
                     }
-                }).then((data) => {
-                    // console.log(data.data);
-
+                })
+                .then((data) => {
                     if (data.data.success) {
                         this.setState({
                             inform: false,
@@ -300,9 +307,7 @@ class TraineeRegisterForm extends Component {
 
         return (
             <Fragment>
-                <div className="header-container">
-                    <img src={logo} alt="company logo" className="logo" />
-                </div>
+                <div className="header-container"></div>
 
                 {
                     this.state.jobstatus ? this.renderJob() : null
@@ -426,34 +431,45 @@ class TraineeRegisterForm extends Component {
                                                 </Form.Item>
                                             </Col>
 
-                                            {
-                                                this.state.jobData.jobcustom ? <div>
-                                                    <FormRenderer
-                                                        allowDraft={false}
-                                                        formStructure={this.state.jobData.jobcustom}
-                                                        data={this.state.customdata}
-                                                        onSave={changedData => {
-                                                            // onSave for data received here.
-                                                            this.setState({ customdata: changedData });
-                                                        }}
-                                                        onError={error => console.log(error)}
-                                                    />
-                                                </div> : 
-                                                <Col span={24} style={{ paddingTop: '33px' }}>
-                                                    <Form.Item>
-                                                        <Button 
-                                                            style={{ width: '100%' }} 
-                                                            type="primary" 
-                                                            htmlType="submit" 
-                                                            className="btn"
-                                                        >
-                                                            Register
-                                                        </Button>
-                                                    </Form.Item>
-                                                </Col>
-                                            }
+                                            <Col span={24} style={{ paddingTop: '33px' }}>
+                                                <Form.Item>
+                                                    <Button 
+                                                        style={{ width: '100%' }} 
+                                                        type="primary" 
+                                                        htmlType="submit" 
+                                                        className="btn"
+                                                        disabled={this.state.custombtn}
+                                                    >
+                                                        Register
+                                                    </Button>
+                                                </Form.Item>
+                                            </Col>
                                         </Row>
                                     </Form>
+
+                                    <Divider />
+
+                                    {
+                                        this.state.jobData.jobcustom ? <div>
+                                            <FormRenderer
+                                                allowDraft={false}
+                                                formStructure={this.state.jobData.jobcustom}
+                                                data={this.state.customdata}
+                                                onSave={changedData => {
+                                                    // onSave for data received here.
+                                                    this.setState({ 
+                                                        customdata: changedData,
+                                                        custombtn: false
+                                                    });
+                                                }}
+                                                onError={error => console.log(error)}
+                                            />
+
+                                            <span> * Click Submit to Enable Register Button</span>
+
+                                        </div> : null
+                                    }
+
                                 </div>
                             </div>
                         </div>
@@ -478,6 +494,8 @@ class TraineeRegisterForm extends Component {
                     <div className="col-lg-12">
                         <Layout>
                             <Footer style={{ textAlign: 'center'}}>
+                                Powered by<img src={logo} alt="gnius" className="logo" />
+                                <br />
                                 gnius Talent Solution ©{new Date().getFullYear()}
                             </Footer>
                         </Layout>     

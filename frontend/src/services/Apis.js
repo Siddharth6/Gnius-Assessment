@@ -63,12 +63,12 @@ const apis = {
     CODING_SECTION_SUBMIT: '/api/v1/trainee/coding/submit/section',
     CODING_SECTION_GET: '/api/v1/trainee/coding/section/details',
     CODING_SUBMISSION_GET: '/api/v1/test/leaderboard',
-    UPLOAD_RESUME: '/api/v1/upload/resume'
+    UPLOAD_RESUME: '/api/v1/upload/resume',
+    GET_QUESTION_STAT: '/api/v1/stats/sub',
+    GET_TEST_STAT: '/api/v1/stats/test'
 };
 
 export default apis;
-
-
 
 /*
 const apis={

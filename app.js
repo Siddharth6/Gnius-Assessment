@@ -66,7 +66,7 @@ var dummy = require("./routes/dummy");
 const codingRoutes = require('./routes/coding');
 const upload = require("./routes/fileUpload");
 const download = require('./routes/downloadRoutes');
-
+const stats = require('./routes/stats');
 
 // routes
 app.use('/api/v1', dummy);
@@ -78,7 +78,8 @@ app.use('/api/v1/test', passport.authenticate('user-token', { session: false }),
 
 app.use('/api/v1/download', passport.authenticate('user-token', { session: false }), download);
 app.use('/api/v1/trainer', passport.authenticate('user-token', { session: false }), stopRegistration);
-app.use('/api/v1/coding',passport.authenticate('user-token', { session : false }), codingRoutes);
+app.use('/api/v1/coding', passport.authenticate('user-token', { session : false }), codingRoutes);
+app.use('/api/v1/stats', passport.authenticate('user-token', { session : false }), stats);
 
 app.use('/api/v1/trainee', trainee);
 app.use('/api/v1/final', results);

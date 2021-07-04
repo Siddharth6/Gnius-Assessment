@@ -112,3 +112,54 @@ Please Answer this Questions
 How many years of experience do you have ?
 
 How many years of experience do you have in php?
+
+TestPaperModel.aggregate([
+  {
+      "$lookup": {
+          "from": "traineeentermodels",
+          "localField": "_id",
+          "foreignField": "testid",
+          "as": "count"
+      }
+  }
+])
+.exec(function(err, docs){
+  if (err) throw err;
+  res.json({
+      status: "success",
+      message: "successfully done",
+      data: docs
+  });
+});
+
+
+for (let i = 0; i < testpaper.length; i++) {
+  for (let j = 0; j < data.length; j++) {
+      if ( data[j]._id.equals(testpaper[i]._id) ) { 
+          stat.push({
+              id: data[j]._id,
+              
+              cnt: data[j].cnt
+          })
+      }
+  }
+}
+
+
+testpaper.forEach(item => {
+  data.forEach(element => {
+      if(item._id === element._id) stat.push(element);
+  });
+});
+
+testpaper.forEach(test => {
+  data.forEach(dt => {
+      if( dt._id.equals(test._id) ){
+          stat.push({
+              id: data[j]._id,
+              
+              cnt: data[j].cnt
+          });
+      }
+  });
+});

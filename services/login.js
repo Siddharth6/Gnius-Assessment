@@ -46,7 +46,10 @@ let userlogin = (req, res, next) => {
                             _id : user._id,
                             emailid : user.emailid,
                             contact: user.contact,
-                            status: user.status
+                            status: user.status,
+                            organisation: user.organisation,
+                            avatar: user.avatar,
+                            bio: user.bio
                         },
                         token: token
                     });

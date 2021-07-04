@@ -158,7 +158,7 @@ class AllTests extends Component {
 
               <Modal
                 visible={this.props.trainer.TestDetailsmodalOpened}
-                title="Test details"
+                title="Assessment details"
                 onOk={this.handleOk}
                 onCancel={this.closeModal}
                 afterClose={this.closeModal}
@@ -177,7 +177,7 @@ class AllTests extends Component {
 }
 
 const mapStateToProps = state => ({
-    trainer : state.trainer
+  trainer : state.trainer
 });
 
 export default connect(mapStateToProps,{

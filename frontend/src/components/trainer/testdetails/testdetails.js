@@ -142,10 +142,24 @@ class TestDetails extends Component {
                     <Tabs defaultActiveKey="1" onChange={ (e)=>this.tabChange(e)}>
                         <TabPane tab={ <span><Icon type="home" />Details</span> } key="1">
                             <Descriptions bordered title="" border size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
-                                <Descriptions.Item label="Test Id">{this.props.trainer.DataActiveTestDetails.testDetailsId}</Descriptions.Item>
-                                <Descriptions.Item label="Test Link"><Input disabled={true} value={`${this.state.mainlink}user/conducttest?testid=${id}`} addonAfter={<CopyToClipboard text={`${this.state.mainlink}user/conducttest?testid=${id}`} onCopy={()=>message.success('Link Copied to clipboard')}><Icon type="copy"/></CopyToClipboard>}/></Descriptions.Item>
-                                <Descriptions.Item label="Test Name">{testdetails.title}</Descriptions.Item>
-                                <Descriptions.Item label="Test Type">{testdetails.type}</Descriptions.Item>
+
+                                <Descriptions.Item label="Assessment Id">
+                                    {this.props.trainer.DataActiveTestDetails.testDetailsId}
+                                </Descriptions.Item>
+
+                                <Descriptions.Item label="Assessment Link">
+                                    <Input disabled={true} value={`${this.state.mainlink}user/conducttest?testid=${id}`} addonAfter={<CopyToClipboard text={`${this.state.mainlink}user/conducttest?testid=${id}`} onCopy={()=>message.success('Link Copied to clipboard')}>
+                                        <Icon type="copy"/></CopyToClipboard>}/>
+                                </Descriptions.Item>
+
+                                <Descriptions.Item label="Assessment Name">
+                                    {testdetails.title}
+                                </Descriptions.Item>
+
+                                <Descriptions.Item label="Assessment Type">
+                                    {testdetails.type}
+                                </Descriptions.Item>
+
                                 <Descriptions.Item label="Subject">
                                     <span>
                                     {testdetails.subjects.map((tag,i) => {
@@ -156,8 +170,13 @@ class TestDetails extends Component {
                                         </Tag>
                                         );
                                     })}
-                                    </span></Descriptions.Item>
-                                <Descriptions.Item label="Created on">{moment(testdetails.createdAt).format("DD/ MM/YYYY")}</Descriptions.Item>
+                                    </span>
+                                </Descriptions.Item>
+
+                                <Descriptions.Item label="Created on">
+                                    {moment(testdetails.createdAt).format("DD/ MM/YYYY")}
+                                </Descriptions.Item>
+                                
                             </Descriptions>
                         </TabPane>
 

@@ -28,7 +28,8 @@ var traineeschema = new mongoose.Schema({
         type : String,
         required : false
     },
-    resume: String
+    resume: String,
+    custom: Map
 });
 
 module.exports  = traineeschema;

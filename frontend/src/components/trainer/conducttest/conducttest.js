@@ -52,16 +52,33 @@ class ConductTestS extends Component {
             return (
                 <div className="conduct-test-main-wrapper">
                     {!this.props.conduct.id ? 
-                    <div>
-                        <Title style={{width:'100%',textAlign:'center'}} level={4}>Enter Test Id</Title>
-                        <div className="test-conduct-testid-form">
-                            <Input placeholder="Enter test id" onChange={this.ChangeLocalTestId} value={this.state.localTestId}/>
-                            <Button onClick={this.ChangetestId}  type="primary" style={{marginTop:'30px'}}>Proceed</Button>
+                        <div>
+                            <Title 
+                                style={{ width:'100%', textAlign:'center'}} 
+                                level={4}
+                            >
+                                Enter Assessment Id
+                            </Title>
+
+                            <div className="test-conduct-testid-form">
+                                <Input 
+                                    placeholder="Enter Assessment Id" 
+                                    onChange={this.ChangeLocalTestId} 
+                                    value={this.state.localTestId}
+                                />
+                                <Button 
+                                    onClick={this.ChangetestId}  
+                                    type="primary" 
+                                    style={{marginTop:'30px'}}
+                                >
+                                    Proceed
+                                </Button>
+                            </div>
+                        </div>:
+                        <div>
+                            <CC key={this.props.conduct.basictestdetails.testconducted} />
                         </div>
-                    </div>:
-                    <div>
-                        <CC key={this.props.conduct.basictestdetails.testconducted} />
-                    </div>}
+                    }
                 </div>
             )
         }
@@ -71,18 +88,11 @@ class ConductTestS extends Component {
 // ...
 class C extends Component {
     render() {
-        // console.log(this.props.conduct.basictestdetails.testconducted);
-        if(this.props.conduct.basictestdetails.testconducted){
-            return(
-                <div className="reasendmail-container-register">
-                    <Title style={{color:'#fff'}} level={4}>The Test has ended! Go to all tests to check the results</Title>    
-                </div>
-            )
-        }
-        else{
-            return (
+        return (
                 <div>
                     <TestDetails/>
+
+                    {/* Bottom Tabs */}
                     <Tabs defaultActiveKey="1" style={{marginTop:'20px'}}>
                         
                         <TabPane tab={<span><Icon type="user" />Registered Trainee</span>} key="1">
@@ -101,9 +111,7 @@ class C extends Component {
                 </div>
             )
         }
-        
-    }
-};
+    };
 
 
 const mapStateToProps = state => ({

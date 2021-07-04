@@ -143,6 +143,7 @@ class AllQuestions extends Component {
 
     render() {
       const { Title } = Typography;
+
       const columns = [
         {
           title: 'Subject',
@@ -170,19 +171,12 @@ class AllQuestions extends Component {
           width: '15%',
           render: (key) => (
             <span>
-              <Button type="primary" shape="circle" onClick={()=>this.OpendetailsModal(key)} icon="info-circle" />
-
-              <Divider type="vertical" />
-
-              <Popconfirm
-                  title="Are you sure？"
-                  cancelText="No"
-                  okText="Yes"
-                  onConfirm={()=>{this.deleteQuestion(key)}}
-                  icon={<Icon type="delete" style={{ color: 'red' }} />}
-                >
-                  <Button type="danger" shape="circle" icon="delete" />
-                </Popconfirm>
+              <Button 
+                type="primary" 
+                shape="circle" 
+                onClick={()=>this.OpendetailsModal(key)} 
+                icon="info-circle" 
+              />
             </span>
           ),
         },
