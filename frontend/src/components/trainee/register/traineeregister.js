@@ -55,7 +55,8 @@ class TraineeRegisterForm extends Component {
             jobData: {},
             resume: null,
             customdata: {},
-            custombtn: false
+            custombtn: false,
+            refid: null
         };
     };
     
@@ -95,16 +96,11 @@ class TraineeRegisterForm extends Component {
     componentDidMount(){
         let params = queryString.parse(this.props.location.search)
         
-        // console.log(params);
-        if (params.ref) {
-            console.log('ref');
-        }
-        else{
-            console.log('none');
-        }
+        console.log(params);
 
         this.setState({
-            testid:params.testid
+            testid:params.testid,
+            refid: params.ref
         });
 
         this.getJobDetails();
@@ -126,7 +122,8 @@ class TraineeRegisterForm extends Component {
                         testid: this.state.testid,
                         location: values.location,
                         resume: this.state.resume,
-                        custom: this.state.customdata
+                        custom: this.state.customdata,
+                        refer: this.state.refid
                     }
                 })
                 .then((data) => {

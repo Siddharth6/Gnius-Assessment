@@ -8,12 +8,10 @@ var traineeschema = new mongoose.Schema({
     emailid:{
         type : String,
         required: true
-
     },
     contact : {
         type : Number,
         required : true
-
     },
     organisation : {
         type : String,
@@ -29,7 +27,12 @@ var traineeschema = new mongoose.Schema({
         required : false
     },
     resume: String,
-    custom: Map
+    custom: Map,
+    refer : {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ReferModel',
+        default: '60d416cc9ae89a5cca5d3a42'
+    },
 });
 
 module.exports  = traineeschema;

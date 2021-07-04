@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
 
 .header-container {
-    height: 10px;
+    height: 10px !important;
 }
 
 .logo{

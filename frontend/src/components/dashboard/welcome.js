@@ -7,11 +7,12 @@ import {
   Divider, Spin,
   Card, Icon, List, Avatar
 } from 'antd';
-import { Bar } from 'react-chartjs-2';
 
 import { SecurePost } from '../../services/axiosCall';
 import apis from '../../services/Apis';
 import Alert from '../common/alert';
+import Refer from './Refer';
+import AddRefer from './AddRefer';
 
 import './welcome.css';
 
@@ -142,6 +143,29 @@ const Welcome = (props) => {
           </div>
         </div>
       </div>
+
+      <Divider />
+
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-6">
+            <AddRefer />
+          </div>
+          <div className="col-lg-6">
+            
+          </div>
+        </div>
+      </div>
+
+      <br />
+
+      <div className="container">
+        <div className="row">
+          <div className="col-lg-12">
+            <Refer />
+          </div>
+        </div>
+      </div>      
 
       <Divider />
 

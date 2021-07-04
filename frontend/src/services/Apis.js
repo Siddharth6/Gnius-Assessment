@@ -65,7 +65,9 @@ const apis = {
     CODING_SUBMISSION_GET: '/api/v1/test/leaderboard',
     UPLOAD_RESUME: '/api/v1/upload/resume',
     GET_QUESTION_STAT: '/api/v1/stats/sub',
-    GET_TEST_STAT: '/api/v1/stats/test'
+    GET_TEST_STAT: '/api/v1/stats/test',
+    ADD_REFER: '/api/v1/refer/add',
+    LIST_REFER: '/api/v1/refer/list',
 };
 
 export default apis;

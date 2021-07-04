@@ -51,6 +51,7 @@ let traineeenter = (req, res, next) => {
         const end = req.body.end;
         const resume = req.body.resume;
         const custom = req.body.custom;
+        const refer = req.body.refer;
 
         // console.log(req.body);
 
@@ -83,7 +84,8 @@ let traineeenter = (req, res, next) => {
                             testid: testid,
                             location: location,
                             resume: resume,
-                            custom: custom
+                            custom: custom,
+                            refer: refer
                         });
 
                         tempdata.save().then((u) => {
@@ -141,7 +143,7 @@ let traineeenter = (req, res, next) => {
                             });
                         })
                         .catch((err) => {
-                            // console.log(err);
+                            console.log(err);
                             res.status(500).json({
                                 success: false,
                                 message: "Server error!"
