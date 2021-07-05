@@ -31,7 +31,7 @@ var traineeschema = new mongoose.Schema({
     refer : {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ReferModel',
-        default: '60d416cc9ae89a5cca5d3a42'
+        default: '60e2a3c2e38d6b302c63f49d'
     },
 });
 
