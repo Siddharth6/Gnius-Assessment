@@ -23,6 +23,7 @@ import Toolbar from './Toolbar';
 
 import { 
     ChangeCodingQuestionModalState,
+    ChangeCodingQuestionData
 } from "../../../actions/codingAction";
 
 class AddQuestion extends Component {
@@ -66,7 +67,7 @@ class AddQuestion extends Component {
                     if(response.data.success){
                         this.props.ChangeCodingQuestionModalState(false);
                         Alert('success','Success', response.data.message);
-                        // this.props.ChangeQuestionTableData(this.props.trainer.selectedSubjects);
+                        this.props.ChangeCodingQuestionData();
                     }
                     else{
                         this.props.ChangeCodingQuestionModalState(false);
@@ -217,5 +218,6 @@ const mapStateToProps = state => ({
 const NewQuestionForm = Form.create({ name: 'newQuestion' })(AddQuestion);
 
 export default connect(mapStateToProps, {
-    ChangeCodingQuestionModalState
+    ChangeCodingQuestionModalState,
+    ChangeCodingQuestionData
 })(NewQuestionForm);

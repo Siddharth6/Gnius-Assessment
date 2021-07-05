@@ -12,8 +12,9 @@ const initialState = {
     DataActiveTestDetails : {
         testDetailsId : null,
         testquestions :[]
-    }
-}
+    },
+    referTable: [],
+};
 
 
 export default (state = initialState, action )=>{
@@ -92,6 +93,11 @@ export default (state = initialState, action )=>{
                     ...state.DataActiveTestDetails,
                     testquestions:action.payload
                 }
+            }
+        case 'UPDATE_REFER_TABLE':
+            return {
+                ...state,
+                referTable: action.payload
             }
         default:
             return state;

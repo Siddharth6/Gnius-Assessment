@@ -2,20 +2,19 @@ import apis from '../services/Apis';
 import Alert from '../components/common/alert';
 import { SecurePost } from '../services/axiosCall';
 
-export const ChangeQuestionModalState = (d1)=> dispatch =>{
-        dispatch({
-            type : 'CHANGE_QUESTION_MODAL_STATE',
-            payload1 : d1,
-        })
-    }
-    
+export const ChangeQuestionModalState = (d1) => dispatch => {
+    dispatch({
+        type : 'CHANGE_QUESTION_MODAL_STATE',
+        payload1 : d1,
+    });
+};
 
-export const ChangeQuestionConfirmDirty = (d)=> dispatch =>{
+export const ChangeQuestionConfirmDirty = (d) => dispatch =>{
     dispatch({
        type : 'CHANGE_QUESTION_FORM_CONFIRMDIRTY',
        payload : d
-    })
-}
+    });
+};
 
 
 export const ChangeQuestionSearchText = (d)=> dispatch =>{
@@ -31,13 +30,14 @@ export const ChangeQuestionTableData = (d) => dispatch => {
         payload1: true,
         payload2: []
     });
+
     SecurePost({
         url: `${apis.GET_ALL_QUESTIONS}`,
         data: {
             subject: d
         }
-    }).then((response) => {
-        // console.log(response);
+    })
+    .then((response) => {
         if (response.data.success) {
             dispatch({
                 type: 'CHANGE_QUESTION_TABLE_LOADING_STATUS',
@@ -53,7 +53,8 @@ export const ChangeQuestionTableData = (d) => dispatch => {
                 payload2: []
             });
         }
-    }).catch((error) => {
+    })
+    .catch((error) => {
         Alert('error', 'Error!', 'Server Error');
         dispatch({
             type: 'CHANGE_QUESTION_TABLE_LOADING_STATUS',
@@ -140,4 +141,22 @@ export const updateQuestiosnActiveTest = (d) => {
         type: 'CHANGE_CURRENT_ACTIVE_TEST_QUESTION',
         payload: d
     };
+};
+
+// Update Refer Table
+export const UpdateReferTable = () => dispatch => {
+    SecurePost({
+        url: apis.LIST_REFER
+    })
+    .then((response) => {
+        if(response.data.success){
+            dispatch({
+                type: 'UPDATE_REFER_TABLE',
+                payload: response.data.data
+            });
+        }
+    })
+    .catch((error) => {
+        return Alert('error','Error!','Server Error');
+    });
 };

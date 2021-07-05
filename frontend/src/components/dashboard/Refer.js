@@ -1,29 +1,16 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import { connect } from 'react-redux';
 
 import { SecurePost } from '../../services/axiosCall';
 import apis from '../../services/Apis';
 import  Alert  from '../common/alert';
+import { UpdateReferTable } from '../../actions/trainerAction';
 
-const Refer = () => {
-    const [state, setstate] = useState([]);
-    const [loading, setloading] = useState(false);
+const Refer = (props) => {
     
     useEffect(() => {
-        setloading(true);
-
-        SecurePost({
-            url: apis.LIST_REFER
-        })
-        .then((response) => {
-            if(response.data.success){
-                setstate(response.data.data);
-                setloading(false);
-            }
-        })
-        .catch((error) => {
-            return Alert('error','Error!','Server Error');
-        });
+        props.UpdateReferTable();
     }, []);
 
     return (
@@ -36,7 +23,7 @@ const Refer = () => {
                     { title: 'Email', field: 'email' },
                 ]}
 
-                data={state}
+                data={props.trainer.referTable}
 
                 options={{
                     filtering: true,
@@ -51,4 +38,10 @@ const Refer = () => {
     );
 };
 
-export default Refer;
+const mapStateToProps = state => ({
+    trainer : state.trainer
+});
+
+export default connect(mapStateToProps,{
+    UpdateReferTable
+})(Refer);

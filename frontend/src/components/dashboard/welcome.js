@@ -26,8 +26,6 @@ const Welcome = (props) => {
 
   const [teststat, setteststat] = useState([]);
   const [cantotal, setcantotal] = useState(0);
-  const [graphlabel, setgraphlabel] = useState([]);
-  const [graphdata, setgraphdata] = useState([]);
 
   // Get Question Stat
   const getQueStat = () => {
@@ -72,9 +70,9 @@ const Welcome = (props) => {
     });
   };
 
-  useEffect(async () => {
-    await getQueStat();
-    await getTestStat();
+  useEffect( () => {
+    getQueStat();
+    getTestStat();
   }, []);
 
 

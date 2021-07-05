@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button, Modal, Form, Input, Radio } from 'antd';
+import { connect } from 'react-redux';
 
 import { SecurePost } from '../../services/axiosCall';
 import apis from '../../services/Apis';
 import  Alert  from '../common/alert';
+import { UpdateReferTable } from '../../actions/trainerAction';
 
 const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
   // eslint-disable-next-line
@@ -49,9 +51,12 @@ const CollectionCreateForm = Form.create({ name: 'form_in_modal' })(
 );
 
 class CollectionsPage extends React.Component {
-  state = {
-    visible: false,
-  };
+  constructor(props){
+    super(props);
+    this.state={
+      visible: false,
+    }
+  }
 
   showModal = () => {
     this.setState({ visible: true });
@@ -76,9 +81,10 @@ class CollectionsPage extends React.Component {
         })
         .then((response) => {
             if(response.data.success){
-                Alert('success', 'Success', response.data.message);
-                form.resetFields();
-                this.setState({ visible: false });
+              Alert('success', 'Success', response.data.message);
+              form.resetFields();
+              this.props.UpdateReferTable();
+              this.setState({ visible: false });
             }
         })
         .catch((error) => {
@@ -109,6 +115,8 @@ class CollectionsPage extends React.Component {
       </div>
     );
   }
-}
+};
 
-export default CollectionsPage;
+export default connect(null,{
+  UpdateReferTable
+})(CollectionsPage);

@@ -166,7 +166,7 @@ const CodeEditor = (props) => {
 
                     <Title level={4}>Problem Statement</Title>
 
-                    <div style={{height: '600px'}} >
+                    <div style={{ maxHeight: '500px', overflowY: 'scroll' }} >
                         <Markdown>
                             {props.data.statement}
                         </Markdown>
