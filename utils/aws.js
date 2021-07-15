@@ -19,20 +19,7 @@ exports.saveFile = (filePath, fileKey) => {
     });
 };
 
-// 2. Save Text
-exports.saveText = (text, fileKey) => {
-    return new Promise((resolve, reject) => {
-        s3.upload({
-            Bucket: process.env.AWS_S3_BUCKET,
-            Body: text,
-            Key: fileKey
-        }, (err, data) => {
-            resolve(data);
-        });
-    });
-};
-
-// 3. Read File
+// 2. Read File
 exports.readFile = (fileLink) => {
     return new Promise((resolve, reject) => {
         s3.getObject({
@@ -44,32 +31,7 @@ exports.readFile = (fileLink) => {
     });
 };
 
-// 4. Delete Folder
-exports.deleteFolder = async (fileKey) => {
-    const listParams = {
-        Bucket: process.env.AWS_S3_BUCKET,
-        Prefix: fileKey
-    };
-
-    const listedObjects = await s3.listObjectsV2(listParams).promise();
-
-    if (listedObjects.Contents.length === 0) return;
-
-    const deleteParams = {
-        Bucket: process.env.AWS_S3_BUCKET,
-        Delete: { Objects: [] }
-    };
-
-    listedObjects.Contents.forEach(({ Key }) => {
-        deleteParams.Delete.Objects.push({ Key });
-    });
-
-    await s3.deleteObjects(deleteParams).promise();
-
-    if (listedObjects.IsTruncated) await this.deleteFolder(fileKey);
-};
-
-// 5. Delete File
+// 3. Delete File
 exports.deleteFile = (fileKey) => {
     // console.log(fileKey);
     return new Promise((resolve, reject) => {
