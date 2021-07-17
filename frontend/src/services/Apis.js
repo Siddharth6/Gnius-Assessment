@@ -68,6 +68,7 @@ const apis = {
     GET_TEST_STAT: '/api/v1/stats/test',
     ADD_REFER: '/api/v1/refer/add',
     LIST_REFER: '/api/v1/refer/list',
+    RESET_PASSWORD: '/api/v1/user/update/password'
 };
 
 export default apis;

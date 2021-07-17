@@ -66,7 +66,7 @@ class Profile extends Component {
     changeqImage = (f)=>{
         this.setState((ps,pp)=>{
             return({
-                logo: (f.link ?`${apis.BASE}/${f.link}`:null),
+                logo: (f.link ?`${f.link}`:null),
                 submitDisabled:false
             });
         });
@@ -105,7 +105,7 @@ class Profile extends Component {
                                     <Form.Item label="Organisation Name"  hasFeedback>
                                         {getFieldDecorator('organisation', {
                                             initialValue : this.props.user.userDetails.organisation,
-                                            rules: [{ required: true, message: 'Please input organisation name!', whitespace: true }],
+                                            rules: [{ whitespace: true }],
                                         })(<Input />)}
                                     </Form.Item>
                                 </Col>
@@ -116,7 +116,6 @@ class Profile extends Component {
                                     <Form.Item label="Write About Your Organisation" hasFeedback>
                                         {getFieldDecorator('about', {
                                             initialValue : this.props.user.userDetails.bio,
-                                            rules: [{ required: true, message: 'Please Enter Company Details or About!' }],
                                         })(
                                             <TextArea rows={5} />
                                         )}
@@ -127,9 +126,7 @@ class Profile extends Component {
                             <Row>
                                 <Col span={24} style={{padding : '0px 20px'}}>
                                     <Form.Item label="Organisation Logo">
-                                    {getFieldDecorator('resume', {
-                                        rules: [{ required: true, message: 'Please upload your resume' }],
-                                    })(
+                                    {getFieldDecorator('resume')(
                                         <Upload 
                                             {...QuestionImageprops} 
                                             beforeUpload={this.upl} 

@@ -1,94 +1,46 @@
-const multer = require('multer');
 const express = require("express");
 const router = express.Router();
-const fs = require("fs");
-const { v4: uuidv4 } = require("uuid");
-const { promisify } = require("util");
+const multer = require('multer');
+const path = require("path"); 
+const cloudinary = require("cloudinary").v2;
+const upload = require("../utils/multer");
+const { saveFile } = require("../utils/aws");
 
-const pipeline = promisify(require("stream").pipeline);
-const upload = multer();
+
+// Cloudinary Config
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SERCRET,
+});
 
 // Image
 router.post('/', upload.single('file'), (req, res, next) => {
-  const { file } = req;
-
-  if (file.detectedFileExtension != ".jpg" && file.detectedFileExtension != ".png") {
-    res.status(400).json({
-      message: "Invalid format",
-    });
-  }
-  else {
-    const filename = Date.now() + '-' + file.originalName;
-
-    pipeline(
-      file.stream,
-      fs.createWriteStream(`${__dirname}/../public/uploads/${filename}`)
-    );
-
+  // Upload image to cloudinary
+  const result = cloudinary.uploader.upload(req.file.path, function(error, result) {
     res.json({
       success: true,
       message: 'File uploaded successfully',
-      link: `uploads/${filename}`
-    });
-  }
-});
-
-
-// Resume Upload
-router.post("/resume", upload.single("file"), (req, res) => {
-
-  const { file } = req;
-  
-  if (file.detectedFileExtension != ".pdf") {
-    res.status(400).json({
-      message: "Invalid format",
-    });
-  }
-  else {
-    const filename = `${uuidv4()}${file.detectedFileExtension}`;
-
-    pipeline(
-      file.stream,
-      fs.createWriteStream(`${__dirname}/../public/resume/${filename}`)
-    );
-
-    res.json({
-      success: true,
-      message: "File uploaded successfully",
-      link: `resume/${filename}`
-    });
-    
-  }
+      link: result.secure_url,
+      cloudinary_id: result.public_id,
+    })
+  });
 });
 
 // profile picture
-router.post("/profile", upload.single("file"), (req, res) => {
-  const { file } = req;
-  if (
-    file.detectedFileExtension != ".jpg" && file.detectedFileExtension != ".png") {
-    res.status(400).json({
-      message: "Invalid format",
-    });
-  } else {
-    const filename = `${uuidv4()}${file.detectedFileExtension}`;
-
-    pipeline(
-      file.stream,
-      fs.createWriteStream(`${__dirname}/../public/profile/${filename}`)
-    )
-    .then(() => {
-      res.send({
-        message: "Profile image uploaded successfully",
-        url: `/host/profile/${filename}`,
-      });
+router.post("/profile", upload.single('file'), (req, res, next) => {
+  // Upload image to cloudinary
+  const result = cloudinary.uploader.upload(req.file.path, function(error, result) {
+    res.json({
+      success: true,
+      message: 'File uploaded successfully',
+      link: result.secure_url,
+      cloudinary_id: result.public_id,
     })
-    .catch((err) => {
-      res.status(400).json({
-        message: "Error while uploading",
-      });
-    });
-  }
+  });
 });
 
+// Resume Upload
+router.post("/resume", multer({ dest: 'resume/', limits: { fieldSize: 8 * 1024 * 1024 } }).single('file'),saveFile);
 
 module.exports = router;

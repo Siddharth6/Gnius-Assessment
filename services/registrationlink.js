@@ -77,18 +77,22 @@ let Download = (req,res,next)=>{
 }
 */
 
+// Download Excel File
 let Download = (req, res, next) => {
     req.body = sanitize(req.body);
 
     var testid = req.body.id;
+
     if(req.user.type === 'TRAINER'){
         const file = `${req.protocol + '://' + req.get('host')}/result/result-${testid}.xlsx`;
+
         res.json({
             success: true,
             message: 'File sent successfully',
             file: file
         });
-    }else{
+    }
+    else{
         res.status(401).json({
             success: false,
             message: "Permissions not granted!"

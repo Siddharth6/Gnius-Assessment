@@ -57,7 +57,7 @@ class NewTrainer extends Component {
     changeqImage = (f)=>{
         this.setState((ps,pp)=>{
             return({
-                logo:(f.link ?`${apis.BASE}/${f.link}`:null),
+                logo:(f.link ?`${f.link}`:null),
                 submitDisabled:false
             });
         });

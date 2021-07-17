@@ -16,7 +16,6 @@ let generateResults = (req, res, next) => {
     var testid = req.body.testid;
     
     gresult(userid, testid).then((result) => {
-        // console.log(result)
         res.json({
             success: true,
             message: "Result generated successfully",
@@ -24,7 +23,6 @@ let generateResults = (req, res, next) => {
         });
     })
     .catch((error) => {
-        // console.log(error)
         res.status(500).json({
             success: false,
             message: "Unable to generate result",
@@ -42,7 +40,6 @@ let gresult = (uid, tid) => {
             .populate('result')
             .exec(function (err, results) {
                 if (err) {
-                    // console.log(err);
                     reject(err)
                 } else {
                     if (!results) {

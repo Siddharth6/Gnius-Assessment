@@ -3,44 +3,34 @@ const AWS = require('aws-sdk');
 
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_IAM_KEY,
-    secretAccessKey: process.env.AWS_IAM_SECRET
+    secretAccessKey: process.env.AWS_IAM_SECRET,
+    region: process.env.AWS_REGION
 });
 
 // 1. Save File
-exports.saveFile = (filePath, fileKey) => {
-    return new Promise((resolve, reject) => {
-        s3.upload({
-            Bucket: process.env.AWS_S3_BUCKET,
-            Body: fs.createReadStream(filePath),
-            Key: fileKey
-        }, (err, data) => {
-            resolve(data);
-        });
-    });
-};
+exports.saveFile = (req, res) => {
+    var params = {
+        ACL: 'public-read',
+        Bucket: process.env.AWS_S3_BUCKET,
+        Body: fs.createReadStream(req.file.path),
+        Key: `resume/${req.file.originalname}`
+    };
 
-// 2. Read File
-exports.readFile = (fileLink) => {
-    return new Promise((resolve, reject) => {
-        s3.getObject({
-            Bucket: process.env.AWS_S3_BUCKET,
-            Key: fileLink
-        }, (err, data) => {
-            resolve(data.Body.toString());
-        });
-    });
-};
-
-// 3. Delete File
-exports.deleteFile = (fileKey) => {
-    // console.log(fileKey);
-    return new Promise((resolve, reject) => {
-        s3.deleteObject({
-            Bucket: process.env.AWS_S3_BUCKET,
-            Key: fileKey
-        }, (err, data) => {
-            // console.log(err);
-            resolve(data);
-        });
+    s3.upload(params, (err, data) => {
+        if (err) {
+            res.status(400).json({
+                success: false,
+                message: err
+            });
+        }
+  
+        if (data) {
+          fs.unlinkSync(req.file.path);
+          res.json({
+            success: true,
+            message: 'File uploaded successfully',
+            link: data.Location
+          });
+        }
     });
 };
