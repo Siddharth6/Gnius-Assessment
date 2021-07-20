@@ -236,30 +236,15 @@ class Candidates extends Component {
 
       return (
         <div className="candidate-list-header-container">
-          <ul style={{listStyle: 'none'}}>
-            <li style={{ float: 'left', marginRight: '5px'}}>
-            <Button
-              className="reload-button"
-              type="primary"
-              icon="reload"
-              loading={this.state.loading}
-              onClick={this.refreshUserList}
-            >
-              Reload!
-            </Button>
-            </li>
-
-            <li>
-              <Button
-                className="reload-button"
-                type="primary"
-                icon="cloud-download"
-                onClick={this.showModal}
-              >
-                Import Candidates
-              </Button>
-            </li>
-          </ul>
+          <Button 
+            className="reload-button" 
+            type="primary" 
+            icon="reload" 
+            loading={this.state.loading} 
+            onClick={this.refreshUserList}
+          >
+            Reload
+          </Button>
 
           <div className="register-trainer-form-header">
             <Title level={4} style={{ color: '#fff', textAlign: 'center' }}>List of Registered Candidates</Title>

@@ -279,7 +279,7 @@ class TraineeRegisterForm extends Component {
 
         this.setState((ps, pp)=>{
             return({
-                resume:(f.link ?`${apis.BASE}/${f.link}`:null)
+                resume:(f.link ?`${f.link}`:null)
             });
         });
     };

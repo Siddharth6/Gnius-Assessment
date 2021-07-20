@@ -4,7 +4,6 @@ s = ut + \frac{1}{2}at^{2}
 $$
 Calculate the value of $s$ when $u = 10\frac{m}{s}$ and $a = 2\frac{m}{s^{2}}$ at $t = 1s$
 
-//////////
 
 <h2><b>Admin Instructions</b></h2>
       <h3>1. All Trainers</h3>
@@ -194,3 +193,193 @@ router.post('/', upload.single('file'), (req, res, next) => {
 
 
 mimetype: 'application/pdf',
+
+
+const data = [
+  {
+      title: '100 Users',
+      description: 'Maximum 100 Users can take asssessments'
+  },
+  {
+      title: 'MCQ / MSQ and Coding Question Library Available',
+      description: 'Assess Candidates through MCQ, MSQ, Programming Questions'
+  },
+  {
+      title: 'Remote based hiring using AI and ML',
+      description: 'View detailed reports and in-depth analysis of each candidates performance'
+  },
+  {
+      title: 'Other Features',
+      description: 'Import and Export Candidates. Invite candidates, Create tests automatically and manually with our huge question library, Support via phone and email and much more.'
+  },
+];
+
+
+const tiers = [
+  {
+      title: 'MCQ Assessment',
+      price: '200',
+      description: [
+          'Single User can take assessments',
+          'Access MCQ/MSQ Questions only',
+          'Remote based hiring using AI and ML',
+          'View detailed reports and in-depth analysis of each candidates performance',
+          'Email and Phone support'
+      ],
+      buttonText: 'Contact us',
+      buttonVariant: 'outlined',
+  },
+  {
+      title: 'Coding & MCQ Assessment',
+      subheader: 'Most popular',
+      price: '450',
+      description: [
+          'Single User can take assessments',
+          'Access both MCQ/MSQ and programming(CodePlayer) Questions',
+          'Remote based hiring using AI and ML',
+          'View detailed reports and in-depth analysis of each candidates performance',
+          'Email and Phone support'
+      ],
+      buttonText: 'Contact us',
+      buttonVariant: 'contained',
+  },
+  {
+      title: 'Coding Assessment',
+      price: '300',
+      description: [
+          'Single User can take assessments',
+          'Access Programming Questions(Codeplayer) only',
+          'Remote based hiring using AI and ML',
+          'View detailed reports and in-depth analysis of each candidates performance',
+          'Email and Phone support'
+      ],
+      buttonText: 'Contact us',
+      buttonVariant: 'outlined',
+  },
+];
+
+
+
+
+<Container maxWidth="md" component="main">
+<Grid container spacing={5} alignItems="flex-end">
+  {tiers.map((tier) => (
+      // Enterprise card is full width at sm breakpoint
+      <Grid item key={tier.title} xs={12} sm={tier.title === 'Enterprise' ? 12 : 6} md={4}>
+          <Card>
+              <CardHeader
+                  title={tier.title}
+                  subheader={tier.subheader}
+                  titleTypographyProps={{ align: 'center' }}
+                  subheaderTypographyProps={{ align: 'center' }}
+                  className={classes.cardHeader}
+              />
+              <CardContent>
+                  <div className={classes.cardPricing}>
+                      <Typography component="h2" variant="h3" color="textPrimary">
+                          &#8377;{tier.price}
+                      </Typography>
+                      <Typography variant="h6" color="textSecondary">
+                          /user
+                      </Typography>
+                  </div>
+                  <div className={classes.cardPricing}>
+                      <Typography component="h5" variant="h5" color="textSecondary">
+                         Plan Includes :
+                      </Typography>
+                  </div>
+                  <ul>
+                      {tier.description.map((line) => (
+                          <Typography component="li" variant="subtitle1" align="left" key={line}>
+                              <Icon type="check-circle" /> {'  '}{line}
+                          </Typography>
+                      ))}
+                  </ul>
+              </CardContent>
+              <CardActions>
+                  <Button fullWidth variant={tier.buttonVariant} color="primary">
+                      {tier.buttonText}
+                  </Button>
+              </CardActions>
+          </Card>
+      </Grid>
+  ))}
+</Grid>
+</Container>
+
+<Container maxWidth="sm" component="main" className={classes.heroContent}>
+<Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
+  Monthly Pricing
+</Typography>
+
+<Typography variant="h5" align="center" color="textSecondary" component="p">
+  <b>If you are constantly hiring, then you should check this plan.</b>
+</Typography>
+</Container>
+
+<Row type="flex" justify="center">
+<Col span={24}>
+  <Card style={{padding: '0 20px', borderRadius: '10px'}}>
+      <CardHeader
+          title={<h1>Plans starting @ &#8377; 14,000</h1>}
+          titleTypographyProps={{ align: 'center' }}
+          subheaderTypographyProps={{ align: 'center' }}
+          className={classes.cardHeader}
+      />
+      
+      <CardContent>
+          <ul>
+              {data.map((item) => (
+                  <Fragment>
+                      <Typography component="li" variant="subtitle1" align="left" key={item}>
+                          <Icon type="check-circle" /> {'  '}
+                          <b>{item.title}</b>
+                      </Typography>
+                  
+                      <Typography component="li" variant="subtitle1" align="left" key={item}>
+                          {item.description}
+                      </Typography>
+                  </Fragment>
+              ))}
+          </ul>
+      </CardContent>
+  </Card>
+</Col>
+</Row>
+
+
+
+<ul style={{listStyle: 'none'}}>
+            <li style={{ float: 'left', marginRight: '5px'}}>
+            <Button
+              className="reload-button"
+              type="primary"
+              icon="reload"
+              loading={this.state.loading}
+              onClick={this.refreshUserList}
+            >
+              Reload!
+            </Button>
+            </li>
+
+            <li>
+              <Button
+                className="reload-button"
+                type="primary"
+                icon="cloud-download"
+                onClick={this.showModal}
+              >
+                Import Candidates
+              </Button>
+            </li>
+          </ul>
+
+<Table 
+                            bordered={true} 
+                            columns={columns} 
+                            dataSource={props.coding.QuestionTableData} 
+                            size="medium" 
+                            pagination={{ pageSize: 5 }}
+                            loading={props.coding.QuestionTableLoading}
+                            rowKey="_id" 
+                        />

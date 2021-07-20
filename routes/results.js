@@ -6,5 +6,3 @@ var results = require("../services/generateResults");
 router.post('/results', results.generateResults);
 
 module.exports = router;
-
-// done
