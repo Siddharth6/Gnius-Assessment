@@ -8,7 +8,8 @@ import Clock from './clock';
 import Alert from '../../common/alert';
 import apis from '../../../services/Apis';
 import { Post } from '../../../services/axiosCall';
-import { fetchTestdata } from '../../../actions/traineeAction'
+import { fetchTestdata } from '../../../actions/traineeAction';
+import $ from 'jquery';
 
 class Sidepanel extends React.Component {
 

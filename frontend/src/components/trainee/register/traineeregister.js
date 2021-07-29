@@ -55,7 +55,7 @@ class TraineeRegisterForm extends Component {
             jobData: {},
             resume: null,
             customdata: {},
-            custombtn: false,
+            custombtn: true,
             refid: null
         };
     };
@@ -279,7 +279,8 @@ class TraineeRegisterForm extends Component {
 
         this.setState((ps, pp)=>{
             return({
-                resume:(f.link ?`${f.link}`:null)
+                resume:(f.link ?`${f.link}`:null),
+                custombtn: false
             });
         });
     };
@@ -319,8 +320,6 @@ class TraineeRegisterForm extends Component {
                         </div>
                     </div>
                 </div>
-
-                {/* <Spin indicator={antIcon} /> */}
 
                 <div className="registration-form-container">    
                 {this.state.inform ?

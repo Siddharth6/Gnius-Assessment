@@ -27,6 +27,7 @@ const initialState = {
     addcoding: false,
     codingtData: {
         testQuestions: [],
+        testDuration: 10
     },
     codingquestionsAvailablebasedonSubject: [],
 };
@@ -80,6 +81,15 @@ export default (state = initialState, action) => {
             return{
                 ...state,
                 addcoding:  action.payload
+            }
+        case 'ADD_CODING_QUESTION_DURATION':
+            console.log(action.payload);
+            return{
+                ...state,
+                codingtData: {
+                    ...state.codingtData,
+                    testDuration: action.payload
+                }
             }
         case 'ADD_CODING_QUESTION_TO_QUESTION_QUEUE':
             return {

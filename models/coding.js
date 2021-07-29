@@ -136,6 +136,7 @@ const submissionSchema = new mongoose.Schema({
     },
     lang: String,
     sourcecode: String,
+    startTime: Date,
     submit_time: Date,
     time: Number,
     memory: Number,

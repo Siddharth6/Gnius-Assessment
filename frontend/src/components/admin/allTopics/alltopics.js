@@ -113,7 +113,7 @@ class AllTopics extends Component {
                 Add New
               </Button> 
               <div className="register-trainer-form-header">
-                <Title level={4} style={{color:'#fff',textAlign:'center'}}>List of Topics</Title>
+                <Title level={4} style={{color:'#fff',textAlign:'center'}}>List of Subjects</Title>
               </div>
               <Table 
                 bordered={true} 

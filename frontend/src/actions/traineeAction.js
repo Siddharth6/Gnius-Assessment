@@ -229,6 +229,32 @@ export const LoadCodingQuestion = (load, data) => {
     };
 };
 
+// Post Coding Section Start
+export const startCoding = (tid, uid) => dispatch => {
+    Post({
+        url: `${apis.CODING_SECTION_START}`,
+        data: {
+            testId: tid,
+            traineeId: uid
+        }
+    })
+    .then((response) => {
+        if (response.data.success) {
+            // ... startTime
+            dispatch({
+                type: 'START_CODING',
+                payload: response.data.data.startTime
+            });
+        }
+        else {
+            Alert('error', 'Error!', response.data.message);
+        }
+    })
+    .catch((error) => {
+        Alert('error', 'Error!', "Server error");
+    });
+};
+
 // Post Coding Section Submit Data
 export const submitCoding = (tid, uid) => dispatch => {
     Post({

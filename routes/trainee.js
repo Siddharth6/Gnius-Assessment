@@ -21,7 +21,10 @@ router.post('/jobpost/details', trainee.getSingleJobPost);
 router.post('/coding/question/details', trainee.getQuestionData);
 router.post('/coding/contest/question', trainee.getContestQuestion);
 router.post('/coding/contest/submission', trainee.postSubmission);
+
+router.post('/coding/start/section', trainee.startCoding);
 router.post('/coding/submit/section', trainee.submitCoding);
+
 router.post('/coding/section/details', trainee.getsubmitCoding);
 
 module.exports = router;

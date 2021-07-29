@@ -10,8 +10,8 @@ let SubjectModel = require("../models/subject");
 let ResultModel = require("../models/results");
 let JobPostModel = require("../models/jobpost");
 let { codingContest, codingSubmission } = require("../models/coding");
+const codingAnswerSheet = require('../models/codingAnswerSheet');
 const { ers } = require('../middlewares');
-
 
 const tool = require("./tool");
 const result  =require("../services/excel").result;
@@ -80,7 +80,8 @@ let createEditTest = (req, res, next) => {
                 jobtype, 
                 jobcustom,
                 addcoding,
-                codingquestions
+                codingquestions,
+                codingduration
             } = req.body;
             
                 TestPaperModel.findOne({ title : title, type : type, testbegins : 0 },{status:0})
@@ -104,7 +105,6 @@ let createEditTest = (req, res, next) => {
 
                         tempdata.save().then((d) => {
                             // Add a Job Post if required
-
                             if(addjobpost){
                                 const jobpostdata = JobPostModel({
                                     addjobpost: addjobpost, 
@@ -136,6 +136,7 @@ let createEditTest = (req, res, next) => {
                                 const codingdata = codingContest({
                                     questions: codingquestions,
                                     organiser: req.user._id,
+                                    time: codingduration,
                                     testid: d._id
                                 });
 
@@ -738,13 +739,24 @@ const getLeaderboard = (req, res) => {
     .populate('user')
     .exec((err, result) => {
         if (err) {
-            return ers(res, 400, "Failed to make a new question")
+            return ers(res, 400, "Failed to get data")
         }
 
-        return res.status(200).json({
-            success: true,
-            message: 'Submission Data',
-            result: result
+        // User Submission Details
+        codingAnswerSheet
+        .find({testid: testId})
+        .populate('userid')
+        .exec((err, sub) => {
+            if (err) {
+                return ers(res, 400, "Failed to get data")
+            }
+    
+            return res.status(200).json({
+                success: true,
+                message: 'Submission Data',
+                result: result,
+                submission: sub
+            });
         });
     });
 };

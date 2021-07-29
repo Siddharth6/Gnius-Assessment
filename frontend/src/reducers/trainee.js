@@ -23,7 +23,8 @@ const initialState = {
     loadcoding: true,
     codingData: [],
     Iscoding: false,
-    codingsubmitted: null
+    codingsubmitted: null,
+    codingStartTime: null
 }
 
 
@@ -94,6 +95,11 @@ export default (state = initialState, action )=>{
                 ...state,
                 loadcoding: action.payload1,
                 codingData: action.payload2
+            }
+        case 'START_CODING':
+            return{
+                ...state,
+                codingStartTime: action.payload
             }
         case 'SUBMIT_CODING':
             return{

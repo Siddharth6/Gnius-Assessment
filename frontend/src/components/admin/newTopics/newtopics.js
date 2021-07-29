@@ -58,6 +58,7 @@ class NewTopics extends Component {
                                 rules: [{ required: true, message: 'Please input topic name!', whitespace: true }],
                             })(<Input />)}
                         </Form.Item>
+                        
                         <Form.Item>
                             <Button type="primary" htmlType="submit" block>
                                 {this.props.admin.Subjectmode}

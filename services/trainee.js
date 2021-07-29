@@ -883,7 +883,10 @@ const postSubmission = (req, res, next) => {
         que_id,
         source_code,
         language_id,
+        startTime
     } = req.body;
+
+    console.log(req.body);
 
     codingQuestion
     .findById(que_id)
@@ -953,12 +956,12 @@ const postSubmission = (req, res, next) => {
                 });
             }
 
-
             var new_submission = new codingSubmission({
                 testid: testId,
                 lang: language_id,
                 user: traineeId,
                 sourcecode: source_code,
+                startTime: startTime,
                 submit_time: new Date(),
                 question: que_id,
                 in_queue: true
@@ -983,14 +986,11 @@ const postSubmission = (req, res, next) => {
     });
 };
 
-
-// Submit Coding Section
-const submitCoding = (req, res) => {
+// Start Coding Section
+const startCoding = (req, res) => {
     req.body = sanitize(req.body);
 
     const { testId, traineeId } = req.body;
-
-    // console.log(req.body);
 
     var new_submission = new codingAnswerSheet({
         testid: testId,
@@ -1008,6 +1008,34 @@ const submitCoding = (req, res) => {
         return res.status(200).json({
             success: true,
             data: submission
+        });
+    });
+};
+
+
+// Submit Coding Section
+const submitCoding = (req, res) => {
+    req.body = sanitize(req.body);
+    const { testId, traineeId } = req.body;
+
+    codingAnswerSheet.findOneAndUpdate({
+        testid: testId,
+        userid: traineeId
+    },{
+        completed: true,
+        submitTime: Date.now()
+    })
+    .then((submission) => {
+        return res.status(200).json({
+            success: true,
+            data: submission
+        });
+    })
+    .catch((err) => {
+        // console.log(err);
+        res.status(500).json({
+            success: false,
+            message: 'Error While Submitting'
         });
     });
 };
@@ -1056,6 +1084,7 @@ module.exports = {
     fetchRawOutput,
     getContestQuestion,
     postSubmission,
+    startCoding,
     submitCoding,
     getsubmitCoding
 };

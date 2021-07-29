@@ -8,6 +8,7 @@ import {
     Transfer, 
     Row, 
     Col,
+    Input,
     Checkbox,
     Typography, 
 } from 'antd';
@@ -17,7 +18,8 @@ import {
     changeStep,
     pushCodingQuestionToQueue,
     removeCodingQuestionFromMainQueue,
-    checkcode
+    checkcode,
+    codingDuration
 } from '../../../actions/testAction';
 
 import {
@@ -93,7 +95,23 @@ class AddCoding extends Component {
         })
     };
 
+    // Handle Submit
+    handleFinal = e => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                console.log(values);
+
+                this.props.codingDuration(values.duration);
+                
+                this.props.changeStep(4);
+            }
+        });
+    };
+
     render() {
+        const { getFieldDecorator } = this.props.form;
+
         return (
             <Fragment>
                 <div style={{ padding: '0px auto 5px auto', width: '100%', textAlign: 'center' }}>
@@ -127,16 +145,32 @@ class AddCoding extends Component {
                                     onChange={this.handleChange}  
                                 />
 
-                                <div style={{ width: '100%', padding: '10px' }}>
-                                    <Button 
-                                        style={{ float: 'right' }} 
-                                        type="primary"
-                                        block
-                                        onClick={() => this.props.changeStep(4)}
-                                    >
-                                        Next
-                                    </Button>      
-                                </div>
+                                <Form
+                                    onSubmit={this.handleFinal}
+                                    autoComplete="off"
+                                >
+                                    <Form.Item label="Coding Assessment Duration (min. 10 mins)"  hasFeedback>
+                                        {getFieldDecorator('duration', {
+                                            initialValue : this.props.test.codingtData.testDuration,
+                                            rules: [{ required: true, message: 'Please enter assessment duration' }],
+                                        })(
+                                            <InputNumber min={10} style={{width:'100%'}} placeholder="Assessment Duration" />
+                                        )}
+                                    </Form.Item>
+
+                                    <Form.Item>
+                                        <div style={{ width: '100%', padding: '10px' }}>
+                                            <Button 
+                                                style={{ float: 'right' }} 
+                                                type="primary" 
+                                                htmlType="submit" 
+                                                block
+                                            >
+                                                Next
+                                            </Button>      
+                                        </div>
+                                    </Form.Item>
+                                </Form>
                             </div> :
 
                             <div>
@@ -192,5 +226,6 @@ export default connect(mapStateToProps, {
     checkcode,
     ChangeCodingQuestionData,
     pushCodingQuestionToQueue,
-    removeCodingQuestionFromMainQueue
+    removeCodingQuestionFromMainQueue,
+    codingDuration
 })(CodingForm);

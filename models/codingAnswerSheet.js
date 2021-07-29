@@ -13,12 +13,14 @@ const codingAnswerSchema = new mongoose.Schema({
         required: true
     },
     completed: {
-        type: Boolean,
-        default: true
+        type: Boolean
     },
-    submitTime: {
+    startTime: {
         type: Date,
         default: Date.now
+    },
+    submitTime: {
+        type: Date
     },
 });
 

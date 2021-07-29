@@ -43,6 +43,7 @@ class FinalQuestionView extends React.Component {
 
                 addcoding: this.props.test.addcoding,
                 codingquestions: this.props.test.codingtData.testQuestions,
+                codingduration: this.props.test.codingtData.testDuration,
             }
         })
         .then((response) => {

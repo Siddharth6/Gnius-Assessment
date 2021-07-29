@@ -3,6 +3,7 @@ import { Tabs, Skeleton, Button, Popconfirm, Icon } from 'antd';
 import CountDown from 'ant-design-pro/lib/CountDown';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 
 import CodeEditor from './CodeEditor';
 import { SecurePost } from '../../../../services/axiosCall';
@@ -10,7 +11,8 @@ import apis from '../../../../services/Apis';
 import Alert from '../../../../components/common/alert';
 import {
     LoadCodingQuestion,
-    submitCoding
+    submitCoding,
+    startCoding
 } from '../../../../actions/traineeAction';
 import './code.css';
 
@@ -38,14 +40,53 @@ class Index extends React.Component {
         const testId = this.props.trainee.testid;
         const traineeId = this.props.trainee.traineeid;
 
+        this.props.startCoding(this.props.trainee.testid,this.props.trainee.traineeid); // Store Starting Time
+
+        var counter = 0; // mouse leave counter
+
+        // Mouse Leave Window Tracker
+        $(document).mouseleave(e => {
+            counter++;
+            this.setState({leavecounter: counter});
+            console.log(this.state.leavecounter);
+            
+            alert("Please Don't leave this tab, Untill you submit the assessment");
+            
+            if (counter > 3) console.log('Submit');
+        });        
+
+        // Disable Copy Paste
+        $(document).ready(function () {
+            var ambit = $(document);
+        
+            // Disable Cut + Copy + Paste (input)
+            ambit.on('copy paste cut', function (e) {
+                e.preventDefault(); //disable cut,copy,paste
+                return false;
+            });
+
+
+            $('#codeditor').on("cut copy paste", function(e) {
+                alert('copy paste not allowed!');
+                e.preventDefault();
+            });
+        });
+          
+        // Disable Right Click
+        $(function() {
+            $(this).bind("contextmenu", function(e) {
+                e.preventDefault();
+            });
+        }); 
+
         this.setState({loading: true});
 
+        // Timer Start
         if(localStorage.getItem('time') === null){
             localStorage.setItem('time', new Date());
         }
         else {
             time = localStorage.getItem('time');
-            
         }
 
         SecurePost({
@@ -76,6 +117,8 @@ class Index extends React.Component {
     render() {
       const { mode, testTime } = this.state;
 
+      // Time Tracker
+      
       let targetTime = 0;
 
       time = localStorage.getItem('time');
@@ -154,12 +197,12 @@ class Index extends React.Component {
                                         Problem {i+1}
                                         
                                         <br />
-
                                         <CodeEditor 
                                             key={i} 
                                             data={this.props.trainee.codingData[i]} 
                                             test={this.state.testDetails} 
                                         />
+                                        
                                     </TabPane>
                                 ))}
                             </Tabs>
@@ -179,7 +222,8 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps, {
     LoadCodingQuestion,
-    submitCoding
+    submitCoding,
+    startCoding
 })(Index);
 
 

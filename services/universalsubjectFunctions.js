@@ -8,7 +8,7 @@ let createEditsubject = (req, res, next) => {
 
     var _id = req.body._id || null;
 
-    if(req.user.type==='ADMIN'){
+    if(req.user.type==='ADMIN' || req.user.type==='TRAINER'){
     req.check('topic', `invalid topic`).notEmpty();
     var errors = req.validationErrors()
     if(errors){

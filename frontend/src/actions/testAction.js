@@ -1,12 +1,13 @@
 import apis from '../services/Apis';
 import Alert from '../components/common/alert';
 import { SecurePost } from '../services/axiosCall';
+
 export const changeStep = (d)=> dispatch =>{
     dispatch({
        type : 'CHANGE_ACTIVE_STEP',
        payload : d
-    })
-}
+    });
+};
 
 export const changeBasicNewTestDetails = (d) => dispatch => {
     dispatch({
@@ -34,9 +35,7 @@ export const changeMode = (d)=> dispatch =>{
         type : 'CHANGE_MODE_QUESTION_SELECT',
         payload:d
     })
-}
-
-
+};
 
 export const fetchSubjectWiseQuestion = (d) => dispatch =>{
     SecurePost({
@@ -83,6 +82,16 @@ export const addJobData = (check, data)=> dispatch =>{
 export const checkcode = (data)=> dispatch =>{
     dispatch({
         type : 'ADD_CODING_QUESTION_CHECKER',
+        payload: data
+    });
+};
+
+// Add Coding Question Duration
+export const codingDuration = (data)=> dispatch =>{
+    // console.log('Action'+data);
+
+    dispatch({
+        type : 'ADD_CODING_QUESTION_DURATION',
         payload: data
     });
 };

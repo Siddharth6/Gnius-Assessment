@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
+import $ from 'jquery';
 
 import Alert from '../../common/alert';
 import apis from '../../../services/Apis';
@@ -14,12 +15,14 @@ import './portal.css';
 class SingleQuestion extends React.Component{
     constructor(props){
         super(props);
+        
         if(this.props.trainee.answers[this.props.trainee.activeQuestionIndex].chosenOption.length===this.props.trainee.questions[this.props.trainee.activeQuestionIndex].anscount){
             this.state={
                 AnswerSelected:true,
                 options:this.props.trainee.questions[this.props.trainee.activeQuestionIndex].options,
                 answers:this.props.trainee.answers[this.props.trainee.activeQuestionIndex].chosenOption,
-                ticked:0
+                ticked:0,
+                leavecounter: 0
             }
         }
         else{
@@ -27,12 +30,47 @@ class SingleQuestion extends React.Component{
                 AnswerSelected:false,
                 options:this.props.trainee.questions[this.props.trainee.activeQuestionIndex].options,
                 answers:this.props.trainee.answers[this.props.trainee.activeQuestionIndex].chosenOption,
-                ticked:0
+                ticked:0,
+                leavecounter: 0
             }
         }
-        
     }
+
+    
+
     componentWillMount(){
+        var counter = 0; // mouse leave counter
+
+        // Mouse Leave Window Tracker
+        $(document).mouseleave(e => {
+            counter++;
+            this.setState({leavecounter: counter});
+            console.log(this.state.leavecounter);
+            
+            alert("Please Don't leave this tab, Untill you submit the assessment");
+            
+            if (counter > 3) console.log('Submit');
+        });
+
+        
+
+        $(document).ready(function () {
+            var ambit = $(document);
+        
+            // Disable Cut + Copy + Paste (input)
+            ambit.on('copy paste cut', function (e) {
+                e.preventDefault(); //disable cut,copy,paste
+                return false;
+            });
+        });
+          
+        // Disable Right Click
+        $(function() {
+            $(this).bind("contextmenu", function(e) {
+                e.preventDefault();
+            });
+        }); 
+
         this.setState((PState,Pprops)=>{
             let t=0;
 

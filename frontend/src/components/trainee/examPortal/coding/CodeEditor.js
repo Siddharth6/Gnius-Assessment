@@ -2,6 +2,7 @@ import React, { useState, Fragment, useEffect } from "react";
 import AceEditor from "react-ace";
 import { Typography, Button, notification, Icon } from 'antd';
 import axios from 'axios';
+import { connect } from 'react-redux';
 
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/mode-c_cpp";
@@ -35,6 +36,7 @@ const CodeEditor = (props) => {
   const [score, setscore] = useState([]);
 
   // useEffect(() => {}, []);
+
 
   const handleCodeChange = (ncode) => {
     setQuestion({ ...question, code: ncode });
@@ -84,6 +86,7 @@ const CodeEditor = (props) => {
             data:{
                 testId: props.test.testid,
                 traineeId: props.test.traineeid,
+                startTime: props.trainee.codingStartTime,
                 que_id: props.data._id,
                 source_code: question.code, 
                 language_id: question.language,
@@ -99,7 +102,7 @@ const CodeEditor = (props) => {
 
             setscore(response.data.score);
 
-            console.log(response.data.score);
+            // console.log(response.data.score);
         })
         .catch((error) => {
             setQuestion({ 
@@ -196,7 +199,19 @@ const CodeEditor = (props) => {
                     theme="monokai"
                     name="editor"
                     fontSize={question.fontSize}
-                    editorProps={{ $blockScrolling: true }}
+                    editorProps={{ $blockScrolling: Infinity }}
+                    commands={[{   // commands is array of key bindings.
+                        name: 'pastline', //name for the key binding.
+                        bindKey: { win: 'Ctrl-V', mac: 'Command-V' }, //key combination used for the command.
+                        exec: function (editor) {
+                            // console.log(editor)
+                            const editorEvents = ['dragenter', 'dragover', 'dragend', 'dragstart', 'dragleave', 'drop'];
+                            for (const events of editorEvents) {
+                                // console.log(events)
+                                editor.container.addEventListener(events, function (e) { e.stopPropagation(); }, true);
+                            }
+                        }
+                    }]}
                     onChange={handleCodeChange}
                     value={question.code}
                 />
@@ -223,7 +238,7 @@ const CodeEditor = (props) => {
                             <Title level={4}>Results</Title>
 
                             <div style={{height: '100px', marginBottom:'30px', border: '2px solid #77acf1', width: '100%'}} >
-                                {score.length > 0 ? showResult() : null}
+                                {score.length > 0 ? <div style={{ maxHeight: '100px', overflowY: 'scroll' }} >{showResult()}</div> : null}
                             </div>
                         </div>
                     </div>
@@ -236,5 +251,8 @@ const CodeEditor = (props) => {
   );
 };
 
+const mapStateToProps = state => ({
+    trainee: state.trainee
+});
 
-export default CodeEditor;
+export default connect(mapStateToProps, null)(CodeEditor);

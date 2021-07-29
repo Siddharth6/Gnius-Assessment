@@ -15,6 +15,11 @@ export const ADMIN_PERMISSIONS = [
         link: '/user/listsubjects'
     },
     {
+        display: 'All Programming Questions',
+        icon: 'code',
+        link: '/user/listcode'
+    },
+    {
         display: 'All Questions',
         icon: 'question',
         link: '/user/listquestions'
@@ -31,6 +36,11 @@ export const TRAINER_PERMISSIONS = [
         display: 'Welcome',
         icon: 'home',
         link: '/user/home'
+    },
+    {
+        display: 'All Categories',
+        icon: 'book',
+        link: '/user/listsubjects'
     },
     {
         display: 'All MCQ Questions',

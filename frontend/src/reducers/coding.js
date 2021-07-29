@@ -1,7 +1,8 @@
 const initialState = {
     NewQuestionModalState: false,
     QuestionTableLoading : false, 
-    QuestionTableData : []
+    QuestionTableData : [],
+    assessmentDuration: 0
 };
 
 export default (state = initialState, action) => {

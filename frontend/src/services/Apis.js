@@ -60,6 +60,8 @@ const apis = {
     CREATE_CODING_TESTCASE: '/api/v1/coding/create/testcase',
     GET_CODING_QUESTION_DATA: '/api/v1/trainee/coding/contest/question',
     POST_SUBMISSION: '/api/v1/trainee/coding/contest/submission',
+
+    CODING_SECTION_START: '/api/v1/trainee/coding/start/section',
     CODING_SECTION_SUBMIT: '/api/v1/trainee/coding/submit/section',
     CODING_SECTION_GET: '/api/v1/trainee/coding/section/details',
     CODING_SUBMISSION_GET: '/api/v1/test/leaderboard',
