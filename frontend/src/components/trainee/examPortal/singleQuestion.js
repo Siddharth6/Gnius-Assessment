@@ -1,6 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import SweetAlert from 'sweetalert-react';
+import 'sweetalert/dist/sweetalert.css';
+
 
 import Alert from '../../common/alert';
 import apis from '../../../services/Apis';
@@ -22,7 +25,8 @@ class SingleQuestion extends React.Component{
                 options:this.props.trainee.questions[this.props.trainee.activeQuestionIndex].options,
                 answers:this.props.trainee.answers[this.props.trainee.activeQuestionIndex].chosenOption,
                 ticked:0,
-                leavecounter: 0
+                leavecounter: 0,
+                show: false
             }
         }
         else{
@@ -31,7 +35,8 @@ class SingleQuestion extends React.Component{
                 options:this.props.trainee.questions[this.props.trainee.activeQuestionIndex].options,
                 answers:this.props.trainee.answers[this.props.trainee.activeQuestionIndex].chosenOption,
                 ticked:0,
-                leavecounter: 0
+                leavecounter: 0,
+                show: false
             }
         }
     }
@@ -44,10 +49,10 @@ class SingleQuestion extends React.Component{
         // Mouse Leave Window Tracker
         $(document).mouseleave(e => {
             counter++;
-            this.setState({leavecounter: counter});
-            console.log(this.state.leavecounter);
-            
-            alert("Please Don't leave this tab, Untill you submit the assessment");
+            this.setState({
+                leavecounter: counter,
+                show: true
+            });
             
             if (counter > 3) console.log('Submit');
         });
@@ -221,6 +226,13 @@ class SingleQuestion extends React.Component{
         let opts = ['A', 'B', 'C', 'D', 'E'];
         return (
             <div>
+                <SweetAlert
+                    show={this.state.show}
+                    title=" "
+                    text="Please Don't leave this tab, Untill you submit the assessment"
+                    onConfirm={() => this.setState({ show: false })}
+                />
+
                 <div className="Question-single-container">
                     <Row>
                         <Col span={2}>

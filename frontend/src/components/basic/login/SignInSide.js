@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100vh',
   },
   image: {
-    backgroundImage: 'url(https://res.cloudinary.com/gniusedu/image/upload/v1624111142/Untitled_design_lkndto.gif)',
+    backgroundImage: 'url(https://res.cloudinary.com/gniusedu/image/upload/v1627711688/Welcome_Back_1_dmmkxu.png)',
     backgroundRepeat: 'no-repeat',
     backgroundColor:
       theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],

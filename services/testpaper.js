@@ -120,7 +120,7 @@ let createEditTest = (req, res, next) => {
                                 jobpostdata
                                     .save()
                                     .then((data) => {
-                                        console.log(data);
+                                        // console.log(data);
                                     })
                                     .catch((err)=>{
                                         // console.log(err);
@@ -143,7 +143,7 @@ let createEditTest = (req, res, next) => {
                                 codingdata
                                     .save()
                                     .then((data) => {
-                                        console.log(data);
+                                        // console.log(data);
                                     })
                                     .catch((err)=>{
                                         console.log(err);
@@ -156,7 +156,7 @@ let createEditTest = (req, res, next) => {
 
                             res.json({
                                 success : true,
-                                message : `New testpaper created successfully!`,
+                                message : `New Assessment created successfully!`,
                                 testid : d._id
                             });
                         })
@@ -164,14 +164,14 @@ let createEditTest = (req, res, next) => {
                             // console.log(err);
                             res.status(500).json({
                                 success : false,
-                                message : "Unable to create new testpaper!"
+                                message : "Unable to create new Assessment!"
                             });
                         });
                     }
                     else{
                         res.json({
                             success : false,
-                            message : `This testpaper already exists!`
+                            message : `This Assessment already exists!`
                         });
                     }
                 });

@@ -136,11 +136,11 @@ const CodingResult = (props) => {
           },
           { title: 'Score', field: 'score' },
           { 
-            title: 'Time Taken',
+            title: 'Time Taken (in mins.)',
             render: rowData => {
               var a = moment(rowData.startTime);
               var b = moment(rowData.submit_time);
-              return a.diff(b, 'minutes')
+              return b.diff(a, 'minutes')
             }
           },
           { 

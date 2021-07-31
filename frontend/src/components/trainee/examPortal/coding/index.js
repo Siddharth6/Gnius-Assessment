@@ -4,6 +4,8 @@ import CountDown from 'ant-design-pro/lib/CountDown';
 import queryString from 'query-string';
 import { connect } from 'react-redux';
 import $ from 'jquery';
+import SweetAlert from 'sweetalert-react';
+import 'sweetalert/dist/sweetalert.css';
 
 import CodeEditor from './CodeEditor';
 import { SecurePost } from '../../../../services/axiosCall';
@@ -32,6 +34,7 @@ class Index extends React.Component {
         mode: 'left',
         testDetails: params,
         testTime: 0,
+        show: false
       };
     }
 
@@ -47,10 +50,10 @@ class Index extends React.Component {
         // Mouse Leave Window Tracker
         $(document).mouseleave(e => {
             counter++;
-            this.setState({leavecounter: counter});
-            console.log(this.state.leavecounter);
-            
-            alert("Please Don't leave this tab, Untill you submit the assessment");
+            this.setState({
+                leavecounter: counter,
+                show: true
+            });
             
             if (counter > 3) console.log('Submit');
         });        
@@ -210,7 +213,14 @@ class Index extends React.Component {
                     </div>
                 </div>
             </div>
-
+            
+            <SweetAlert
+                show={this.state.show}
+                title=" "
+                text="Please Don't leave this tab, Untill you submit the assessment"
+                onConfirm={() => this.setState({ show: false })}
+            />
+            
         </Fragment>
       );
     }

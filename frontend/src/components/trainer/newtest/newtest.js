@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Steps, Typography } from 'antd';
+import { Steps, Typography, Button } from 'antd';
 import { steps } from '../../../services/steps';
 import { changeStep } from '../../../actions/testAction';
 
@@ -23,6 +23,12 @@ class  NewTest extends Component {
     componentDidMount(){
         this.props.ChangeSubjectTableData();
     }
+
+    prev() {
+        const current = this.props.test.currentStep - 1;
+        this.props.changeStep(current);
+    };
+
     render(){
         var torender = "";
 
@@ -54,6 +60,14 @@ class  NewTest extends Component {
                 </Steps>
                 <div className="new-test-form-holder">
                     {torender}
+                    <br />
+                    {this.props.test.currentStep > 0 && (
+                        <div className="steps-action">
+                            <Button onClick={() => this.prev()}>
+                                Previous
+                            </Button>
+                        </div>
+                    )}
                 </div>
             </div>
         )
