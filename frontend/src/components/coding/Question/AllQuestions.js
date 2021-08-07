@@ -82,7 +82,7 @@ const AllQuestions = (props) => {
                 <Button 
                     type="primary" 
                     shape="circle" 
-                    onClick={()=>OpendetailsModal(key)} 
+                    onClick={() => OpendetailsModal(key)} 
                     icon="info-circle" 
                 />
             ),

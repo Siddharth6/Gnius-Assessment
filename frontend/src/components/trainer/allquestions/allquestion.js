@@ -2,19 +2,24 @@ import React, { Component } from 'react';
 import { Table, Input, Button, Icon, Typography,Popconfirm,Divider, Modal, Select, Row, Col  } from 'antd';
 import Highlighter from 'react-highlight-words';
 import { connect } from 'react-redux';
+
 import { 
   ChangeQuestionModalState,
   ChangeQuestionTableData,
   ChangeQuestionSearchText,
   ChangeSelectedSubjects
 } from '../../../actions/trainerAction';
+
 import { 
   ChangeSubjectTableData
 } from '../../../actions/adminAction';
+
 import './allquestion.css'
+
 import Alert from '../../../components/common/alert';
 import {SecurePost} from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
+
 import NewQuestionForm from '../newquestion/newquestion';
 import QuestionDetails from '../questionDetails/questiondetails';
 
@@ -23,7 +28,9 @@ class AllQuestions extends Component {
     super(props);
     this.state={
       questiondetailsId : null,
-      questiondetailsModelVisible:false
+      questiondetailsModelVisible:false,
+      questionEditId : null,
+      questionEditModelVisible:false
     }
   }
   
@@ -34,7 +41,8 @@ class AllQuestions extends Component {
         questiondetailsModelVisible:true
       }
     })
-  }
+  };
+
   ClosedetailsModal = ()=>{
     this.setState((previousState,previousProps)=>{
       return{
@@ -42,7 +50,7 @@ class AllQuestions extends Component {
         questiondetailsModelVisible:false
       }
     })
-  }
+  };
 
   componentDidMount(){
     this.props.ChangeSubjectTableData();
@@ -57,7 +65,7 @@ class AllQuestions extends Component {
     this.props.ChangeQuestionModalState(false);
   }
 
-  handleSubjectChange =(s)=>{
+  handleSubjectChange = (s)=> {
     this.props.ChangeSelectedSubjects(s);
     this.props.ChangeQuestionTableData(s);
   }
@@ -66,7 +74,7 @@ class AllQuestions extends Component {
     SecurePost({
       url : `${apis.DELETE_QUESTION}`,
       data : {
-          _id : id
+        _id : id
       }
     }).then((response)=>{
       if(response.data.success){
@@ -174,9 +182,20 @@ class AllQuestions extends Component {
               <Button 
                 type="primary" 
                 shape="circle" 
-                onClick={()=>this.OpendetailsModal(key)} 
+                onClick={()=> this.OpendetailsModal(key)} 
                 icon="info-circle" 
               />
+              <Divider type="vertical" />
+              
+              <Popconfirm
+                  title="Are you sure？"
+                  cancelText="No"
+                  okText="Yes"
+                  onConfirm={()=>{this.deleteQuestion(key)}}
+                  icon={<Icon type="delete" style={{ color: 'red' }} />}
+              >
+                <Button type="danger" shape="circle" icon="delete" />
+              </Popconfirm>
             </span>
           ),
         },

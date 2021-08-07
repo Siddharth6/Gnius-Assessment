@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
-import { Skeleton,Row, Col, Icon, Tabs,Descriptions,Button    } from 'antd';
+import { 
+    Skeleton,
+    Row, 
+    Col, 
+    Icon, 
+    Tabs,
+    Descriptions,
+    Button,
+    Form
+} from 'antd';
 import './questiondetails.css';
+import EditQuestion from '../newquestion/editQuestion';
+
 import apis from '../../../services/Apis';
 import { SecureGet } from '../../../services/axiosCall';
 import moment from 'moment';
 import Markdown from '../../../utils/Markdown';
+import { Fragment } from 'react';
 
 const { TabPane } = Tabs;
 
@@ -47,6 +59,9 @@ export default class QuestionDetails extends Component {
                         </TabPane>
                         <TabPane tab={<span><Icon type="question-circle" />Question</span>} key="2">
                             <Tab2 details={this.state.details} />
+                        </TabPane>
+                        <TabPane tab={<span><Icon type="edit" />Edit Question</span>} key="3">
+                            <EditQuestion details={this.state.details} />
                         </TabPane>
                     </Tabs>
                 </Skeleton>
@@ -123,5 +138,4 @@ function Tab2(props){
             </div>
         </div>
     );
-}
-
+};

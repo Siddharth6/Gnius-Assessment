@@ -7,6 +7,4 @@ router.post('/create',universal.createEditsubject);
 router.get('/details/all',universal.getAllSubjects);
 router.get('/details/:_id',universal.getSingleSubject);
 
-module.exports=router;
-
-// done
+module.exports = router;

@@ -6,9 +6,11 @@ import { Skeleton,
     Button, 
     Typography, 
     Divider,
-    Input
+    Input,
+    Popconfirm
 } from 'antd';
 import Markdown from '../../../utils/Markdown';
+import EditQuestion from './EditQuestion';
 
 import { SecurePost } from '../../../services/axiosCall';
 import apis from '../../../services/Apis';
@@ -52,7 +54,7 @@ const QuestionDetails = (props) => {
                 setTestCase({
                     ...state,
                     testcases: response.data.testcases
-                })
+                });
 
                 setTimeout(() => {
                     setstate({
@@ -70,6 +72,25 @@ const QuestionDetails = (props) => {
             return Alert('error','Error!','Server Error');
         });
     };
+
+    // Delete Test Case
+    const deletedTestCase = (testcase) => {
+        SecurePost({
+            url:`${apis.DELETE_CODING_TESTCASE}/${testcase}`,
+        })
+        .then((response) => {
+            if(response.data.success){
+                Alert('success','Success', response.data.message);
+            }
+            else{
+                return Alert('warning','Warning!',response.data.message);
+            }
+        })
+        .catch((error)=>{            
+            return Alert('error','Error!','Error Adding Test Case');
+        });
+    };
+
 
     useEffect(() => {
         getData();
@@ -89,7 +110,7 @@ const QuestionDetails = (props) => {
                 return <li 
                         className="container" 
                         style={{marginLeft: '25px', float: 'right', listStyle: 'none'}} 
-                        key={testcase.id}
+                        key={testcase._id}
                     >
                     <div className="row">
 
@@ -115,11 +136,15 @@ const QuestionDetails = (props) => {
 
                         <div className="col-md-3">
                             <p>Action</p> <br />
-                            <Button 
-                                type="primary" 
-                                shape="circle" 
-                                icon="delete" 
-                            />
+                            <Popconfirm
+                                title="Are you sure？"
+                                cancelText="No"
+                                okText="Yes"
+                                onConfirm={()=>{deletedTestCase(testcase._id)}}
+                                icon={<Icon type="delete" style={{ color: 'red' }} />}
+                            >
+                                <Button type="danger" shape="circle" icon="delete" />
+                            </Popconfirm>
                         </div>
 
                     </div>
@@ -239,6 +264,12 @@ const QuestionDetails = (props) => {
                     </div>
 
                     </TabPane>
+
+                    {/* Tab 3 */}
+                    <TabPane tab={<span><Icon type="edit" />Edit Question</span>} key="3">
+                        <EditQuestion details={question}  />
+                    </TabPane>
+
                 </Tabs>
             </Skeleton>
         </Fragment>

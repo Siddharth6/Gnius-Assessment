@@ -19,7 +19,8 @@ const apis = {
     FETCH_SINGLE_QUESTION:'/api/v1/questions/details',
     CREATE_QUESTIONS :'/api/v1/questions/create',
     FILE_UPLOAD:'/api/v1/upload',
-    
+    EDIT_QUESTION: '/api/v1/questions/edit',
+
     CREATE_TEST : '/api/v1/test/create',
     GET_ALL_TESTS:'/api/v1/test/details/all',
     GET_SINGLE_TEST:'/api/v1/test/trainer/details',
@@ -55,9 +56,12 @@ const apis = {
     GET_JOB_DETAILS:'/api/v1/trainee/jobpost/details',
     
     CREATE_CODING_QUESTION: '/api/v1/coding/create/question',
+    EDIT_CODING_QUESTION: '/api/v1/coding/edit/question',
     LIST_CODING_QUESTION: '/api/v1/coding/list/question',
     GET_CODING_QUESTION_DETAILS: '/api/v1/coding/list/testcase',
     CREATE_CODING_TESTCASE: '/api/v1/coding/create/testcase',
+    DELETE_CODING_TESTCASE: '/api/v1/coding/delete/testcase',
+
     GET_CODING_QUESTION_DATA: '/api/v1/trainee/coding/contest/question',
     POST_SUBMISSION: '/api/v1/trainee/coding/contest/submission',
 
