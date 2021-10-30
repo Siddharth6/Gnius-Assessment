@@ -1,5 +1,21 @@
-var mongoose = require("mongoose");
-var optionschema = require("../schemas/options");
+const mongoose = require("mongoose");
 
-var options = mongoose.model('Options',optionschema);
+var optionschema = new mongoose.Schema({
+    optbody: {
+        required: false,
+        type: String
+    },
+    optimg: {
+        type: String,
+        required: false,
+        default: null
+    },
+    isAnswer: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
+});
+
+const options = mongoose.model('Options', optionschema);
 module.exports = options;

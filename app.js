@@ -3,6 +3,7 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
+const mongoose = require("mongoose");
 const expressValidator = require('express-validator');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
@@ -11,8 +12,9 @@ const rateLimit = require('express-rate-limit');
 const hpp = require('hpp');
 require('dotenv').config();
 
-var passport = require("./services/passportconf");
-var tool = require("./services/tool");
+// Imports
+const passport = require("./services/passportconf");
+const tool = require("./services/tool");
 
 const app = express();
 
@@ -30,6 +32,26 @@ app.use(mongoSanitize()); // Sanitize data
 app.use(helmet()); // Set security headers
 app.use(xss()); // Prevent XSS attacks
 app.use(hpp()); // Prevent http param pollution
+
+// db
+mongoose
+.connect(process.env.DATABASE, {
+    autoIndex: false, 
+    reconnectTries: 100,
+    reconnectInterval: 500, 
+    poolSize: 10, 
+    bufferMaxEntries: 0,
+    useNewUrlParser: true,
+    useFindAndModify :  false,
+    useUnifiedTopology: true,
+})
+.then(() => {
+    console.log("Connected to mongoDB");
+    //tool.createadmin();
+})
+.catch((err) => {
+    console.log("Error connecting to database", err);
+});
 
 // Rate limiting
 const limiter = rateLimit({
@@ -51,8 +73,7 @@ if (process.env.NODE_ENV === 'development') {
 app.use(passport.initialize());
 app.use(passport.session());
 
-//import other files
-var mongoose = require("./services/connection");
+// Import Routes Files
 var admin = require("./routes/admin");
 var login = require("./routes/login");
 var user = require("./routes/user");
@@ -69,7 +90,7 @@ const download = require('./routes/downloadRoutes');
 const stats = require('./routes/stats');
 const refer= require('./routes/refer');
 
-// routes
+// Routes
 app.use('/api/v1', dummy);
 app.use("/api/v1/admin", passport.authenticate('user-token', { session: false }), admin);
 app.use("/api/v1/user", passport.authenticate('user-token', { session: false }), user);
