@@ -432,7 +432,7 @@ let flags = (req, res, next) => {
     const p1 = AnswersheetModel.findOne({
         userid : traineeid,
         testid : testid},
-        {_id : 1,startTime  :1,completed : 1}
+        {_id : 1, startTime: 1,completed : 1}
     );
 
     const p2 = TraineeEnterModel.findOne({_id : traineeid , testid : testid},{_id : 1});
@@ -445,6 +445,8 @@ let flags = (req, res, next) => {
     });
 
     var present = new Date();
+
+    // To Check if the ip is same or not
 
     Promise.all([p1, p2, p3]).then((info) => {
         // console.log(info)
@@ -466,8 +468,11 @@ let flags = (req, res, next) => {
 
                 if (pending <= 0) {
                     AnswersheetModel.findOneAndUpdate({ 
-                        userid: traineeid, testid: testid }, { completed: true }
-                    )
+                        userid: traineeid, 
+                        testid: testid 
+                    }, { 
+                        completed: true 
+                    })
                     .then((result) => {
                         res.json({
                             success: true,
@@ -492,7 +497,7 @@ let flags = (req, res, next) => {
                 } else {
                     res.status(200).json({
                         success: true,
-                        message: 'Successfull',
+                        message: 'Successfull! User has completed',
                         data: {
                             testbegins: info[2].testbegins,
                             testconducted: info[2].testconducted,

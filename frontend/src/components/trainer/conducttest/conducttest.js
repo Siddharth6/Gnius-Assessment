@@ -95,7 +95,7 @@ class C extends Component {
                     {/* Bottom Tabs */}
                     <Tabs defaultActiveKey="1" style={{marginTop:'20px'}}>
                         
-                        <TabPane tab={<span><Icon type="user" />Registered Trainee</span>} key="1">
+                        <TabPane tab={<span><Icon type="user" />Registered Candidates</span>} key="1">
                             <Candidates />
                         </TabPane>
 
@@ -109,9 +109,9 @@ class C extends Component {
 
                     </Tabs>
                 </div>
-            )
-        }
-    };
+        )
+    }
+};
 
 
 const mapStateToProps = state => ({
@@ -125,7 +125,6 @@ let CC=connect(mapStateToProps,{
     updateCandidatesTest,
     updateQuestiosnTest
 })(C);
-
 
 export default connect(mapStateToProps, {
     changeStep,

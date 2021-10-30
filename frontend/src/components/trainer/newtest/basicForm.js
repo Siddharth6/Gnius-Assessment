@@ -102,7 +102,7 @@ class BasicTestFormO extends Component {
                                 <Select placeholder="Test Type">
                                     <Option value="skill-test">Skill Test</Option>
                                     <Option value="university-hiring">University Hiring</Option>
-                                    <Option value="organisation-hiring">Organisation hiring</Option>
+                                    <Option value="organisation-hiring">Organisation Hiring</Option>
                                 </Select>
                             )}
                         </Form.Item>
@@ -127,15 +127,15 @@ class BasicTestFormO extends Component {
                                 rules: [{ required: true, message: 'Please select a assessment subjects' }],
                             })(
                                 <Select
-                                mode="multiple"
-                                placeholder="Select one or more subjects"
-                                style={{ width: '100%' }}
-                                allowClear={true}
-                                optionFilterProp="s"
+                                    mode="multiple"
+                                    placeholder="Select one or more subjects"
+                                    style={{ width: '100%' }}
+                                    allowClear={true}
+                                    optionFilterProp="s"
                                 >
                                     {this.props.admin.subjectTableData.map(item => (
                                         <Select.Option key={item._id} value={item._id} s={item.topic}>
-                                        {item.topic}
+                                            {item.topic}
                                         </Select.Option>
                                     ))}
                                 </Select>

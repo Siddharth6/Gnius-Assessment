@@ -26,7 +26,6 @@ function App() {
           <Route exact path="/candidate/register" component={TraineeRegister}/>
           <Route exact path="/candidate/taketest" component={MainPortal}/>
           {/* <Route exact path="/test" component={Test}/> */}
-
         </nav>
       </BrowserRouter>
     </Provider> 

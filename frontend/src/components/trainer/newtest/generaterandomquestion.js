@@ -60,7 +60,13 @@ class GeneraterandomQuestionO extends Component {
     renderItem = item => {
         const customLabel = (
           <span className="custom-item">
-                <Button shape="circle" onClick={()=>{this.OpenModel(item._id)}} icon="info" style={{background:'linear-gradient(to right,rgb(80,190,189),rgb(0,153,153),rgb(0,153,203))',color:'greenblue'}} size="small" ></Button>
+                <Button 
+                    shape="circle" 
+                    onClick={()=>{this.OpenModel(item._id)}} 
+                    icon="info" 
+                    style={{background:'linear-gradient(to right,rgb(80,190,189),rgb(0,153,153),rgb(0,153,203))',color:'greenblue'}} 
+                    size="small"
+                ></Button>
                 {item.body}
           </span>
         )
@@ -74,12 +80,13 @@ class GeneraterandomQuestionO extends Component {
         this.setState({
             ActiveQuestionId:qid,
             Mvisible:true
-        })
+        });
     }
+
     handleCancel=()=>{
         this.setState({
             Mvisible:false
-        })
+        });
     }
 
     handleChange = (targetKeys, direction, moveKeys) => {
@@ -89,6 +96,7 @@ class GeneraterandomQuestionO extends Component {
 
     render() {
         const { getFieldDecorator } = this.props.form;
+        
         return (
             <div>
                 <Row>

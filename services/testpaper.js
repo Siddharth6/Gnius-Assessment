@@ -226,7 +226,9 @@ let getAlltests = (req, res, next) => {
     req.body = sanitize(req.body);
 
     if (req.user.type === 'TRAINER') {
+        
         var title = req.body.title;
+        
         TestPaperModel.find({ createdBy: req.user._id, status: 1 }, { status: 0 })
             .populate('questions', 'body')
             .populate({

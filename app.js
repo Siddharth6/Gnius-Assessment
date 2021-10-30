@@ -92,7 +92,7 @@ app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname+'/public/index.html'));
 });
 
-//error handlings
+// error handlings
 app.use(function(req, res, next) {
     next(createError(404,"Invalid API."));
 });
