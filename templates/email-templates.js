@@ -6,8 +6,8 @@ const mailGenerator = new Mailgen({
     product: {
         // Header & footer of e-mails
         name: 'gnius Talent Solution',
-        link: 'https://gnius.in/',
-        logo: 'https://res.cloudinary.com/gniusedu/image/upload/v1620450106/gnius.in_-_Email_Banner_1_lcumlz.png',
+        link: '<Website Link>',
+        logo: '<Website Logo Link>',
         logoHeight: '200px',
         copyright: 'Copyright © 2021 gnius Talent Solution. All rights reserved.',
     },
@@ -59,8 +59,6 @@ const assessmentLink = (name, link, start, end, duration) => {
     const sendtestlinkemailTemplate = mailGenerator.generate(sendtestlinkemail);
     return sendtestlinkemailTemplate;
 };
-
-// Recruiter Welcome
 
 module.exports = {
     assessmentLink
