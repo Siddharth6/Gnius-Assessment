@@ -7,7 +7,8 @@ var subjectschema = new mongoose.Schema({
     },
     status:{
         type: String,
-        default: "https://res.cloudinary.com/gniusedu/image/upload/v1625335310/ink-quill_vvjno3.png"
+        default: "https://localhost/ink-quill_vvjno3.png"
+        // Replace With your own image details
     },
     createdBy:{
         type: mongoose.Schema.Types.ObjectId,

@@ -5,20 +5,20 @@ const saltRounds = 10;
 // create admin
 var createadmin = () => {
     bcrypt
-    .hash("gnmaster345@#fv", saltRounds)
+    .hash("<Enter Admin Password>", saltRounds)
     .then((hash)=>{
         var tempdata = new UserModel({
-            name: 'master',
+            name: '<Enter Admin Name>',
             password: hash,
-            emailid: 'admas@genmail.com',
-            contact: '9563152391',
+            emailid: '<Enter Admin Email>',
+            contact: '<Enter Admin Contact No.>',
             type: 'ADMIN',
         });
 
-        tempdata.save().then(() => console.log("user created")).catch((err) => console.log("err1", err));
+        tempdata.save().then(() => console.log("user created")).catch((err) => console.log("Error Creating Admin", err));
     })
     .catch((err) => {
-        console.log("err2",err)
+        console.log("err",err)
     });
 };
 
