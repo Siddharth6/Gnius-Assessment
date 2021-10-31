@@ -1,4 +1,4 @@
-# Gnius Assessment Solution
+# Gnius Assessment Solution - Open Source Hiring Software
 
 
 
