@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-var trainee = require("../services/trainee");
+var trainee = require("../controllers/trainee");
 
 router.post('/enter',trainee.traineeenter);
 router.post('/feedback',trainee.feedback);
@@ -24,7 +24,6 @@ router.post('/coding/contest/submission', trainee.postSubmission);
 
 router.post('/coding/start/section', trainee.startCoding);
 router.post('/coding/submit/section', trainee.submitCoding);
-
 router.post('/coding/section/details', trainee.getsubmitCoding);
 
 module.exports = router;

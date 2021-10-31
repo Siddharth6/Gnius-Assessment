@@ -3,9 +3,9 @@ const router = express.Router();
 const multer = require('multer');
 const path = require("path"); 
 const cloudinary = require("cloudinary").v2;
+
 const upload = require("../utils/multer");
 const { saveFile } = require("../utils/aws");
-
 
 // Cloudinary Config
 cloudinary.config({

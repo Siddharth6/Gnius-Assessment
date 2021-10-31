@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-var results = require("../services/generateResults");
+const results = require("../services/generateResults");
 
 router.post('/results', results.generateResults);
 

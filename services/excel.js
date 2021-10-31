@@ -1,10 +1,12 @@
-var Excel = require('exceljs');
-var path = require('path');
-var fs = require("fs");
-var gresults = require("./generateResults");
-var ResultModel = require("../models/results");
-var AnswersheetModel = require("../models/answersheet");
-var TestpaperModel = require("../models/testpaper");
+const Excel = require('exceljs');
+const path = require('path');
+const fs = require("fs");
+
+const ResultModel = require("../models/results");
+const AnswersheetModel = require("../models/answersheet");
+const TestpaperModel = require("../models/testpaper");
+
+const gresults = require("./generateResults");
 
 let result = (testid, MaxMarks) => {
   return new Promise((resolve, reject) => {

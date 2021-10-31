@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-var questions = require("../services/trainerFunctions");
+const questions = require("../controllers/Trainer");
 
 router.post('/create',questions.createQuestion);
 router.post('/details/all',questions.getAllQuestions);

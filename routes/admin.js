@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-var admin = require("../services/adminFunctions");
+const admin = require("../controllers/adminFunctions");
 
 //create new Trainer
 router.post('/trainer/create',admin.trainerRegister);

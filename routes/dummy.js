@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-var {time} = require("../services/dummy");
+const {time} = require("../controllers/dummy");
 
 router.post('/time', time);
 

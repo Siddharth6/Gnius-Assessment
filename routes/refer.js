@@ -1,7 +1,7 @@
-var express = require("express");
-var router = express.Router();
+const express = require("express");
+const router = express.Router();
 
-const refer = require("../services/refer");
+const refer = require("../controllers/refer");
 
 router.post('/add', refer.addReferrer);
 router.post('/list', refer.getAllReferrer);

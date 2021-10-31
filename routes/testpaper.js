@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var testpaper = require("../services/testpaper");
+var testpaper = require("../controllers/testpaper");
 
 router.post('/new/name/check',testpaper.checkTestName)
 router.post('/create',testpaper.createEditTest);

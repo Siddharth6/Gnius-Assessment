@@ -74,16 +74,16 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Import Routes Files
-var admin = require("./routes/admin");
-var login = require("./routes/login");
-var user = require("./routes/user");
-var universal = require("./routes/universal");
-var question = require("./routes/questions");
-var testpaper = require("./routes/testpaper");
-var trainee = require("./routes/trainee");
-var stopRegistration = require("./routes/stopRegistration");
-var results = require("./routes/results");
-var dummy = require("./routes/dummy");
+const admin = require("./routes/admin");
+const login = require("./routes/login");
+const user = require("./routes/user");
+const subject = require("./routes/subject");
+const question = require("./routes/questions");
+const testpaper = require("./routes/testpaper");
+const trainee = require("./routes/trainee");
+const stopRegistration = require("./routes/stopRegistration");
+const results = require("./routes/results");
+const dummy = require("./routes/dummy");
 const codingRoutes = require('./routes/coding');
 const upload = require("./routes/fileUpload");
 const download = require('./routes/downloadRoutes');
@@ -94,7 +94,7 @@ const refer= require('./routes/refer');
 app.use('/api/v1', dummy);
 app.use("/api/v1/admin", passport.authenticate('user-token', { session: false }), admin);
 app.use("/api/v1/user", passport.authenticate('user-token', { session: false }), user);
-app.use('/api/v1/subject', passport.authenticate('user-token', { session: false }), universal);
+app.use('/api/v1/subject', passport.authenticate('user-token', { session: false }), subject);
 app.use('/api/v1/questions', passport.authenticate('user-token', { session: false }), question);
 app.use('/api/v1/test', passport.authenticate('user-token', { session: false }), testpaper);
 
